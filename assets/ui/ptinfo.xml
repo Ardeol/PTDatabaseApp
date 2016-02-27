@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<vbox>
+    <grid id="form-fields" width="400" columns="2">
+        <text text="UIN" />
+        <hbox>
+            <smarttextinput id="uin-input" width="250" />
+            <button id="load-button" text="Load" />
+        </hbox>
+        <text text="First Name" />
+        <hbox>
+            <smarttextinput id="first-name-input" width="250" />
+            <button id="load-first-button" text="Load" />
+        </hbox>
+        <text text="Last Name" />
+        <hbox>
+            <smarttextinput id="last-name-input" width="250" />
+            <button id="load-last-button" text="Load" />
+        </hbox>
+        <text text="Email" />
+        <hbox>
+            <smarttextinput id="email-input" width="250" />
+            <button id="paste-email-button" text="Paste" />
+        </hbox>
+        <text text="Image" />
+        <hbox>
+            <smarttextinput id="image-input" width="250" />
+            <button id="paste-image-button" text="Paste" />
+        </hbox>
+        <text text="Classes" />
+        <hbox width="325" height="100">
+            <scrollview width="275" height="100">
+                <vbox id="courses-scrollview" />
+            </scrollview>
+            <button id="add-course-button" width="50" height="100" text="+" />
+        </hbox>
+        <text text="Office Hours" />
+        <hbox width="325" height="100">
+            <scrollview width="275" height="100">
+                <vbox id="hours-scrollview" />
+            </scrollview>
+            <button id="add-hours-button" width="50" height="100" text="+" />
+        </hbox>
+    </grid>
+    <hbox>
+        <button id="submit-button" text="Submit" />
+        <button id="remove-button" text="Remove PT" />
+        <button id="clear-button"  text="Clear Fields" />
+    </hbox>
+</vbox>

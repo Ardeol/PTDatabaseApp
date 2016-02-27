@@ -1,0 +1,41 @@
+
+Search
+	
+
+
+
+Student Schedule
+	  	
+
+Transparent Image
+[Change Schedule Term] [Review/Order Books]
+NOTE: The Student Schedule includes only courses taught in a "regular" term (Fall, Spring, 1st Summer Session, 2nd Summer Session, or 10-week Summer Term). Regular terms have start and end dates defined in the official Academic Calendar. Intrasession and intersession (mini-mester) courses with different start and end dates are not displayed on the Student Schedule.
+Schedule for Timothy Foster - College Station Fall 2015
+Course 	Title 	Dates/Times 	Instructor 	Credits 	Location 	Level 	Type
+CSCE-411-501 	DESIGN ANALY ALGORITHMS
+	31-AUG-15 to 16-DEC-15
+09:10 AM - 10:00 AM
+MO,WE,FR 	Sing Sze 	3 	HRBB 113 	UG 	LEC
+CSCE-420-500 	ARTIFICIAL INTELLIGENCE
+	31-AUG-15 to 16-DEC-15
+11:10 AM - 12:25 PM
+TU,TH 	Dylan Shell 	3 	HRBB 113 	UG 	LEC
+CSCE-436-500 	COMP HUMAN INTERACTION
+	31-AUG-15 to 16-DEC-15
+11:30 AM - 12:20 PM
+MO,WE,FR 	Richard Furuta 	3 	HRBB 131 	UG 	LEC
+EPSY-430-200 	CREATIVITY THEORY RESRCH
+	31-AUG-15 to 16-DEC-15
+03:55 PM - 06:30 PM
+TH 	Robert Woodward 	3 	CHEM 2104 	UG 	LEC
+EPSY-433-200 	LATERAL THINKING
+	31-AUG-15 to 16-DEC-15
+05:45 PM - 08:25 PM
+WE 	Joyce Juntune 	3 	HECC 200 	UG 	LEC
+
+	15
+		Show All Buildings on Map
+[Change Schedule Term] [Review/Order Books]
+[Concise Schedule | Detailed Schedule | Week at a Glance | Graphic Schedule ]
+Transparent Image
+1 

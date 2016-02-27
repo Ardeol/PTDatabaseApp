@@ -1,0 +1,141 @@
+{
+    "labs": [ {
+        "dept": "CSCE",
+        "code": "315",
+        "section": "501",
+        "times": [ {
+            "days": ["M", "W"],
+            "times": [ {
+                "start": 600,
+                "end": 660
+            } ]
+        } ]
+    }, {
+        "dept": "CSCE",
+        "code": "221",
+        "section": "507",
+        "times": [ {
+            "days": ["T", "R"],
+            "times": [ {
+                "start": 720,
+                "end": 780
+            } ]
+        } ]
+    }, {
+        "dept": "CSCE",
+        "code": "221",
+        "section": "501",
+        "times": [ {
+            "days": ["M", "W"],
+            "times": [ {
+                "start": 900,
+                "end": 960
+            } ]
+        } ]
+    } ],
+    "pts": [ {
+        "firstname": "Aurora",
+        "lastname": "Starsong",
+        "preferredname": "",
+        "image": "/media/aurora_starsong.png",
+        "email": "starsong.aurora@gmail.com",
+        "schedule": [ {
+            "dept": "CSCE",
+            "code": "315",
+            "section": "501",
+            "times": [ {
+                "days": ["M", "W"],
+                "times": [ {
+                    "start": 600,
+                    "end": 660
+                } ]
+            }, {
+                "days": ["M", "W"],
+                "times": [ {
+                    "start": 680,
+                    "end": 780
+                } ]
+            } ]
+        } ],
+        "labs": ["CSCE-221-507"],
+        "officeHours": [ {
+            "days": ["T", "R", "F"],
+            "times": [ {
+                "start": 800,
+                "end": 830
+            }, {
+                "start": 900,
+                "end": 930
+            } ]
+        } ]
+    }, {
+        "firstname": "Eventide",
+        "lastname": "Stone",
+        "preferredname": "",
+        "image": "/media/eventide_stone.png",
+        "email": "stone.eventide@gmail.com",
+        "schedule": [ {
+            "dept": "CSCE",
+            "code": "315",
+            "section": "501",
+            "times": [ {
+                "days": ["M", "W"],
+                "times": [ {
+                    "start": 600,
+                    "end": 660
+                } ]
+            }, {
+                "days": ["M", "W"],
+                "times": [ {
+                    "start": 680,
+                    "end": 780
+                } ]
+            } ]
+        } , {
+            "dept": "CSCE",
+            "code": "313",
+            "section": "504",
+            "times": [ {
+                "days": ["T", "R"],
+                "times": [ {
+                    "start": 810,
+                    "end": 900
+                } ]
+            }, {
+                "days": ["F"],
+                "times": [ {
+                    "start": 480,
+                    "end": 580
+                } ]
+            } ]
+        } ],
+        "labs": ["CSCE-221-501", "CSCE-221-507"],
+        "officeHours": [ {
+            "days": ["M"],
+            "times": [ {
+                "start": 1000,
+                "end": 1100
+            } ]
+        } ]
+    }, {
+        "firstname": "Beacon",
+        "lastname": "Solidarity",
+        "preferredname": "",
+        "image": "/media/beacon_solidarity.png",
+        "email": "solidarity.beacon@gmail.com",
+        "schedule": [ {
+            "dept": "CSCE",
+            "code": "441",
+            "section": "501",
+            "times": [ {
+                "days": ["M", "W", "F"],
+                "times": [ {
+                    "start": 800,
+                    "end": 860
+                } ]
+            } ]
+        } ],
+        "labs": ["CSCE-315-501"],
+        "officeHours": [ ]
+    } ]
+}

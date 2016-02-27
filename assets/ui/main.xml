@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<vbox id="master-vbox" width="100%" style="padding: 20px;">
+    <hbox width="100%">
+        <vbox id="ptinfo-vbox"></vbox>
+        <tabview id="pt-type-selector" width="100%" height="100%"></tabview>
+    </hbox>
+    <hbox>
+        <button id="generate-button" text="Generate HTML" />
+    </hbox>
+</vbox>

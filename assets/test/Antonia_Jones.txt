@@ -1,0 +1,44 @@
+
+Search   
+ 
+
+Student Schedule
+
+ 	
+Transparent Image
+[Change Schedule Term] [Review/Order Books]
+NOTE: The Student Schedule includes only courses taught in a "regular" term (Fall, Spring, 1st Summer Session, 2nd Summer Session, or 10-week Summer Term). Regular terms have start and end dates defined in the official Academic Calendar. Intrasession and intersession (mini-mester) courses with different start and end dates are not displayed on the Student Schedule.
+Schedule for Antonia Jones - College Station Fall 2015
+
+Course	Title	Dates/Times	Instructor	Credits	Location	Level	Type
+CSCE-312-502	COMPUTER ORGANIZATION 
+31-AUG-15 to 16-DEC-15
+05:30 PM - 06:45 PM
+TU,TH	Rabinarayan Mahapatra	4	HRBB 124	UG	LEC
+31-AUG-15 to 16-DEC-15 
+10:00 AM - 12:00 PM
+WE	Rabinarayan Mahapatra		RDMC 111C	UG	LAB
+CSCE-314-502	PROGRAMMING LANGUAGES 
+31-AUG-15 to 16-DEC-15
+01:50 PM - 02:40 PM
+MO,WE,FR	Hyunyoung Lee	3	ETB 2005	UG	LEC
+MATH-251-509	ENGINEERING MATH III 
+31-AUG-15 to 16-DEC-15
+02:20 PM - 03:35 PM
+TU,TH	Joseph Kahlig	3	HELD 109	UG	LEC
+MATH-304-504	LINEAR ALGEBRA 
+31-AUG-15 to 16-DEC-15
+12:45 PM - 02:00 PM
+TU,TH	Alexei Poltoratski	3	BLOC 117	UG	LEC
+STAT-211-508	PRIN OF STATISTICS I 
+31-AUG-15 to 16-DEC-15
+03:55 PM - 05:10 PM
+TU,TH		3	BLOC 150	UG	LEC
+
+16
+Show All Buildings on Map
+[Change Schedule Term] [Review/Order Books]
+[Concise Schedule | Detailed Schedule | Week at a Glance | Graphic Schedule ]
+
+Transparent Image
+2
