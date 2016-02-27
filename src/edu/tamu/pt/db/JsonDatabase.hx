@@ -27,10 +27,6 @@ class JsonDatabase implements IDatabase {
         err = new Error("");
         path = "";
     }
-    
-/*  Class Methods
- *  =========================================================================*/
-    
  
 /*  Public Methods
  *  =========================================================================*/
@@ -61,7 +57,18 @@ class JsonDatabase implements IDatabase {
         }
     }
     
-    public function save():Bool {
+/**
+ *  @inheritDoc
+ */
+    public function save(?specs:Dynamic):Bool {
+        if (specs != null) {
+            if (!Std.is(specs, String)) {
+                this.err = new Error("JsonDatabase save expects a String representing a filename", "JsonDatabase", "save");
+                return false;
+            }
+            else
+                this.path = specs;
+        }
         try {
             var writer = new JsonWriter(path);
             writer.write({ labs: labmap, pts: ptmap });
@@ -132,6 +139,30 @@ class JsonDatabase implements IDatabase {
     public function remove(pt:PeerTeacher):Void {
         
     }
+    
+/**
+ *  @inheritDoc
+ */
+    public function clearPts():Void {
+        for (k in ptmap.keys())
+            ptmap.remove(k);
+    }
+    
+/**
+ *  @inheritDoc
+ */
+    public function clearLabs():Void {
+        for (k in labmap.keys())
+            labmap.remove(k);
+    }
+    
+/**
+ *  @inheritDoc
+ */
+    public function clearAll():Void {
+        clearPts();
+        clearLabs();
+    }
  
 /*  Private Members
  *  =========================================================================*/
@@ -175,7 +206,17 @@ private class JsonWriter extends FileWriter<Dynamic> {
  *  @inheritDoc
  */
     override private function parse(obj:Dynamic, out:FileOutput):Void {
+        var labs = new Array<ClassSchedule>();
+        var labmap:Map<String, ClassSchedule> = obj.labs;
+        for (l in labmap)
+            labs.push(l);
         
+        var pts = new Array<SPeerTeacher>();
+        var ptmap:Map<String, PeerTeacher> = obj.pts;
+        for (p in ptmap)
+            pts.push(JPeerTeacher.fromPeerTeacher(p));
+        
+        out.writeString(Json.stringify({ labs: labs, pts: pts }));
     }
 }
 
@@ -193,6 +234,10 @@ private abstract JTimeInterval(STimeInterval) from STimeInterval to STimeInterva
         t.end = this.end;
         return t;
     }
+    
+    @:from public static function fromTimeInterval(value:TimeInterval):JTimeInterval {
+        return Json.parse(Json.stringify(value));
+    }
 }
 
 private typedef SAppointment = {
@@ -208,6 +253,10 @@ private abstract JAppointment(SAppointment) from SAppointment to SAppointment {
             a.addInterval(t);
         return a;
     }
+    
+    @:from public static function fromAppointment(value:Appointment):JAppointment {
+        return Json.parse(Json.stringify(value));
+    }
 }
 
 private typedef SClassSchedule = {
@@ -222,6 +271,10 @@ private abstract JClassSchedule(SClassSchedule) from SClassSchedule to SClassSch
         for (a in this.times)
             c.addAppointment(a);
         return c;
+    }
+    
+    @:from public static function fromClassSchedule(value:ClassSchedule):JClassSchedule {
+        return Json.parse(Json.stringify(value));
     }
 }
 
@@ -248,6 +301,22 @@ private abstract JPeerTeacher(SPeerTeacher) from SPeerTeacher to SPeerTeacher {
         for (o in this.officeHours)
             p.officeHours.push(o);
         return p;
+    }
+    
+    public static function fromPeerTeacher(p:PeerTeacher):JPeerTeacher {
+        var labstrings = new Array<String>();
+        for (l in p.labs.keys())
+            labstrings.push(l);
+        return {
+            firstname: p.firstname,
+            lastname: p.lastname,
+            preferredname: p.preferredname,
+            email: p.email,
+            image: p.image,
+            schedule: cast p.schedule,
+            labs: labstrings,
+            officeHours: cast p.officeHours
+        };
     }
 }
 

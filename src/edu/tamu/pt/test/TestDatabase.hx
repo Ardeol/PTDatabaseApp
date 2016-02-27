@@ -17,6 +17,17 @@ import edu.tamu.pt.util.Sorters;
         assertTrue(db.load("test/db.json"));
     }
     
+    public function testSave() {
+        var db:IDatabase = new T();
+        db.load("test/db.json");
+        var p = db.pt("Aurora Starsong");
+        p.email = "CHANGED";
+        assertTrue(db.save("test/db_saved.json"));
+        assertTrue(db.load("test/db_saved.json"));
+        assertEquals("CHANGED", db.pt("Aurora Starsong").email);
+        assertEquals("stone.eventide@gmail.com", db.pt("Eventide Stone").email);
+    }
+    
     public function testPTs() {
         var db:IDatabase = new T();
         db.load("test/db.json");

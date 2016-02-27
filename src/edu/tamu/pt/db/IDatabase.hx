@@ -18,9 +18,10 @@ interface IDatabase  {
     
 /**
  *  Saves the database's current state to the persistance module.
+ *  @param specs Specifications for saving to the correct database.  By default, same specs used by load will be used here.
  *  @return true if the save succeeds, false otherwise.  If false, error() will return the error message.
  */
-    public function save():Bool;
+    public function save(?specs:Dynamic):Bool;
     
 /**
  *  If an error occurs in the database, this method will return the error message as a String.
@@ -69,4 +70,19 @@ interface IDatabase  {
  *  @param pt PeerTeacher to remove.
  */
     public function remove(pt:PeerTeacher):Void;
+    
+/**
+ *  Wipes the database of peer teachers.  They don't die in real life, just digitally.
+ */
+    public function clearPts():Void;
+    
+/**
+ *  Wipes the database of labs.  Every student's dream.
+ */
+    public function clearLabs():Void;
+    
+/**
+ *  Wipes the database of everything.
+ */
+    public function clearAll():Void;
 }
