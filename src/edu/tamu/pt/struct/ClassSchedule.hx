@@ -43,6 +43,10 @@ class ClassSchedule {
     public function toString():String {
         return '$dept-$code-$section';
     }
+    
+    public function timesString():String {
+        return times.join(", ");
+    }
  
 /*  Private Members
  *  =========================================================================*/

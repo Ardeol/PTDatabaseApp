@@ -36,7 +36,9 @@ class PeerTeacher {
  
 /*  Public Methods
  *  =========================================================================*/
-    
+    public function toString():String {
+        return '$firstname $lastname';
+    }
  
 /*  Private Members
  *  =========================================================================*/

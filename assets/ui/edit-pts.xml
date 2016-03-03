@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<vbox id="edit-pts-container" width="100%" height="100%">
+    <hbox width="100%" height="100%">
+        <vbox id="edit-pts-pt-form" width="50%" height="100%">
+            
+        </vbox>
+        <vbox width="50%" height="100%">
+            <listview id="edit-pts-pt-list" width="100%" height="100%">
+                
+            </listview>
+        </vbox>
+    </hbox>
+</vbox>

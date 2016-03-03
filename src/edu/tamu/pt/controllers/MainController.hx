@@ -1,6 +1,6 @@
 package edu.tamu.pt.controllers;
 
-import haxe.ui.toolkit.core.XMLController;
+import haxe.ui.toolkit.core.Component;
 
 import edu.tamu.pt.db.IDatabase;
 
@@ -9,13 +9,13 @@ import edu.tamu.pt.db.IDatabase;
  *  @version A.00
  *
  *  **************************************************************************/
-class MainController extends XMLController {
+class MainController extends Controller {
 
 /*  Constructor
  *  =========================================================================*/
     public function new(db:IDatabase) {
-        super("ui/main.xml");
-        this.db = db;
+        super("ui/main.xml", db);
+        content = getComponent(Id.CONTENT);
     }
     
 /*  Class Methods
@@ -28,9 +28,14 @@ class MainController extends XMLController {
  
 /*  Private Members
  *  =========================================================================*/
-    private var db:IDatabase;
+    private var content:Component;
  
 /*  Private Methods
  *  =========================================================================*/
     
+}
+
+@:enum private abstract Id(String) from String to String {
+    var CONTAINER = "master-container";
+    var CONTENT = "content-container";
 }

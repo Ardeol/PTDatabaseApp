@@ -1,6 +1,7 @@
 package edu.tamu.pt.util;
 
 import edu.tamu.pt.struct.PeerTeacher;
+import edu.tamu.pt.struct.ClassSchedule;
 
 /** Sorters Class
  *  @author  Timothy Foster
@@ -31,6 +32,13 @@ class Sorters {
                 return 0;
         }
         return 1;
+    };
+    
+    public static var labOrder(default, null):ClassSchedule->ClassSchedule->Int = function(lhs, rhs) {
+        if (lhs.toString() == rhs.toString())
+            return 0;
+        else
+            return lhs.toString() < rhs.toString() ? -1 : 1;
     };
     
 }
