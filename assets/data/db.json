@@ -1,1 +1,141 @@
-{"peerteachers":[{"email":"karriecheng@tamu.edu","courses":["CSCE 121-503,505","CSCE 221-508"],"lastname":"Cheng","uin":"8451bd02c3388294da9968f54d4d46fbd9f414dca23a56141e3748b63dd32d26","image":"/media/1594572/Image-Of-Karrie-Cheng.jpg","firstname":"Karrie","hours":[{"days":"MW","hours":"11:30-1:30 pm"}]},{"email":"siyul@tamu.edu","courses":["CSCE 206-505","CSCE 312-503"],"lastname":"Lin","uin":"2ebb3d2056d1ea8bc553a68f0ec0b45fd6d4e5b15b8084f8fadac239e8d5367a","image":"/media/2683561/Siyu_Lin.png","firstname":"Siyu","hours":[{"days":"M","hours":"5:00-8:00 pm"}]},{"courses":["CSCE 221-505","CSCE 313-511","CSCE 315-207,507,509"],"email":"cody.taylor49@tamu.edu","lastname":"Taylor","uin":"ae43bd7e73ac71f912a8b9e61d6cc4446395b12d3712cc78cfbd561c177b08ef","hours":[{"days":"M","hours":"11:30 am-12:30 pm"},{"days":"W","hours":"3:00-4:00 pm"}],"firstname":"Cody","image":"/media/1233595/cody-taylor.jpg"},{"email":"adelaidor2@email.tamu.edu","courses":["CSCE 121-502,504","CSCE 110-503"],"lastname":"Reyes","uin":"80aea88355fd9e946ffba90399ee7fc59c583fcefc6a1a98adae94a15d97f3df","image":"/media/2683536/Adelaido_Reyes.jpg","firstname":"Adelaido","hours":[{"hours":"12:00-1:00 pm","days":"M"},{"hours":"2:00-3:00 pm","days":"T"},{"hours":"9-10 am, 2-3 pm","days":"R"}]},{"courses":["CSCE 206-504","CSCE 313-506","CSCE 222"],"email":"gregory.krupit@tamu.edu","lastname":"Krupit","uin":"cae6dd06a13688db3b01eb11262649ba1d4b808facd8e3baf68aa6b38be2ec49","hours":[{"days":"W","hours":"1:40-2:40 pm"},{"days":"T","hours":"4:00-5:00 pm"},{"days":"Su","hours":"3:00-5:00 (222 Review)"}],"firstname":"Gregory","image":"/media/2681794/Gregory_Krupit.jpg"},{"courses":["CSCE 313-501,505,509","CSCE 121-503"],"email":"sl1ppyt0adinatank@tamu.edu","lastname":"Higginbotham","uin":"f0aa1fdc5082673ad3ce223e9cc347b14ba4b46670831c6a9a40b06226b4979e","hours":[{"days":"R","hours":"9:00-11:00 am"},{"days":"F","hours":"9:00-10:00 am"}],"firstname":"Joshua","image":"/media/2807654/joshua_higgenbotham.jpg"},{"courses":["CSCE 121-508,509","CSCE 221-513"],"email":"leviuzodike@gmail.com","lastname":"Uzodike","uin":"9941615f47669f03a8847abbe46ff14949e1ea548cddbb344b3bb7576c7d2b39","hours":[{"days":"R","hours":"5:00-8:00 pm"}],"firstname":"Levi","image":"/media/3250951/levi_uzodike_resized.jpg"},{"email":"thecinnaman123@tamu.edu","courses":["CSCE 111-502,503"],"lastname":"Hellinger","uin":"1a6825b9346a762730dc0e6ee7cb75a10d54cac60a643ba2a45408c4bff4dfb9","image":"/media/2142401/Andrew_Hellinger.jpg","firstname":"Andrew","hours":[{"days":"TR","hours":"2:00-4:00 pm"},{"days":"Su","hours":"3:00-5:00 (121 Review)"}]},{"email":"karasaj@tamu.edu","courses":["CSCE 312-501,502","CSCE 313-509,510"],"lastname":"Hamilton","uin":"eec781e8a2065e056fba5d650f3fcb936050b90e30015c023c954d26d3b056d2","image":"/media/2780168/Austin_Hamilton.jpg","firstname":"Austin","hours":[{"days":"M","hours":"12:30-1:30, 3:00-4:00"},{"days":"Su","hours":"3:00 - 5:00 (312 Review)"}]},{"email":"matthewcollie21@tamu.edu","courses":["CSCE 111-501"],"lastname":"Collie","uin":"2b3dfc87c889f382d5630130deeb5cc31c4c5e1bde67d5e217309a8712a415de","image":"/media/2681708/Matthew_Collie.jpg","firstname":"Matthew","hours":[{"days":"TR","hours":"12:00-2:00 pm"},{"days":"F","hours":"11:30-1:30 pm"},{"days":"Su","hours":"3:00-5:00 (121 Review)"}]},{"email":"scho4077@tamu.edu","courses":["CSCE 221-506","CSCE 222"],"lastname":"Schofield","uin":"1c044977476e10efedf96d4687733f6f804803c2a14e178dcfe61ca12a54bf0b","image":"/media/2105523/Rebecca_Schofield_85x127.jpg","firstname":"Rebecca","hours":[{"days":"MW","hours":"9:00-11:00 am"}]},{"email":"njdj1013@tamu.edu","courses":["CSCE 111-501","CSCE 221-200,511,513","CSCE 222","CSCE 314"],"lastname":"De Jong","uin":"1879c27c077837ac6076fe31c0f16ee7b75d60e723712f0b9952487fa5942f03","image":"/media/1153025/Image-of-Nathan-De-Jong_85x128.jpg","firstname":"Nathan","hours":[{"days":"T","hours":"9:30-12:00 am"}]},{"email":"kyle.preston75@tamu.edu","courses":["CSCE 110-502","CSCE 111-505"],"lastname":"Preston","uin":"e4e7e7930fb8ae83d5e6e50284994035514b8f0df2d34bb7948586d47ed4f659","image":"/media/2681693/Kyle_Preston.jpg","firstname":"Kyle","hours":[{"days":"M","hours":"5:00-6:00 pm"}]},{"email":"v_jackie17@tamu.edu","courses":["CSCE 206-502,505"],"lastname":"Vital","uin":"d790b06b5fe1046bf5adda0f7abc0badb40902952599b7057074eb38aa9f3c07","image":"/media/2681804/Jacqueline_Vital.jpg","firstname":"Jacqueline","hours":[{"days":"F","hours":"11:00 am-12:00 pm"}]},{"email":"amjones503@tamu.edu","courses":["CSCE 221-506,510","CSCE 222","CSCE 314"],"lastname":"Jones","uin":"f2a76a11e9209639040e772b11b548afc74b603f8fa3dede34bbe6a360bbacd4","image":"/media/2681769/Antonia_Jones.jpg","firstname":"Antonia","hours":[{"hours":"10:00-11:00 am","days":"MW"}]},{"courses":["CSCE 111-501,502"],"email":"gvzq@tamu.edu","lastname":"Vazquez","uin":"f6a1c144ca63cdd2d80783e3760f3084749ce560e609e866e19b67c83735e522","hours":[{"days":"MW","hours":"3:00-5:00 pm"}],"firstname":"Gerardo","image":"/media/2750988/Gerardo_Vazquez.jpg"},{"courses":["CSCE 221-504,509","CSCE 121-505","CSCE 222","CSCE 314"],"email":"cesarchavira254@tamu.edu","lastname":"Chavira","uin":"4d21f00994a5e562345d59ee33b6fd38bb5979f6d3363166113ba3f3704345b6","hours":[{"hours":"10:00-11:00 am","days":"TR"},{"hours":"2:00-3:00 pm","days":"F"}],"firstname":"Cesar","image":"/media/1594581/Image-of-Cesar-Chavira.jpeg"},{"courses":["CSCE 121-503","CSCE 206-502","CSCE 312-503","CSCE 110-501"],"email":"sjroh@tamu.edu","lastname":"Roh","uin":"37711ca9cb72e8b8c7dd4265c75fd2ecbbac1877c97239e357fee458e893de4b","hours":[{"days":"TR","hours":"10:00-12:00 pm"}],"firstname":"Si Jine","image":"/media/2825639/Si_Jine_Roh.jpg"},{"email":"drwhorules@tamu.edu","courses":["CSCE 111-502,504,505","CSCE 206-503","CSCE 315-502,503"],"lastname":"Denman","uin":"1fdf3666baa9bfd80f4ddf43407f02fde40303b54ff360495ae47d66e21ce7b2","image":"/media/2681713/Quintin_Denman.jpg","firstname":"Quintin","hours":[]},{"email":"nlonz@tamu.edu","courses":["CSCE 111-503","CSCE 206-505","CSCE 315-506"],"lastname":"Lonsway","uin":"de4ac839fd5ca6da95ef9636028e301b0a87b71fccb928569f54882f4ddfcb78","image":"/media/1153026/Image-of-Nicholas-Lonsway_85x128.jpg","firstname":"Nicholas","hours":[{"days":"MW","hours":"9:00-10:00 am"},{"days":"F","hours":"4:00-5:00 pm"}]},{"email":"jeremyjjhp@tamu.edu","courses":["CSCE 111-504","CSCE 121-501,504"],"lastname":"Hernandez-Peguero","uin":"91e10bb31b138f216d4fb0443df5ee7ce0b69ffd32ea5081c47e3605f872a28d","image":"/media/2683546/Jeremy_Hernandez.jpg","firstname":"Jeremy Jose Job","hours":[{"days":"TR","hours":"1:00-2:00 pm"},{"days":"Su","hours":"3:00-5:00 (121 Review)"}]},{"courses":["CSCE 121-509,513"],"email":"jolieann@tamu.edu","lastname":"Thompson","uin":"a67466a5979ab9adc4aa9130095ac62d0dc1e9017a883ed8c207ec5c9fd3f64e","hours":[{"days":"MW","hours":"1:40-2:40 pm"}],"firstname":"Julie","image":"/media/3162622/Julie_Thompson.jpg"},{"courses":["CSCE 121-507"],"email":"k4sr4@tamu.edu","lastname":"Rahimi","uin":"94d157d03ad84b2cc023a01c2ad6071364b7bcbc04fe102bd5a38cdb0598936a","hours":[{"days":"MW","hours":"1:00-3:00 pm"}],"firstname":"Kasra","image":"/media/2750989/Kasra_Rahimi.jpg"},{"email":"troy.edwards@tamu","courses":["CSCE 206-501,504,506","CSCE 221-505"],"lastname":"Edwards","uin":"3ded997c6fd80bab37b722bfc02d0eea204a3920c8663d40d65fb8cb80cd75b0","image":"/media/2681728/Troy_Edwards.jpg","firstname":"Troy","hours":[{"days":"MW","hours":"1:00-2:00 pm"}]},{"courses":["CSCE 221-513","CSCE 313-510","CSCE 315-501","CSCE 222","CSCE 314"],"email":"brownzach125@gmail.com","lastname":"Brown","uin":"36998aefbf69dda57bc5e481983462e0e73fb7f876b91655c15e3c817e3662bb","hours":[{"days":"Su","hours":"3:00-5:00 pm (222 Review)"}],"firstname":"Zach","image":"/media/1153036/Image-of-Zachary-Brown_85x128.jpg"},{"courses":["CSCE 110-501","CSCE 221-505,508"],"email":"stebbins.travis@gmail.com","lastname":"Stebbins","uin":"47e5d34a6ffb2508bce5aa2b0d0a15d582fcd250d9fd9cde546ad63e47c7215c","hours":[{"days":"R","hours":"6:00-8:00 pm"},{"days":"Su","hours":"3:00-5:00 (221 Review)"}],"firstname":"Travis","image":"/media/3250956/Travis_Stebbins_resized.jpg"},{"courses":["CSCE 221-515"],"email":"kristacapps1@tamu.edu","lastname":"Capps","uin":"ddb224c040931f86bcbffc890445b3da481ca8c7193fa1512c2704a9361a0105","hours":[{"days":"MTR","hours":"9:00-10:00 am"},{"days":"W","hours":"12:00-1:00 pm"},{"days":"Su","hours":"3:00-5:00 (221 Review)"}],"firstname":"Krista","image":"/media/3250971/Krista_Capps_resized.jpg"},{"email":"jaideng123@tamu.edu","courses":["CSCE 221-501,507,508"],"lastname":"Gerig","uin":"1c2479b773432b62627a5a2b5805b76aa21148a843e33b8bc53a1b23f550b8e6","image":"/media/1594580/Image-of-Jaiden-Gerig.jpg","firstname":"Jaiden","hours":[]},{"courses":["CSCE 221-510,511,512","CSCE All"],"email":"elitim@tamu.edu","lastname":"Foster","uin":"2647058b1911864c478ba1f03d602695fd0abadeb0518178736fb43c6a96f772","image":"/media/2545419/timothy-foster.jpg","hours":[{"days":"TR","hours":"12:00-1:00 pm"},{"days":"Su","hours":"3:00-5:00 (222, 314 Review)"}],"firstname":"Timothy"},{"courses":["CSCE 111-505","CSCE 121-506","CSCE 206-504"],"email":"regangunhouse123@gmail.com","lastname":"Gunhouse","uin":"fb7d00ed9fd971f173eb1e64b77e50a92e8837cae4016528d00a045ccc0e5e48","hours":[{"days":"R","hours":"3:00-5:00 pm"},{"days":"F","hours":"6:00-8:00 pm"}],"firstname":"Regan","image":"/media/3250981/Gunhouse_resized.jpg"},{"email":"mynetidfornow@email.tamu.edu","courses":["CSCE 315-504,505","CSCE 222","CSCE 314"],"lastname":"Latypov","uin":"87b4ffb51797804371059be23e68256387bb9b58bcc1b60f4198bdb3f6b4ae0a","image":"/media/2683541/Daniel_Latypov.JPG","firstname":"Daniel","hours":[{"days":"W","hours":"5:00-6:00 pm"},{"days":"F","hours":"6:00-7:00 pm"}]},{"email":"d0105950@tamu.edu","courses":["CSCE 121-501,507,508"],"lastname":"Durden","uin":"17abc1d43f083c703cbd42801f3cce5f883fea85f7a0ec30ca6da3ce8ad8c42f","image":"/media/2681733/Tyler_Durden.jpg","firstname":"Tyler","hours":[{"hours":"3:00 - 7:00 pm","days":"Su"}]},{"email":"bailey.bauman@tamu.edu","courses":["CSCE 221-501,511,512","CSCE 222","CSCE 314"],"lastname":"Bauman","uin":"389141ae22a030f1126e65d6e86d5d14e0eef75765840dd32651bda1f9e909d0","image":"/media/2105516/Bailey_Bauman_85x128.jpg","firstname":"Bailey","hours":[{"hours":"12:30-1:30 pm","days":"TR"},{"hours":"12:00-2:00 pm","days":"F"}]},{"email":"nano724@tamu.edu","courses":["CSCE 121-513","CSCE 221-200"],"lastname":"Cluck","uin":"0eaf1f946f44a7079d9c3e231077df9dfaf3acc6d91dceebfca04945c57c90da","image":"/media/2683551/Natalie_Cluck.jpg","firstname":"Natalie","hours":[{"days":"W","hours":"9:00-10:00 pm"},{"days":"Su","hours":"3:00-5:00 (221 Review)"}]},{"email":"kyradrake@tamu.edu","courses":["CSCE 121-502,506"],"lastname":"Drake","uin":"eff33145ec10f0d508d52498102a659c37f81949e6b77716e10831a807f7eaa4","image":"/media/2681688/Katherine_Drake.jpg","firstname":"Katherine","hours":[{"hours":"3:00-4:00 pm","days":"MW"}]},{"courses":["CSCE 110-503","CSCE 121-509,513"],"email":"adolfoportilla@tamu.edu","lastname":"Portilla","uin":"eddc24a76d3a7f06b75f5f8a3b6f983aaafa6fe2adbb9052bb8fa9513ed8803f","hours":[{"days":"TR","hours":"6:30-8:00 pm"}],"firstname":"Adolfo","image":"/media/2142400/Adolfo_Portilla.jpg"},{"courses":["CSCE 206-501,503","CSCE 110-502"],"email":"j_hulen@tamu.edu","lastname":"Hulen","uin":"eeafe52e6114826e53ea8e9bb672c62f5523829f49d0eed06f0217d7ced4f5a0","hours":[{"hours":"2:00-3:00 pm","days":"MW"},{"hours":"9:00-11:00 am","days":"F"}],"firstname":"Jacob","image":"/media/2681799/Jacob_Hulen.jpg"},{"courses":["CSCE 313-502,511"],"email":"oscarcat@tamu.edu","lastname":"Briones","uin":"6b0a1a92f9886879b65cc73b992afaf92a75c269b89c7b76ec8a05197cf963fd","hours":[{"days":"TR","hours":"10:00-12:00 pm"},{"days":"MW","hours":"11:30-12:30 pm"}],"firstname":"Ana","image":"/media/1594574/Image-Of-Ana-Briones.jpg"},{"courses":["CSCE 221-503,504,512,514"],"email":"gomez-palacior@tamu.edu","lastname":"Gomez-Palacio","uin":"36165cb14d4a3341a3ef42b728f7cc6093e4d30d580e413d431a6be8f1dbf1f3","hours":[{"days":"Su","hours":"3:00-5:00 (221 Review)"}],"firstname":"Rodrigo","image":"/media/3250961/Carlo_De Guzman_resized.jpg"},{"courses":["CSCE 121-501,508"],"email":"guillermo_lopez6988@tamu.edu","lastname":"Lopez","uin":"62611ec09055707238a5c11c428ded6f3155211dc6b4551249d9da5a5ebc4d9a","hours":[{"days":"TR","hours":"2:30-3:30 pm"},{"days":"F","hours":"11:30-12:30 pm"}],"firstname":"Guillermo","image":"/media/3250976/Guillermo_Lopez_resized.jpg"},{"email":"ryantz","courses":["CSCE 221-503,507"],"lastname":"Yantz","uin":"90b422bcd150f82e51d938c762fc1057509107a016461bd90e56656cd373380d","image":"/media/2105524/Ryan_Yantz_85x119.jpg","firstname":"Ryan","hours":[{"days":"TR","hours":"4:00-5:00 pm"},{"days":"Su","hours":"3:00-5:00 (221 Review)"},{"days":"F","hours":"3:00-5:00 pm"}]},{"courses":["CSCE 121-502","CSCE 110-501"],"email":"chris3606@tamu.edu","lastname":"Ridley","uin":"b16c3dce2ce262628f9940311b5a83f8cca744d5fe4cfdfbf6ed00070f402628","hours":[{"days":"Su","hours":"3:00-8:00 pm"},{"days":"T","hours":"12:00-1:00 pm"}],"firstname":"Christopher","image":"/media/2105517/Chris_Ridley_85x132.jpg"},{"courses":["CSCE 110-501,502"],"email":"austin.gloyna@gmail.com","lastname":"Gloyna","uin":"57a9d2ef4563daeda1cc540792f0242b7b8306c40aecc34f51b09c59ca468a62","hours":[{"hours":"5:30-8:00 pm","days":"TR"}],"firstname":"Austin","image":"/media/3297747/Austin_Gloyna_resized.jpg"},{"email":"tran_fong1991@tamu.edu","courses":["CSCE 313-506,507","CSCE 221-507"],"lastname":"Tran","uin":"a137b787d348bf73c1af46b36dfe73ef6719ac0ca62b7aaae7e10b907619a015","image":"/media/2681723/Tran_Phong.jpg","firstname":"Phong","hours":[{"days":"TRF","hours":"2:00-3:00 pm"},{"days":"W","hours":"11:00-12:00 pm"}]},{"email":"aaronmkingery@email.tamu.edu","courses":["CSCE 313-501,502,503,505","CSCE 222","CSCE 314"],"lastname":"Kingery","uin":"d1e7e8b94cc4e9eeeed74a72ef5d2a7a351369147e4b7d9f7f7f47889371f61d","image":"/media/2683526/Aaron_Kingery.jpg","firstname":"Aaron","hours":[{"days":"MW","hours":"11:00-12:00 pm"},{"days":"F","hours":"12:00-2:00 pm"}]},{"email":"juliang075@tamu.edu","courses":["CSCE 221-514","CSCE 121-504"],"lastname":"Li","uin":"19345cd8b9fd12696adad7eee1e52104f5e17d32eec349fd7b1898cfa60f2621","image":"/media/2105520/Juliang_Li_85x133.jpg","firstname":"Juliang","hours":[]},{"courses":["CSCE 221-509","CSCE 313-507","CSCE 121-506"],"email":"darrencola@tamu.edu","lastname":"Cola-Sinner","uin":"8d9e79e7337ccada9496f0d6554563f534b5c89023ea1e18760b20a7f6e8837b","hours":[{"days":"MW","hours":"5:00-6:00 pm"},{"days":"F","hours":"4:00-6:00 pm"}],"firstname":"Darren","image":"/media/1652325/Image-of-Darren-Cola-Sinner.jpg"},{"email":"ltp368@tamu.edu","courses":["CSCE 221-509"],"lastname":"Prewitt","uin":"2fd293c201ee99d87340eee9bd51812bd71907d4ebadbc09c83012fa7a0a2dd5","image":"/media/2681698/Landon_Prewitt.jpg","firstname":"Landon","hours":[{"days":"W","hours":"11:00-12:00"}]},{"email":"crystalviolin9@tamu.edu","courses":["CSCE 221-502,514,515","CSCE 222","CSCE 314"],"lastname":"Click","uin":"e2e29f8974269b0e9d03155aae0f2ab5431de778820bc24eec5c5bf8521d0e71","image":"/media/2105521/Katherine_Click_85x118.jpg","firstname":"Katherine","hours":[{"days":"W","hours":"9:00-10:00 am"},{"days":"F","hours":"5:00-8:00 pm"},{"days":"Su","hours":"3:00-5:00 (313 Review)"}]},{"courses":["CSCE 121-505","CSCE 221-506,510"],"email":"eramon224@tamu.edu","lastname":"Ramon","uin":"9d4f2f44991821f5798848fbfe536dd7835b777c723829cb4a60181b4f4f6c9e","hours":[{"days":"MWF","hours":"10:00-11:00"},{"days":"R","hours":"11:00-12:00"}],"firstname":"Eric","image":"/media/2681779/Eric_Ramon.jpg"},{"email":"srsahibzada@gmail.com","courses":["CSCE 110-502","CSCE 206-504","CSCE 221-502"],"lastname":"Sahibzada","uin":"918746190960c4017c74be423f04800034d6203a4da0f70c8160e18c644c26d4","image":"/media/2105525/Sarah_Sahibzada_85x128.jpg","firstname":"Sarah","hours":[{"days":"M","hours":"5:00-7:00 pm"},{"days":"W","hours":"9:00-10:00 am"},{"days":"F","hours":"9:00-12:00 pm"}]},{"courses":["CSCE 221-508,511"],"email":"dhananjay@tamu.edu","lastname":"Khanna","uin":"e2d853550c50d91811e6af9c9796a6168bccef7202dde506101dca63948672bb","hours":[{"hours":"6:00-8:00 pm","days":"F"}],"firstname":"Dhananjay","image":"/media/3250966/Dhananjay_Khanna_resized.jpg"}]}
+{
+    "labs": [ {
+        "dept": "CSCE",
+        "code": "315",
+        "section": "501",
+        "times": [ {
+            "days": ["M", "W"],
+            "times": [ {
+                "start": 600,
+                "end": 660
+            } ]
+        } ]
+    }, {
+        "dept": "CSCE",
+        "code": "221",
+        "section": "507",
+        "times": [ {
+            "days": ["T", "R"],
+            "times": [ {
+                "start": 720,
+                "end": 780
+            } ]
+        } ]
+    }, {
+        "dept": "CSCE",
+        "code": "221",
+        "section": "501",
+        "times": [ {
+            "days": ["M", "W"],
+            "times": [ {
+                "start": 900,
+                "end": 960
+            } ]
+        } ]
+    } ],
+    "pts": [ {
+        "firstname": "Aurora",
+        "lastname": "Starsong",
+        "preferredname": "",
+        "image": "/media/aurora_starsong.png",
+        "email": "starsong.aurora@gmail.com",
+        "schedule": [ {
+            "dept": "CSCE",
+            "code": "315",
+            "section": "501",
+            "times": [ {
+                "days": ["M", "W"],
+                "times": [ {
+                    "start": 600,
+                    "end": 660
+                } ]
+            }, {
+                "days": ["M", "W"],
+                "times": [ {
+                    "start": 680,
+                    "end": 780
+                } ]
+            } ]
+        } ],
+        "labs": ["CSCE-221-507"],
+        "officeHours": [ {
+            "days": ["T", "R", "F"],
+            "times": [ {
+                "start": 800,
+                "end": 830
+            }, {
+                "start": 900,
+                "end": 930
+            } ]
+        } ]
+    }, {
+        "firstname": "Eventide",
+        "lastname": "Stone",
+        "preferredname": "",
+        "image": "/media/eventide_stone.png",
+        "email": "stone.eventide@gmail.com",
+        "schedule": [ {
+            "dept": "CSCE",
+            "code": "315",
+            "section": "501",
+            "times": [ {
+                "days": ["M", "W"],
+                "times": [ {
+                    "start": 600,
+                    "end": 660
+                } ]
+            }, {
+                "days": ["M", "W"],
+                "times": [ {
+                    "start": 680,
+                    "end": 780
+                } ]
+            } ]
+        } , {
+            "dept": "CSCE",
+            "code": "313",
+            "section": "504",
+            "times": [ {
+                "days": ["T", "R"],
+                "times": [ {
+                    "start": 810,
+                    "end": 900
+                } ]
+            }, {
+                "days": ["F"],
+                "times": [ {
+                    "start": 480,
+                    "end": 580
+                } ]
+            } ]
+        } ],
+        "labs": ["CSCE-221-501", "CSCE-221-507"],
+        "officeHours": [ {
+            "days": ["M"],
+            "times": [ {
+                "start": 1000,
+                "end": 1100
+            } ]
+        } ]
+    }, {
+        "firstname": "Beacon",
+        "lastname": "Solidarity",
+        "preferredname": "",
+        "image": "/media/beacon_solidarity.png",
+        "email": "solidarity.beacon@gmail.com",
+        "schedule": [ {
+            "dept": "CSCE",
+            "code": "441",
+            "section": "501",
+            "times": [ {
+                "days": ["M", "W", "F"],
+                "times": [ {
+                    "start": 800,
+                    "end": 860
+                } ]
+            } ]
+        } ],
+        "labs": ["CSCE-315-501"],
+        "officeHours": [ ]
+    } ]
+}

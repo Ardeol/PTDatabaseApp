@@ -14,7 +14,7 @@ class PeerTeacher {
     public var email(default, default):String;
     public var image(default, default):String;
     public var schedule(default, null):Array<ClassSchedule>;
-    public var labs(default, null):Map<String, ClassSchedule>;
+    public var labs(default, null):Map<String, ClassSchedule>;  // should be Array<String> ?
     public var officeHours(default, null):Array<Appointment>;
 
 /*  Constructor

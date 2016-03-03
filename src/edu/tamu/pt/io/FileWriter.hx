@@ -5,8 +5,10 @@ import sys.io.FileOutput;
 
 /** FileWriter Class
  *  @author  Timothy Foster
- *  @version A.00
- *
+ *  @version x.xx.160302
+ *  
+ *  Writes a given object to a file.  This class is meant to be extended, and
+ *  parse() should be overridden.
  *  **************************************************************************/
 class FileWriter<T> {
 /**
@@ -23,16 +25,13 @@ class FileWriter<T> {
     public function new(path:String) {
         this.path = path;
     }
-    
-/*  Class Methods
- *  =========================================================================*/
-    
- 
+
 /*  Public Methods
  *  =========================================================================*/
 /**
- *  Read the file and return an object corresponding to the read data.
- *  @return Object representing the contents of the file.
+ *  Write to the file given an object
+ *  @param obj The object to write to the file
+ *  @param append Whether to append the object or not; by default will overwrite file contents.
  */
     public function write(obj:T, append:Bool = false):Void {
         var handle = append ? File.append(path) : File.write(path);
@@ -40,13 +39,13 @@ class FileWriter<T> {
         handle.close();
     }
  
-/*  Private Members
- *  =========================================================================*/
-    
- 
 /*  Private Methods
  *  =========================================================================*/
-    private function parse(obj:T, out:FileOutput):Void {
-        
-    }
+/**
+ *  @private
+ *  Use a FileOutput object to write to a file.
+ *  @param obj The object to write
+ *  @param out A FileOutput stream
+ */
+    private function parse(obj:T, out:FileOutput):Void {}
 }

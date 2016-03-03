@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<vbox text="PT by Name" width="100%" height="100%">
-    <listSelector id="name-list-sort" text="Sort by" width="100%">
-        <array>Last Name, First Name</array>
-    </listSelector>
-    <listview id="name-listview" width="100%" height="100%" />
-</vbox>

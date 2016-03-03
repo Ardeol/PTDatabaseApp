@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<vbox id="master-vbox" width="100%" style="padding: 20px;">
-    <hbox width="100%">
-        <vbox id="ptinfo-vbox"></vbox>
-        <tabview id="pt-type-selector" width="100%" height="100%"></tabview>
-    </hbox>
-    <hbox>
-        <button id="generate-button" text="Generate HTML" />
-    </hbox>
+<vbox id="master-container" width="100%" height="100%">
+    <menubar id="top-bar">
+        <menubutton text="File" id="file-menubutton">
+            <import resource="ui/menues/file.xml" />
+        </menubutton>
+        <menubutton text="Edit" id="edit-menubutton">
+            <import resource="ui/menues/edit.xml" />
+        </menubutton>
+        <menubutton text="List" id="list-menubutton">
+            <import resource="ui/menues/list.xml" />
+        </menubutton>
+        <menubutton text="Generate" id="generate-menubutton">
+            <import resource="ui/menues/generate.xml" />
+        </menubutton>
+    </menubar>
+    
+    <vbox id="content-container" width="100%" height="100%">
+        
+    </vbox>
 </vbox>

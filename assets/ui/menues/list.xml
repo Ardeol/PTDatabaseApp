@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<menu>
+    <menuitem id="list-menu-pts" text="By PTs" />
+    <menuitem id="list-menu-labs" text="By Labs" />
+    <menuitem id="list-menu-export-pts" text="Export PTs" />
+    <menuitem id="list-menu-export-labs" text="Export Labs" />
+</menu>

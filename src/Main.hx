@@ -9,7 +9,7 @@ import edu.tamu.pt.PTDatabaseApp;
 import edu.tamu.pt.test.*;
 
 class Main extends Sprite {
-    private static inline var RUN_TESTS = true;
+    private static inline var RUN_TESTS = false;
     
     private var app:PTDatabaseApp;
 

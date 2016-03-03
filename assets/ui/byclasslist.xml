@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<vbox text="PT by Class" width="100%" height="100%">
-    <listSelector id="class-list" text="Sort by">
-        <array></array>
-    </listSelector>
-    <listview id="class-listview" width="100%" height="100%" />
-</vbox>

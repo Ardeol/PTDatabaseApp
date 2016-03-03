@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<menu>
+    <menuitem id="edit-menu-pts" text="By PTs" />
+    <menuitem id="edit-menu-labs" text="By Labs" />
+    <menuitem id="edit-menu-import-pts" text="Import PTs" />
+    <menuitem id="edit-menu-import-labs" text="Import Labs" />
+</menu>

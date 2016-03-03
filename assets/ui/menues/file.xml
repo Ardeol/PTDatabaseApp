@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<menu>
+    <menuitem id="file-menu-load" text="Load Database" />
+    <menuitem id="file-menu-save" text="Save Database" />
+    <menuitem id="file-menu-export" text="Export Database" />
+    <menuitem id="file-menu-exit" text="Exit" />
+</menu>

@@ -3,15 +3,27 @@ package edu.tamu.pt.io;
 import haxe.io.Eof;
 import sys.io.FileInput;
 
-import edu.tamu.pt.struct.ClassSchedule;
 import edu.tamu.pt.struct.Appointment;
+import edu.tamu.pt.struct.ClassSchedule;
 import edu.tamu.pt.struct.Day;
 import edu.tamu.pt.struct.TimeInterval;
 
 /** LabReader Class
  *  @author  Timothy Foster
- *  @version A.00
+ *  @version x.xx.160302
  *
+ *  Reads in a Lab data file.
+ *  
+ *  Instructions for obtaining Lab Data:
+ *  
+ *  1) Go to https://compass-ssb.tamu.edu/pls/PROD/bwckschd.p_disp_dyn_sched
+ *     note: If the link changes, you should be able to access it by Googling "tamu class schedule"
+ *  2) Select the correct term
+ *  3) Select CSCE as the subject
+ *  4) Click on Class Search at the bottom of the page
+ *  5) Ctrl+A
+ *  6) Paste into a text editor
+ *  7) Save as a .txt file
  *  **************************************************************************/
 class LabReader extends FileReader<Map<String, ClassSchedule>> {
     private static var classFormat:EReg = ~/(CSCE)\s(\d\d\d)\s-\s(\d\d\d)/;
