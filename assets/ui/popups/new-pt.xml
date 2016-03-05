@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<vbox width="100%">
+    <text text="Fill in both names, then hit OK." />
+    <grid width="100%" columns="2">
+        <text text="First Name: " />
+        <smarttextinput width="100%" id="new-pt-firstname" />
+        <text text="Last Name: " />
+        <smarttextinput width="100%" id="new-pt-lastname" />
+    </grid>
+</vbox>

@@ -36,6 +36,20 @@ class PeerTeacher {
  
 /*  Public Methods
  *  =========================================================================*/
+    public function intersects<T:Intersectable>(other:T):Bool {
+        for (cls in schedule) for (appt in cls.appointments())
+            if (other.intersects(appt))
+                return true;
+        for (lab in labs) for (appt in lab.appointments())
+            if (other.intersects(appt))
+                return true;
+        for (appt in officeHours)
+            if (other.intersects(appt))
+                return true;
+                
+        return false;
+    }
+ 
     public function toString():String {
         return '$firstname $lastname';
     }
@@ -59,4 +73,8 @@ class PeerTeacher {
         return image = value;
     }
 */
+}
+
+private typedef Intersectable = {
+    public function intersects(appt:Appointment):Bool;
 }

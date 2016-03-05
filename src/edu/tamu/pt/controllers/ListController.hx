@@ -37,6 +37,13 @@ class ListController extends Controller {
         //clearTable();
         buildHeader();
     }
+    
+/**
+ *  @inheritDoc
+ */
+    override public function close():Void {
+        db = null;
+    }
  
 /*  Private Members
  *  =========================================================================*/

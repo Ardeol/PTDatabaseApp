@@ -63,13 +63,13 @@ interface IDatabase  {
  *  Adds a PT to the database.
  *  @param pt PeerTeacher to add.
  */
-    public function add(pt:PeerTeacher):Void;
+    public function addPT(pt:PeerTeacher):Void;
     
 /**
  *  Removes the PT from the database.  If you need to remove by name, call remove(pt(name)).
  *  @param pt PeerTeacher to remove.
  */
-    public function remove(pt:PeerTeacher):Void;
+    public function removePT(pt:PeerTeacher):Void;
     
 /**
  *  Wipes the database of peer teachers.  They don't die in real life, just digitally.

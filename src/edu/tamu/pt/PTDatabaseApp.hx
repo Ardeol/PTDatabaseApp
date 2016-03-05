@@ -14,6 +14,7 @@ import haxe.ui.toolkit.themes.GradientTheme;
 
 import edu.tamu.pt.controllers.MainController;
 import edu.tamu.pt.db.IDatabase;
+import edu.tamu.pt.ui.CustomUIRegistrar;
 import edu.tamu.pt.util.Config;
 
 /** PTDatabaseApp Class
@@ -80,7 +81,7 @@ class PTDatabaseApp {
  *  =========================================================================*/
     private function initHaxeUI():Void {
         Toolkit.theme = new GradientTheme();
-    //  ClassManager.instance.registerComponentClass(SmartTextInput, "smarttextinput");
+        CustomUIRegistrar.registerAll();
         Toolkit.init();
         Toolkit.setTransitionForClass(Popup, "none");
     }

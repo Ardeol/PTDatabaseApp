@@ -2,12 +2,40 @@
 <vbox id="edit-pts-container" width="100%" height="100%">
     <hbox width="100%" height="100%">
         <vbox id="edit-pts-pt-form" width="50%" height="100%">
-            
+            <grid width="100%" columns="2">
+                <text text="First Name" />
+                <text id="edit-pts-firstname" />
+                <text text="Last Name" />
+                <text id="edit-pts-lastname" />
+                <text text="Preferred Name" />
+                <smarttextinput width="100%" id="edit-pts-preferredname" />
+                <text text="Email" />
+                <smarttextinput width="100%" id="edit-pts-email" />
+                <text text="Image" />
+                <smarttextinput width="100%" id="edit-pts-image" />
+            </grid>
+            <tabview width="100%" height="100%">
+                <vbox text="Labs" width="100%" height="100%">
+                    <text id="edit-pts-current-labs" />
+                    <listview id="edit-pts-lab-list" width="100%" height="100%" />
+                </vbox>
+                <vbox text="Office Hours" width="100%" height="100%">
+                    <listview id="edit-pts-office-hour-list" width="100%" height="100%" />
+                    <hbox width="100%">
+                        <smarttextinput id="edit-pts-add-office-hours" width="75%" />
+                        <button id="edit-pts-add-office-hours-btn" width="25%" text="Add Hours" />
+                    </hbox>
+                </vbox>
+                <vbox text="View Schedule" width="100%" height="100%">
+                    <listview id="edit-pts-schedule" width="100%" height="100%" />
+                    <button id="edit-pts-upload-schedule" width="100%" text="Upload New Schedule" />
+                </vbox>
+            </tabview>
         </vbox>
         <vbox width="50%" height="100%">
-            <listview id="edit-pts-pt-list" width="100%" height="100%">
-                
-            </listview>
+            <namesortselector id="edit-pts-sortby" width="100%" />
+            <listview id="edit-pts-pt-list" width="100%" height="100%" />
+            <button id="edit-pts-add-pt-btn" width="100%" text="Add a Peer Teacher" />
         </vbox>
     </hbox>
 </vbox>

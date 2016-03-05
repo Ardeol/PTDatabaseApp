@@ -77,14 +77,14 @@ class Config {
  *  @param param The parameter, in the form SECTION.NAME
  */
     public inline function int(param:String):Int
-	    return Std.parseInt(get(param));
-	
+        return Std.parseInt(get(param));
+    
 /**
  *  Returns the parameter as a float
  *  @param param The parameter, in the form SECTION.NAME
  */
-	public inline function float(param:String):Float
-	    return Std.parseFloat(get(param));
+    public inline function float(param:String):Float
+        return Std.parseFloat(get(param));
         
 /**
  *  Returns the parameter as an boolean

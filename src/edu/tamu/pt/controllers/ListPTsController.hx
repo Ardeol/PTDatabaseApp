@@ -5,6 +5,7 @@ import haxe.ui.toolkit.controls.selection.ListSelector;
 import haxe.ui.toolkit.events.UIEvent;
 
 import edu.tamu.pt.db.IDatabase;
+import edu.tamu.pt.ui.NameSortSelector;
 import edu.tamu.pt.util.Sorters;
 
 /** ListPTsController Class
@@ -22,8 +23,7 @@ class ListPTsController extends ListController {
  */
     public function new(db:IDatabase) {
         super("ui/list-pts.xml", db, Id.TABLE);
-        this.sortby = getComponentAs(Id.SORTBY, ListSelector);
-        sortby.selectedIndex = 1;
+        this.sortby = getComponentAs(Id.SORTBY, NameSortSelector);
         
     //  attachEvent(Id.SORTBY, UIEvent.CHANGE, function(e) {  buildTable(); });
         
@@ -38,8 +38,7 @@ class ListPTsController extends ListController {
     override public function buildTable():Void {
         super.buildTable();
         
-        var sorter = sortby.selectedIndex == 0 ? Sorters.alphaByFirst : Sorters.alpha;
-        var pts = db.pts(sorter);
+        var pts = db.pts(sortby.sorter());
         
         for (pt in pts) {
             var labs = new Array<String>();
@@ -61,7 +60,7 @@ class ListPTsController extends ListController {
     
 /*  Private Members
  *  =========================================================================*/
-    private var sortby:ListSelector;
+    private var sortby:NameSortSelector;
  
 /*  Private Methods
  *  =========================================================================*/

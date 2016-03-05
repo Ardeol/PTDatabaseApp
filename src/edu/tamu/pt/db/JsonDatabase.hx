@@ -132,12 +132,18 @@ class JsonDatabase implements IDatabase {
         return arr;
     }
     
-    public function add(pt:PeerTeacher):Void {
-        
+/**
+ *  @inheritDoc
+ */
+    public function addPT(pt:PeerTeacher):Void {
+        ptmap.set(pt.toString(), pt);
     }
     
-    public function remove(pt:PeerTeacher):Void {
-        
+/**
+ *  @inheritDoc
+ */
+    public function removePT(pt:PeerTeacher):Void {
+        ptmap.remove(pt.toString());
     }
     
 /**

@@ -34,6 +34,10 @@ class ClassSchedule {
         return false;
     }
     
+    public function appointments():Iterator<Appointment> {
+        return times.iterator();
+    }
+    
     public function addAppointment(appt:Appointment):Void {
         if (this.intersects(appt))
             throw new Error("Added appointment conflicted with class " + this.toString(), "ClassSchedule", "addAppointment");

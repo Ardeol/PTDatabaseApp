@@ -16,6 +16,8 @@ class MainController extends Controller {
     public function new(db:IDatabase) {
         super("ui/main.xml", db);
         content = getComponent(Id.CONTENT);
+        
+        content.addChild(new EditPTsController(db).view);
     }
     
 /*  Class Methods

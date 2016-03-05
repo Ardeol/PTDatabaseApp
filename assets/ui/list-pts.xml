@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <vbox id="list-pts-container" width="100%" height="100%">
     <text class="title" text="List of Peer Teachers" />
-    <listSelector id="list-pts-sortby" width="100%" text="Sort by">
-        <array>First Name, Last Name</array>
-    </listSelector>
+    <namesortselector id="list-pts-sortby" width="100%" />
     <tableview id="list-pts-table" width="100%" height="100%">
         
     </tableview>
