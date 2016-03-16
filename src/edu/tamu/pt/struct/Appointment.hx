@@ -1,5 +1,7 @@
 package edu.tamu.pt.struct;
 
+import edu.tamu.pt.error.Error;
+
 /** Appointment Class
  *  @author  Timothy Foster
  *  @version x.xx.160224
@@ -15,9 +17,12 @@ class Appointment {
 /**
  *  Creates a new appointment.
  */
-    public function new() {
+    public function new(?str:String) {
         days = new Array<Day>();
         times = new Array<TimeInterval>();
+        
+        if (str != null)
+            fromString(str);
     }
  
 /*  Public Methods
@@ -74,6 +79,27 @@ class Appointment {
  */
     public function timesString():String {
         return times.join(", ");
+    }
+    
+    public function fromString(value:String):Void {
+        var regex = ~/^([MTWRFSau]+)\s(.*)$/;
+        if (regex.match(value)) {
+            for (day in regex.matched(1).split("")) {
+                if (day == "a")
+                    addDay(Day.Sa);
+                else if (day == "u")
+                    addDay(Day.Su);
+                else if(day != "S") // skip S, as it means the next letter is either "a" or "u"
+                    addDay(day);
+            }
+            if (days.length <= 0)
+                throw new Error("Appointment was not given any days.", "Appointment", "fromString");
+            
+            for (time in regex.matched(2).split(","))
+                addInterval(new TimeInterval(time));
+        }
+        else
+            throw new Error('Appointment not formatted correctly ($value)', "Appointment", "fromString");
     }
     
 /**

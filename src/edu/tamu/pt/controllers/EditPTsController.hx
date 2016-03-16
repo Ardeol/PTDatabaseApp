@@ -1,5 +1,6 @@
 package edu.tamu.pt.controllers;
 
+import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.containers.ListView;
 import haxe.ui.toolkit.core.renderers.ComponentItemRenderer;
 import haxe.ui.toolkit.core.PopupManager;
@@ -7,9 +8,12 @@ import haxe.ui.toolkit.data.ArrayDataSource;
 import haxe.ui.toolkit.events.UIEvent;
 
 import edu.tamu.pt.db.IDatabase;
+import edu.tamu.pt.error.Error;
+import edu.tamu.pt.struct.Appointment;
 import edu.tamu.pt.struct.PeerTeacher;
 import edu.tamu.pt.ui.NameSortSelector;
 import edu.tamu.pt.ui.NewPTPopup;
+import edu.tamu.pt.ui.renderers.IdComponentItemRenderer;
 import edu.tamu.pt.util.Filters;
 import edu.tamu.pt.util.Sorters;
 
@@ -26,7 +30,7 @@ class EditPTsController extends Controller {
         super("ui/edit-pts.xml", db);
         
         this.ptList = getComponentAs(Id.PT_LIST, ListView);
-        ptList.itemRenderer = ComponentItemRenderer;
+        ptList.itemRenderer = IdComponentItemRenderer;
         
         initListView(Id.LABS);
         initListView(Id.OFFICE_HOURS);
@@ -35,40 +39,30 @@ class EditPTsController extends Controller {
         this.ptListCache = new Array<PeerTeacher>();
         buildPTList();
         
-        attachEvent(Id.PT_LIST, UIEvent.CHANGE, function(e) {
-        /*  Select PT
-         *  Find which PT this is
-         *  Load that PT
-         * 
-         *  Somewhere in here we need to save, before loading ofc; for now, ignoring
-         * */
-        //  db.save();
-            loadPT(ptListCache[ptList.selectedIndex]);
+        attachEvent(Id.PT_LIST, UIEvent.CHANGE, selectPTAction);
+        attachEvent(Id.ADD_PT_BTN, UIEvent.MOUSE_UP, addPTAction);
+        attachEvent(Id.PT_LIST, UIEvent.COMPONENT_EVENT, function(e:UIEvent) {
+            removePTAction(e.component.id.substr(PT_REMOVE_PREFIX.length), e);
         });
         
-        attachEvent(Id.ADD_PT_BTN, UIEvent.MOUSE_UP, function(e) {
-            var p = new NewPTPopup();
-            PopupManager.instance.showCustom(p.view, "Add a Peer Teacher", [PopupButton.OK, PopupButton.CANCEL], function(btn) {
-                switch(btn) {
-                    case PopupButton.OK: 
-                        var f = p.firstname;
-                        var l = p.lastname;
-                        if (f.length == 0 || l.length == 0)
-                            PTDatabaseApp.error("You must provide both a first and last name when creating a Peer Teacher.");
-                        else if (db.pt('$f $l') != null)
-                            PTDatabaseApp.error('Peer Teacher with name $f $l already exists and hence cannot be created.');
-                        else {
-                            var newpt = new PeerTeacher(f, l);
-                            db.addPT(newpt);
-                            buildPTList();
-                            loadPT(newpt);
-                            PopupManager.instance.showSimple('Peer teacher $f $l has been successfully added!', "Success");
-                        }
-                    case PopupButton.CANCEL:
-                    default:
-                        PTDatabaseApp.error("Invalid event detected in Add Peer Teacher Dialog.");
-                }
-            });
+        attachEvent(Id.PREFERREDNAME, UIEvent.CHANGE, updatePTBasicInfo);
+        attachEvent(Id.EMAIL, UIEvent.CHANGE, updatePTBasicInfo);
+        attachEvent(Id.IMAGE, UIEvent.CHANGE, updatePTBasicInfo);
+        
+        attachEvent(Id.OFFICE_HOUR_BTN, UIEvent.MOUSE_UP, addOfficeHoursAction);
+        attachEvent(Id.OFFICE_HOURS, UIEvent.COMPONENT_EVENT, function(e:UIEvent) {
+            removeOfficeHoursIndex(Std.parseInt(e.component.id.substr(OFFICE_HOUR_REMOVE_PREFIX.length)), e);
+        });
+        
+        attachEvent(Id.LABS, UIEvent.COMPONENT_EVENT, function(e:UIEvent) {
+            var actionType = e.component.id.substr(0, LAB_ADD_PREFIX.length);
+            var lab = e.component.id.substr(LAB_ADD_PREFIX.length);
+            if (actionType == LAB_ADD_PREFIX)
+                addLabAction(lab, e);
+            else if (actionType == LAB_REMOVE_PREFIX)
+                removeLabAction(lab, e);
+            else
+                PTDatabaseApp.error("An invalid lab action was attempted.");
         });
     }
     
@@ -87,7 +81,7 @@ class EditPTsController extends Controller {
                 text: pt.toString(),
                 componentType: "button",
                 componentValue: "X",
-                controlId: 'remove-${pt.firstname}-${pt.lastname}'
+                componentId: '$PT_REMOVE_PREFIX${pt.firstname} ${pt.lastname}'
             });
         }
         
@@ -95,14 +89,34 @@ class EditPTsController extends Controller {
     }
     
     public function loadPT(pt:PeerTeacher):Void {
+        db.save();
         currentPT = pt;
         refreshPT();
     }
  
 /*  Private Members
  *  =========================================================================*/
+    private static inline var PT_REMOVE_PREFIX = "remove-";
+    private static inline var OFFICE_HOUR_REMOVE_PREFIX = "remove-oh-";
+    private static inline var LAB_ADD_PREFIX    = "add-lab-"; // It is extremely convenient to have this and the remove version be the same length
+    private static inline var LAB_REMOVE_PREFIX = "rem-lab-"; // if these change, make sure the are same length
+    
+/**
+ *  @private
+ *  The currently selected peer teacher.  All changes will be made on this PT.
+ */
     private var currentPT:PeerTeacher;
+    
+/**
+ *  @private
+ *  Contains the list of most recently loaded peer teachers from the database.  In general, if access to the pt list is needed, use this.
+ */
     private var ptListCache:Array<PeerTeacher>;
+    
+/**
+ *  @private
+ *  The actual ListView of the list of PTs; sorry for the terrible variable name...
+ */
     private var ptList:ListView;
  
 /*  Private Methods
@@ -141,12 +155,14 @@ class EditPTsController extends Controller {
             if (currentPT.labs.exists(lab.toString())) {
                 labinfo.componentType = "button";
                 labinfo.componentValue = "X";
-                labinfo.controlId = 'remove-${lab.toString()}';
+                labinfo.componentStyleName = '${LAB_REMOVE_PREFIX}btn';
+                labinfo.componentId = '$LAB_REMOVE_PREFIX${lab.toString()}';
             }
             else if (!currentPT.intersects(lab)) {
                 labinfo.componentType = "button";
                 labinfo.componentValue = "+";
-                labinfo.controlId = 'add-${lab.toString()}';
+                labinfo.componentStyleName = '${LAB_ADD_PREFIX}btn';
+                labinfo.componentId = '$LAB_ADD_PREFIX${lab.toString()}';
             }
             
             listview.dataSource.add(labinfo);
@@ -154,14 +170,18 @@ class EditPTsController extends Controller {
     }
     
     private function refreshPTOfficeHours():Void {
+        getComponent(Id.OFFICE_HOUR_ADD).text = "";
         var listview = getComponentAs(Id.OFFICE_HOURS, ListView);
         refreshListView(listview);
+        var i = 0;
         for (oh in currentPT.officeHours) {
             listview.dataSource.add({
                 text: oh.toString(),
                 componentType: "button",
-                componentValue: "X"
+                componentValue: "X",
+                componentId: '$OFFICE_HOUR_REMOVE_PREFIX$i'
             });
+            ++i;
         }
     }
     
@@ -188,9 +208,175 @@ class EditPTsController extends Controller {
  */
     private function initListView(id:String):ListView {
         var listview = getComponentAs(id, ListView);
-        listview.itemRenderer = ComponentItemRenderer;
+        listview.itemRenderer = IdComponentItemRenderer;
         listview.allowSelection = false;
         return listview;
+    }
+    
+/*  UI Actions
+ *  =========================================================================*/
+/**
+ *  @private
+ *  Event for selecting a peer teacher from the peer teacher list
+ */
+    private function selectPTAction(?e:UIEvent):Void {
+        loadPT(ptListCache[ptList.selectedIndex]);
+    }
+    
+/**
+ *  @private
+ *  Event for creating a new peer teacher
+ */
+    private function addPTAction(?e:UIEvent):Void {
+        var p = new NewPTPopup();
+    //  We use a pop up to determine the information of the PT that needs to be added
+    //  This is because a blank PT should never be added; all PTs must have a first/last name
+        PopupManager.instance.showCustom(p.view, "Add a Peer Teacher", [PopupButton.OK, PopupButton.CANCEL], function(btn) {
+            switch(btn) {
+                case PopupButton.OK: 
+                    var f = p.firstname;
+                    var l = p.lastname;
+                    if (f.length == 0 || l.length == 0)
+                        PTDatabaseApp.error("You must provide both a first and last name when creating a Peer Teacher.");
+                    else if (db.pt('$f $l') != null)
+                        PTDatabaseApp.error('Peer Teacher with name $f $l already exists and hence cannot be created.');
+                    else {
+                        var newpt = new PeerTeacher(f, l);
+                        db.addPT(newpt);
+                        buildPTList();
+                        loadPT(newpt);
+                        PopupManager.instance.showSimple('Peer teacher $f $l has been successfully added!', "Success");
+                    }
+                case PopupButton.CANCEL: // nothing happens
+                default:
+                    PTDatabaseApp.error("Invalid event detected in Add Peer Teacher Dialog.");
+            }
+        });
+    }
+    
+/**
+ *  @private
+ *  Event for removing a specific peer teacher.  To attach this, you can bind it to the peer teacher in question.
+ *  @param name FIRSTNAME LASTNAME
+ */
+    private function removePTAction(name:String, ?e:UIEvent):Void {
+        PopupManager.instance.showSimple('Are you sure you want to remove $name from the database?', "Remove a Peer Teacher", [PopupButton.OK, PopupButton.CANCEL], function(btn) {
+            switch(btn) {
+                case PopupButton.OK:
+                    var pt = db.pt(name);
+                    if (pt != null) {
+                    //  We need to ensure the removed PT is not the currently selected one, otherwise editing a non-existent PT becomes possible
+                        var wasCurrent = pt == currentPT;
+                        db.removePT(pt);
+                        buildPTList();
+                        if (wasCurrent)
+                            loadPT(db.pts()[0]);
+                        else
+                            db.save();
+                        PopupManager.instance.showSimple('Peer teacher $name has been successfully removed!', "Success");
+                    }
+                    else
+                        PTDatabaseApp.error('Attempted to remove non-existent PT $name.  This PT does not exist and therefore cannot be removed.');
+                case PopupButton.CANCEL:
+                default: PTDatabaseApp.error("Invalid event detected in Remove Peer Teacher Dialog");
+            }
+        });
+    }
+    
+/**
+ *  @private
+ *  Updates the current PT's basic info (preferred name, email, and image).
+ */
+    private function updatePTBasicInfo(?e:UIEvent):Void {
+        currentPT.preferredname = getComponent(Id.PREFERREDNAME).text;
+        currentPT.email = getComponent(Id.EMAIL).text;
+        currentPT.image = getComponent(Id.IMAGE).text;
+    }
+    
+/**
+ *  @private
+ *  Attempts to add office hours in the office hours field to the current peer teacher.
+ *  Errors if PT not loaded, format is bad, or a conflict arises.
+ */
+    private function addOfficeHoursAction(?e:UIEvent):Void {
+        if (currentPT == null)
+            PTDatabaseApp.error("Office hours cannot be added.  No PT is selected yet.");
+        else {
+            var raw = getComponent(Id.OFFICE_HOUR_ADD).text;
+            try {
+                var appt = new Appointment(raw);
+                if (!currentPT.intersects(appt)) {
+                    currentPT.officeHours.push(appt);
+                    refreshPTOfficeHours();
+                    refreshPTLabs();
+                }
+                else {
+                //  There is a conflict somewhere
+                    PTDatabaseApp.error("This PT's current schedule or assignments conflict with the proposed office hours.  The office hours cannot be added.");
+                }
+            }
+            catch (err:Dynamic) {
+            //  Format is bad
+                PTDatabaseApp.error("Cannot add office hours due to improper formatting.  Proper formatting is: DAYS TIME_START - TIME_END, eg. MW 10:00 - 11:00 am");
+            }
+        }
+    }
+    
+/**
+ *  @private
+ *  Event for removing office hours from the current peer teacher.
+ *  @param index The index of the office hours to remove
+ */
+    private function removeOfficeHoursIndex(index:Int, ?e:UIEvent):Void {
+        if (currentPT == null) 
+            PTDatabaseApp.error("Office hours cannot be removed.  No PT is selected yet.");
+        else if (index < 0 || index >= currentPT.officeHours.length)
+            PTDatabaseApp.error("Office hours cannot be removed.  Invalid office hours were selected.");
+        else {
+            var appt = currentPT.officeHours[index];
+            currentPT.officeHours.remove(appt);
+            refreshPTOfficeHours();
+            refreshPTLabs();
+            getComponent(Id.OFFICE_HOUR_ADD).text = appt.toString(); // in case we need to undo the removal
+        }
+    }
+    
+/**
+ *  @private
+ *  Event for adding a lab to the current peer teacher
+ *  @param labStr The lab code to add; should be in the database
+ */
+    private function addLabAction(labStr:String, ?e:UIEvent):Void {
+        if (currentPT == null)
+            PTDatabaseApp.error("Cannot add lab.  No PT is selected yet.");
+        else {
+            var lab = db.lab(labStr);
+            if (lab == null)
+                PTDatabaseApp.error('Lab $labStr does not exist and cannot be added to PT.');
+            else if (currentPT.intersects(lab))
+            //  Honestly this shouldn't occur, but we'll catch it anyways
+                PTDatabaseApp.error('Lab $labStr conflicts with current PT\'s schedule and cannot be added.');
+            else {
+                currentPT.labs.set(lab.toString(), lab);
+                refreshPTLabs();
+            }
+        }
+    }
+    
+/**
+ *  @private
+ *  Event for removing a lab from the current peer teacher
+ *  @param labStr The lab code to remove
+ */
+    private function removeLabAction(labStr:String, ?e:UIEvent):Void {
+        if (currentPT == null)
+            PTDatabaseApp.error("Cannot remove lab.  No PT is selected yet.");
+        else if (!currentPT.labs.exists(labStr))
+            PTDatabaseApp.error("Cannot remove lab.  The PT is not assigned to this lab.");
+        else {
+            currentPT.labs.remove(labStr);
+            refreshPTLabs();
+        }
     }
 }
 
