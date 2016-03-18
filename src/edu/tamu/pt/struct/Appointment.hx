@@ -16,6 +16,7 @@ class Appointment {
  *  =========================================================================*/
 /**
  *  Creates a new appointment.
+ *  @param str String representing an appointment, formatted as DAYS TIMES
  */
     public function new(?str:String) {
         days = new Array<Day>();

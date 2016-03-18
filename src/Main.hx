@@ -30,6 +30,7 @@ class Main extends Sprite {
         runner.add(new TestAppointment());
         runner.add(new TestReaders());
         runner.add(new TestDatabase<edu.tamu.pt.db.JsonDatabase>());
+        runner.add(new TestPeerTeacher());
         
         return runner.run();
     }

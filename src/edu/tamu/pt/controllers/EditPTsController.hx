@@ -7,8 +7,11 @@ import haxe.ui.toolkit.core.PopupManager;
 import haxe.ui.toolkit.data.ArrayDataSource;
 import haxe.ui.toolkit.events.UIEvent;
 
+import systools.Dialogs;
+
 import edu.tamu.pt.db.IDatabase;
 import edu.tamu.pt.error.Error;
+import edu.tamu.pt.io.StudentScheduleReader;
 import edu.tamu.pt.struct.Appointment;
 import edu.tamu.pt.struct.PeerTeacher;
 import edu.tamu.pt.ui.NameSortSelector;
@@ -64,6 +67,11 @@ class EditPTsController extends Controller {
             else
                 PTDatabaseApp.error("An invalid lab action was attempted.");
         });
+        
+        attachEvent(Id.SCHEDULE_BTN, UIEvent.MOUSE_UP, updateSinglePTScheduleAction);
+        attachEvent(Id.SCHEDULE_CLEAR, UIEvent.MOUSE_UP, clearScheduleAction);
+        
+        attachEvent(Id.IMPORT_BULK_BTN, UIEvent.MOUSE_UP, importBulkSchedulesAction);
     }
     
 /*  Class Methods
@@ -211,6 +219,14 @@ class EditPTsController extends Controller {
         listview.itemRenderer = IdComponentItemRenderer;
         listview.allowSelection = false;
         return listview;
+    }
+    
+    private inline function selectPTScheduleFiles(?msg = "Select peer teacher schedule files to import"):Array<String> {
+        return Dialogs.openFile("Import Schedules", msg, {
+            count: 1,
+            extensions: ["*.txt"],
+            descriptions: ["*.txt"]
+        });
     }
     
 /*  UI Actions
@@ -378,6 +394,132 @@ class EditPTsController extends Controller {
             refreshPTLabs();
         }
     }
+    
+    private function readPT(filename:String):PeerTeacher {
+        try {
+            var reader = new StudentScheduleReader(filename);
+            var newPT = reader.read();
+            return newPT;
+        }
+        catch (err:Error) {
+            PTDatabaseApp.error(err.message);
+            return null;
+        }
+        catch (err:Dynamic) {
+            PTDatabaseApp.error("An unknown error has occurred.  The schedule was not imported.");
+            return null;
+        }
+    }
+    
+    private function importBulkSchedulesAction(?e:UIEvent):Void {
+    //  First we need to warn the user about the potential issues.
+    //  Namely, new PTs will be created as needed, and schedules will be overriden.  Conflicts will be removed.
+        PopupManager.instance.showSimple("New peer teachers will be created if they do not already exist.  Furthermore, existing schedules will be replaced and conflicts will be resolved.  When resolving conflicts, CURRENT LAB ASSIGNMENTS AND OFFICE HOURS MAY BE REMOVED.  Are you sure?", "Warning!", [PopupButton.OK, PopupButton.CANCEL], function(btn) {
+            switch(btn) {
+                case PopupButton.OK:
+                    var filenames = selectPTScheduleFiles();
+                    if (filenames == null || filenames.length <= 0)
+                        return;
+                        
+                    var allPTs = db.pts();
+                //  The map will make things a little faster
+                    var ptmap = new Map<String, PeerTeacher>();
+                    for (p in allPTs)
+                        ptmap.set(p.toString(), p);
+                        
+                //  Scan all the selected files
+                    for (filename in filenames) {
+                        var pt = readPT(filename);
+                        if (pt == null)
+                            continue; // ignore errors
+                        else if (!ptmap.exists(pt.toString())) {
+                            db.addPT(pt);
+                            ptmap.set(pt.toString(), pt);
+                        }
+                        else {
+                            for(cls in pt.schedule)
+                                ptmap.get(pt.toString()).removeConflictsWith(cls);
+                            ptmap.get(pt.toString()).replaceSchedule(pt.schedule);
+                        }
+                    }
+                    
+                    buildPTList();
+                    refreshPT();
+                case PopupButton.CANCEL:
+                default:
+            }
+        });
+    }
+    
+/**
+ *  @private
+ *  Event for updating the current PT's schedule
+ *  @param e
+ */
+    private function updateSinglePTScheduleAction(?e:UIEvent):Void {
+        if (currentPT == null)
+            PTDatabaseApp.error("No PT is selected yet.");
+        else {
+            var filenames = selectPTScheduleFiles();
+            if (filenames == null || filenames.length <= 0) // no file selected
+                return;
+            
+            var filename = filenames[0];
+            
+        //  Read in the file
+            var pt = readPT(filename);
+            if (pt == null) {
+                PTDatabaseApp.error("The file could not be imported.");
+                return;
+            }
+            
+        //  Some sanity checks.  First, we need to make sure the name matches the current PT.
+        //  Otherwise, we might be importing the wrong schedule.  Let's make a pop up to alert the user of this.
+            var continueImport = true;
+            if (currentPT.firstname != pt.firstname || currentPT.lastname != pt.lastname) {
+                continueImport = false;
+                PopupManager.instance.showSimple('The name on the imported file (${pt.toString()}) does not match the name of the currently loaded peer teacher (${currentPT.toString()}).  If you continue, you may be overriding the incorrect PT\'s schedule.  Continue anyways?', "Warning!", [PopupButton.OK, PopupButton.CANCEL], function(btn) {
+                    switch(btn) {
+                        case PopupButton.OK:
+                            continueImport = true;
+                        case PopupButton.CANCEL:
+                        default:
+                    }
+                });
+                trace("test");
+            }
+            
+            if (continueImport) {
+                for(cls in pt.schedule)
+                    currentPT.removeConflictsWith(cls);
+                currentPT.replaceSchedule(pt.schedule);
+                refreshPT();
+                trace("COMPLETE");
+            }
+        }
+    }
+    
+/**
+ *  Event for clearing the schedule of the current peer teacher
+ *  @param e
+ */
+    private function clearScheduleAction(?e:UIEvent):Void {
+        if (currentPT == null)
+            PTDatabaseApp.error("Cannot clear schedule since no PT is loaded.");
+        else {
+        //  We need to make sure this is what the user wants to do, so we make a popup
+            PopupManager.instance.showSimple('Are you sure you want to clear the schedule for ${currentPT.toString()}?', "Clear Schedule", [PopupButton.OK, PopupButton.CANCEL], function(btn) {
+                switch(btn) {
+                    case PopupButton.OK:
+                        currentPT.clearSchedule();
+                        refreshPTLabs();
+                        refreshPTSchedule();
+                    case PopupButton.CANCEL:
+                    default:
+                }
+            });
+        }
+    }
 }
 
 @:enum private abstract Id(String) from String to String {
@@ -395,7 +537,9 @@ class EditPTsController extends Controller {
     var OFFICE_HOUR_BTN = "edit-pts-add-office-hours-btn";
     var SCHEDULE = "edit-pts-schedule";
     var SCHEDULE_BTN = "edit-pts-upload-schedule";
+    var SCHEDULE_CLEAR = "edit-pts-clear-schedule";
     var SORTBY = "edit-pts-sortby";
     var PT_LIST = "edit-pts-pt-list";
     var ADD_PT_BTN = "edit-pts-add-pt-btn";
+    var IMPORT_BULK_BTN = "edit-pts-import-bulk-btn";
 }
