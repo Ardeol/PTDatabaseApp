@@ -19,6 +19,7 @@ class CustomUIRegistrar {
     public static function registerAll():Void {
         register(SmartTextInput, "smarttextinput");
         register(NameSortSelector, "namesortselector");
+        register(TextTable, "texttable");
     }
     
 /**

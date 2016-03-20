@@ -14,6 +14,7 @@ import edu.tamu.pt.error.Error;
 import edu.tamu.pt.io.StudentScheduleReader;
 import edu.tamu.pt.struct.Appointment;
 import edu.tamu.pt.struct.PeerTeacher;
+import edu.tamu.pt.struct.ClassSchedule;
 import edu.tamu.pt.ui.NameSortSelector;
 import edu.tamu.pt.ui.NewPTPopup;
 import edu.tamu.pt.ui.renderers.IdComponentItemRenderer;
@@ -41,6 +42,10 @@ class EditPTsController extends Controller {
         
         this.ptListCache = new Array<PeerTeacher>();
         buildPTList();
+        
+        attachEvent(Id.SORTBY, UIEvent.CHANGE, function(e) {
+            buildPTList();
+        });
         
         attachEvent(Id.PT_LIST, UIEvent.CHANGE, selectPTAction);
         attachEvent(Id.ADD_PT_BTN, UIEvent.MOUSE_UP, addPTAction);
@@ -74,12 +79,11 @@ class EditPTsController extends Controller {
         attachEvent(Id.IMPORT_BULK_BTN, UIEvent.MOUSE_UP, importBulkSchedulesAction);
     }
     
-/*  Class Methods
- *  =========================================================================*/
-    
- 
 /*  Public Methods
- *  =========================================================================*/
+ *  ==========================================================================*/
+/**
+ *  Refreshes the list of peer teachers.
+ */
     public function buildPTList():Void {
         refreshListView(ptList);
         var pts = db.pts(getComponentAs(Id.SORTBY, NameSortSelector).sorter());
@@ -96,9 +100,30 @@ class EditPTsController extends Controller {
         this.ptListCache = pts;
     }
     
+/**
+ *  Loads the specified peer teacher.
+ *  @param pt
+ */
     public function loadPT(pt:PeerTeacher):Void {
         db.save();
         currentPT = pt;
+        refreshPT();
+    }
+    
+/**
+ *  Opens up the dialog for importing multiple peer teachers
+ */
+    public function importPTSchedules():Void {
+        importBulkSchedulesAction();
+    }
+    
+/**
+ *  @inheritDoc
+ */
+    override public function refresh():Void {
+        buildPTList();
+        if(currentPT != null)
+            currentPT = db.pt(currentPT.toString());
         refreshPT();
     }
  
@@ -129,6 +154,13 @@ class EditPTsController extends Controller {
  
 /*  Private Methods
  *  =========================================================================*/
+    private function clearPTFields():Void {
+        clearPTBasic();
+        clearPTLabs();
+        clearPTOfficeHours();
+        clearPTSchedule();
+    }
+ 
     private function refreshPT():Void {
         refreshPTBasic();
         refreshPTLabs();
@@ -136,72 +168,109 @@ class EditPTsController extends Controller {
         refreshPTSchedule();
     }
     
+    private function clearPTBasic():Void {
+        getComponent(Id.FIRSTNAME).text = "";
+        getComponent(Id.LASTNAME).text = "";
+        getComponent(Id.PREFERREDNAME).text = "";
+        getComponent(Id.EMAIL).text = "";
+        getComponent(Id.IMAGE).text = "";
+    }
+    
     private function refreshPTBasic():Void {
-        getComponent(Id.FIRSTNAME).text = currentPT.firstname;
-        getComponent(Id.LASTNAME).text = currentPT.lastname;
-        getComponent(Id.PREFERREDNAME).text = currentPT.preferredname;
-        getComponent(Id.EMAIL).text = currentPT.email;
-        getComponent(Id.IMAGE).text = currentPT.image;
+        if (currentPT != null) {
+            getComponent(Id.FIRSTNAME).text = currentPT.firstname;
+            getComponent(Id.LASTNAME).text = currentPT.lastname;
+            getComponent(Id.PREFERREDNAME).text = currentPT.preferredname;
+            getComponent(Id.EMAIL).text = currentPT.email;
+            getComponent(Id.IMAGE).text = currentPT.image;
+        }
+        else
+            clearPTBasic();
+    }
+    
+    private function clearPTLabs():Void {
+        getComponent(Id.CUR_LABS).text = "";
+        refreshListView(getComponentAs(Id.LABS, ListView));
     }
     
     private function refreshPTLabs():Void {
-        var curLabs = getComponent(Id.CUR_LABS);
-        curLabs.text = "Current: ";
-        for (lab in currentPT.labs)
-            curLabs.text += '${lab.code}-${lab.section}, '; // @TODO make prettier (ie. no trailing ,)
-        
-        var allLabs = db.labs(Sorters.labOrder);
-        var listview = getComponentAs(Id.LABS, ListView);
-        refreshListView(listview);
-        
-        for (lab in allLabs) {
-            var labinfo:Dynamic = {
-                text: lab.toString(),
-                subtext: lab.timesString()
-            };
+        if (currentPT != null) {
+            var curLabs = getComponent(Id.CUR_LABS);
+            curLabs.text = "Current: ";
+            for (lab in currentPT.labs)
+                curLabs.text += '${lab.code}-${lab.section}, '; // @TODO make prettier (ie. no trailing ,)
             
-            if (currentPT.labs.exists(lab.toString())) {
-                labinfo.componentType = "button";
-                labinfo.componentValue = "X";
-                labinfo.componentStyleName = '${LAB_REMOVE_PREFIX}btn';
-                labinfo.componentId = '$LAB_REMOVE_PREFIX${lab.toString()}';
-            }
-            else if (!currentPT.intersects(lab)) {
-                labinfo.componentType = "button";
-                labinfo.componentValue = "+";
-                labinfo.componentStyleName = '${LAB_ADD_PREFIX}btn';
-                labinfo.componentId = '$LAB_ADD_PREFIX${lab.toString()}';
-            }
+            var allLabs = db.labs(Sorters.labOrder);
+            var listview = getComponentAs(Id.LABS, ListView);
+            refreshListView(listview);
             
-            listview.dataSource.add(labinfo);
+            for (lab in allLabs) {
+                var labinfo:Dynamic = {
+                    text: lab.toString(),
+                    subtext: lab.timesString()
+                };
+                
+                if (currentPT.labs.exists(lab.toString())) {
+                    labinfo.componentType = "button";
+                    labinfo.componentValue = "X";
+                    labinfo.componentStyleName = '${LAB_REMOVE_PREFIX}btn';
+                    labinfo.componentId = '$LAB_REMOVE_PREFIX${lab.toString()}';
+                }
+                else if (!currentPT.intersects(lab)) {
+                    labinfo.componentType = "button";
+                    labinfo.componentValue = "+";
+                    labinfo.componentStyleName = '${LAB_ADD_PREFIX}btn';
+                    labinfo.componentId = '$LAB_ADD_PREFIX${lab.toString()}';
+                }
+                
+                listview.dataSource.add(labinfo);
+            }
         }
+        else
+            clearPTLabs();
+    }
+    
+    private function clearPTOfficeHours():Void {
+        refreshListView(getComponentAs(Id.OFFICE_HOURS, ListView));
     }
     
     private function refreshPTOfficeHours():Void {
-        getComponent(Id.OFFICE_HOUR_ADD).text = "";
-        var listview = getComponentAs(Id.OFFICE_HOURS, ListView);
-        refreshListView(listview);
-        var i = 0;
-        for (oh in currentPT.officeHours) {
-            listview.dataSource.add({
-                text: oh.toString(),
-                componentType: "button",
-                componentValue: "X",
-                componentId: '$OFFICE_HOUR_REMOVE_PREFIX$i'
-            });
-            ++i;
+        if (currentPT != null) {
+            getComponent(Id.OFFICE_HOUR_ADD).text = "";
+            var listview = getComponentAs(Id.OFFICE_HOURS, ListView);
+            refreshListView(listview);
+            var i = 0;
+            for (oh in currentPT.officeHours) {
+                listview.dataSource.add({
+                    text: oh.toString(),
+                    componentType: "button",
+                    componentValue: "X",
+                    componentId: '$OFFICE_HOUR_REMOVE_PREFIX$i'
+                });
+                ++i;
+            }
         }
+        else
+            clearPTOfficeHours();
+    }
+    
+    private function clearPTSchedule():Void {
+        refreshListView(getComponentAs(Id.SCHEDULE, ListView));
     }
     
     private function refreshPTSchedule():Void {
-        var listview = getComponentAs(Id.SCHEDULE, ListView);
-        refreshListView(listview);
-        for (cls in currentPT.schedule) {
-            listview.dataSource.add({
-                text: cls.toString(),
-                subtext: cls.timesString()
-            });
+        if (currentPT != null) {
+            var listview = getComponentAs(Id.SCHEDULE, ListView);
+            refreshListView(listview);
+            for (cls in currentPT.schedule) {
+                listview.dataSource.add({
+                    text: cls.toString(),
+                    subtext: cls.timesString()
+                });
+            }
         }
+        else
+            clearPTSchedule();
     }
     
     private inline function refreshListView(lv:ListView):Void {
@@ -285,10 +354,11 @@ class EditPTsController extends Controller {
                         var wasCurrent = pt == currentPT;
                         db.removePT(pt);
                         buildPTList();
-                        if (wasCurrent)
-                            loadPT(db.pts()[0]);
-                        else
-                            db.save();
+                        if (wasCurrent) {
+                            currentPT = null;
+                            clearPTFields();
+                        }
+                        db.save();
                         PopupManager.instance.showSimple('Peer teacher $name has been successfully removed!', "Success");
                     }
                     else
@@ -395,22 +465,21 @@ class EditPTsController extends Controller {
         }
     }
     
+/**
+ *  @private
+ *  Reads a peer teacher from the given file.
+ *  @param filename Path to the file
+ *  @return A Peer Teacher with a name and schedule
+ *  @throws Error if there is a problem with the file or parsing
+ */
     private function readPT(filename:String):PeerTeacher {
-        try {
-            var reader = new StudentScheduleReader(filename);
-            var newPT = reader.read();
-            return newPT;
-        }
-        catch (err:Error) {
-            PTDatabaseApp.error(err.message);
-            return null;
-        }
-        catch (err:Dynamic) {
-            PTDatabaseApp.error("An unknown error has occurred.  The schedule was not imported.");
-            return null;
-        }
+        return new StudentScheduleReader(filename).read();
     }
     
+/**
+ *  @private
+ *  Event for importing many schedules at once
+ */
     private function importBulkSchedulesAction(?e:UIEvent):Void {
     //  First we need to warn the user about the potential issues.
     //  Namely, new PTs will be created as needed, and schedules will be overriden.  Conflicts will be removed.
@@ -421,7 +490,7 @@ class EditPTsController extends Controller {
                     if (filenames == null || filenames.length <= 0)
                         return;
                         
-                    var allPTs = db.pts();
+                    var allPTs:Array<PeerTeacher> = db.pts();
                 //  The map will make things a little faster
                     var ptmap = new Map<String, PeerTeacher>();
                     for (p in allPTs)
@@ -429,18 +498,24 @@ class EditPTsController extends Controller {
                         
                 //  Scan all the selected files
                     for (filename in filenames) {
-                        var pt = readPT(filename);
+                        var pt:PeerTeacher = null;
+                        
+                        try {  pt = readPT(filename); }
+                        catch (err:Error) {
+                            PTDatabaseApp.error(err.message);
+                            continue;
+                        }
+                        catch (err:Dynamic) {  continue; }
+                        
                         if (pt == null)
-                            continue; // ignore errors
+                            continue;
                         else if (!ptmap.exists(pt.toString())) {
                             db.addPT(pt);
+                        //  Add to map, in case there are two files with the same name
                             ptmap.set(pt.toString(), pt);
                         }
-                        else {
-                            for(cls in pt.schedule)
-                                ptmap.get(pt.toString()).removeConflictsWith(cls);
-                            ptmap.get(pt.toString()).replaceSchedule(pt.schedule);
-                        }
+                        else 
+                            replaceSchedule(ptmap.get(pt.toString()), pt.schedule);
                     }
                     
                     buildPTList();
@@ -449,6 +524,65 @@ class EditPTsController extends Controller {
                 default:
             }
         });
+    }
+    
+/**
+ *  Simply replaces the peer teacher's schedule in a safe manner.  Conflicts are resolved simultaneously.
+ *  Does not refresh the screen.
+ *  @param pt
+ *  @param schedule
+ */
+    private function replaceSchedule(pt:PeerTeacher, schedule:Array<ClassSchedule>):Void {
+        for (cls in schedule)
+            pt.removeConflictsWith(cls);
+        pt.replaceSchedule(schedule);
+    }
+    
+/**
+ *  Also safely replaces the peer teacher's schedule, but will include a warning if conflicts exist.
+ *  The warning details exactly what the conflicts are.  Refreshes the screen.
+ *  @param pt
+ *  @param schedule
+ */
+    private function replaceScheduleWithWarning(pt:PeerTeacher, schedule:Array<ClassSchedule>):Void {
+    //  First we need to find if there are conflicts
+    //  If there are, we must popup the problem and specify what is wrong
+        var labConflicts = new Array<ClassSchedule>();
+        var ohConflicts  = new Array<Appointment>();
+        for (cls in schedule) {
+        //  the for loops ensure no duplicates arise
+            for (l in pt.findConflictingLabs(cls))
+                if (labConflicts.indexOf(l) < 0)
+                    labConflicts.push(l);
+            for (oh in pt.findConflictingOfficeHours(cls))
+                if (ohConflicts.indexOf(oh) < 0)
+                    ohConflicts.push(oh);
+        }
+        
+        if (labConflicts.length <= 0 && ohConflicts.length <= 0) {
+            replaceSchedule(pt, schedule);
+            refreshPT();
+        }
+        else {
+            var message = "The new schedule conflicts with ";
+            if (labConflicts.length > 0)
+                message += 'current lab assignments (${labConflicts.join(", ")}) ';
+            if (ohConflicts.length > 0) {
+                if (labConflicts.length > 0)
+                    message += "and ";
+                message += 'current office hours (${ohConflicts.join("; ")})';
+            }
+            message += ".  If you continue, these conflicts will be removed.  Do you wish to continue?";
+            PopupManager.instance.showSimple(message, "Continue?", [PopupButton.OK, PopupButton.CANCEL], function(btn) {
+                switch(btn) {
+                    case PopupButton.OK:
+                        replaceSchedule(pt, schedule);
+                        refreshPT();
+                    case PopupButton.CANCEL:
+                    default:
+                }
+            });
+        }
     }
     
 /**
@@ -467,7 +601,17 @@ class EditPTsController extends Controller {
             var filename = filenames[0];
             
         //  Read in the file
-            var pt = readPT(filename);
+            var pt:PeerTeacher = null;
+            var importErrorMessage = "The file could not be imported.";
+            try {  pt = readPT(filename); }
+            catch (err:Error) {
+                PTDatabaseApp.error('$importErrorMessage  ${err.message}');
+                return;
+            }
+            catch (err:Dynamic) {
+                PTDatabaseApp.error(importErrorMessage);
+                return;
+            }
             if (pt == null) {
                 PTDatabaseApp.error("The file could not be imported.");
                 return;
@@ -475,27 +619,18 @@ class EditPTsController extends Controller {
             
         //  Some sanity checks.  First, we need to make sure the name matches the current PT.
         //  Otherwise, we might be importing the wrong schedule.  Let's make a pop up to alert the user of this.
-            var continueImport = true;
             if (currentPT.firstname != pt.firstname || currentPT.lastname != pt.lastname) {
-                continueImport = false;
                 PopupManager.instance.showSimple('The name on the imported file (${pt.toString()}) does not match the name of the currently loaded peer teacher (${currentPT.toString()}).  If you continue, you may be overriding the incorrect PT\'s schedule.  Continue anyways?', "Warning!", [PopupButton.OK, PopupButton.CANCEL], function(btn) {
                     switch(btn) {
                         case PopupButton.OK:
-                            continueImport = true;
+                            replaceScheduleWithWarning(currentPT, pt.schedule);
                         case PopupButton.CANCEL:
                         default:
                     }
                 });
-                trace("test");
             }
-            
-            if (continueImport) {
-                for(cls in pt.schedule)
-                    currentPT.removeConflictsWith(cls);
-                currentPT.replaceSchedule(pt.schedule);
-                refreshPT();
-                trace("COMPLETE");
-            }
+            else
+                replaceScheduleWithWarning(currentPT, pt.schedule);
         }
     }
     

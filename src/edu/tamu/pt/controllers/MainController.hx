@@ -3,6 +3,9 @@ package edu.tamu.pt.controllers;
 import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.events.MenuEvent;
 
+import systools.Dialogs;
+
+import edu.tamu.pt.PTDatabaseApp;
 import edu.tamu.pt.db.IDatabase;
 
 /** MainController Class
@@ -14,8 +17,9 @@ class MainController extends Controller {
 
 /*  Constructor
  *  =========================================================================*/
-    public function new(db:IDatabase) {
-        super("ui/main.xml", db);
+    public function new(app:PTDatabaseApp) {
+        super("ui/main.xml", app.database);
+        this.app = app;
         content = getComponent(Id.CONTENT);
         
     //  Initial Controller Here
@@ -23,10 +27,55 @@ class MainController extends Controller {
         
         attachEvent(Id.FILE, MenuEvent.SELECT, function(e:MenuEvent) {
             switch(e.menuItem.id) {
-                case Id.FILE_LOAD: menuItemNotImplemented();
-                case Id.FILE_SAVE: db.save();
-                case Id.FILE_EXPORT: menuItemNotImplemented();
-                case Id.FILE_EXIT: menuItemNotImplemented();
+                case Id.FILE_LOAD: 
+                    var locations = Dialogs.openFile("Load Database", "Load a database file", {
+                        count: 1,
+                        extensions: ["*.json"],
+                        descriptions: ["*.json"]
+                    });
+                    if (locations == null || locations.length <= 0)
+                        return;
+                    
+                    var location = locations[0];
+                    
+                    if (!db.load(location))
+                        PTDatabaseApp.error("Database could not be loaded.  " + db.error());
+                    else {
+                        app.config.section("").set(PTDatabaseApp.CONFIG_DBPATH, location);
+                        app.saveConfig();
+                        current.refresh();
+                    }
+                case Id.FILE_SAVE:
+                    db.save();
+                case Id.FILE_EXPORT:
+                //  @TODO The initialDirectory code doesn't work
+                    var finalSlashIndex = app.config.get(PTDatabaseApp.CONFIG_DBPATH).lastIndexOf("/");
+                    if (finalSlashIndex < 0)
+                        app.config.get(PTDatabaseApp.CONFIG_DBPATH).lastIndexOf("\\");
+                    var initialDirectory = "";
+                    if (finalSlashIndex >= 0)
+                        initialDirectory = app.config.get(PTDatabaseApp.CONFIG_DBPATH).substring(0, finalSlashIndex);
+                    
+                    var location = Dialogs.saveFile("Save Database As", "Save the Database as a JSON file", initialDirectory, {
+                        count: 1,
+                        extensions: ["*.json"],
+                        descriptions: ["*.json"]
+                    });
+                    
+                    if (location == null || location.length <= 0)
+                        return;
+                        
+                    if (!~/\.json$/.match(location))
+                        location += ".json";
+
+                    if (!db.save(location))
+                        PTDatabaseApp.error("Could not save database to location.  " + db.error());
+                    else {
+                        app.config.section("").set(PTDatabaseApp.CONFIG_DBPATH, location);
+                        app.saveConfig();
+                    }
+                case Id.FILE_EXIT:
+                    app.exit();
                 default: invalidMenuError();
             }
         });
@@ -35,7 +84,10 @@ class MainController extends Controller {
             switch(e.menuItem.id) {
                 case Id.EDIT_PTS: changeView(new EditPTsController(db));
                 case Id.EDIT_LABS: menuItemNotImplemented();
-                case Id.EDIT_IMPORT_PTS: menuItemNotImplemented();
+                case Id.EDIT_IMPORT_PTS: 
+                    var editController = new EditPTsController(db);
+                    changeView(editController);
+                    editController.importPTSchedules();
                 case Id.EDIT_IMPORT_LABS: menuItemNotImplemented();
                 default:invalidMenuError();
             }
@@ -84,6 +136,7 @@ class MainController extends Controller {
  *  =========================================================================*/
     private var content:Component;
     private var current:Controller;
+    private var app:PTDatabaseApp;
  
 /*  Private Methods
  *  =========================================================================*/

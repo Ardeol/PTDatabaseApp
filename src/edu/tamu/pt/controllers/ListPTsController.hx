@@ -25,7 +25,7 @@ class ListPTsController extends ListController {
         super("ui/list-pts.xml", db, Id.TABLE);
         this.sortby = getComponentAs(Id.SORTBY, NameSortSelector);
         
-    //  attachEvent(Id.SORTBY, UIEvent.CHANGE, function(e) {  buildTable(); });
+        attachEvent(Id.SORTBY, UIEvent.CHANGE, function(e) {  buildTable(); });
         
         buildTable();
     }
@@ -40,6 +40,7 @@ class ListPTsController extends ListController {
         
         var pts = db.pts(sortby.sorter());
         
+    /*
         for (pt in pts) {
             var labs = new Array<String>();
             var reg = ~/[a-zA-Z]*-(\d*-\d*)/;
@@ -55,7 +56,17 @@ class ListPTsController extends ListController {
                 "colD": pt.officeHours.join("; ")
             });
         }
-        
+    */
+        for (pt in pts) {
+            var labs = new Array<String>();
+            var reg = ~/[a-zA-Z]*-(\d*-\d*)/;
+            for (lab in pt.labs) {
+                if (reg.match(lab.toString()))
+                    labs.push(reg.matched(1));
+            }
+            
+            table.addRow([pt.firstname, pt.lastname, labs.join(", "), pt.officeHours.join("; ")]);
+        }
     }
     
 /*  Private Members
@@ -68,12 +79,14 @@ class ListPTsController extends ListController {
  *  @inheritDoc
  */
     override private function buildHeader():Void {
+    /*
         table.dataSource.add({
             "colA": "Name",
             "colB": "g",
             "colC": "Labs",
             "colD": "Office Hours"
         });
+    */
     }
  
 }
