@@ -2,11 +2,12 @@
 <vbox id="list-pts-container" width="100%" height="100%">
     <text class="title" text="List of Peer Teachers" />
     <namesortselector id="list-pts-sortby" width="100%" />
-<!--
+<!---->
     <tableview id="list-pts-table" width="100%" height="100%">
         
     </tableview>
--->
+<!---->
+<!--
     <texttable id="list-pts-table" width="100%" height="100%">
         <hbox width="100%">
             <text text="Name" />
@@ -15,4 +16,5 @@
             <text text="Office Hours" />
         </hbox>
     </texttable>
+<!---->
 </vbox>

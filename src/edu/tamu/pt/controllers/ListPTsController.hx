@@ -40,7 +40,7 @@ class ListPTsController extends ListController {
         
         var pts = db.pts(sortby.sorter());
         
-    /*
+    /*  TableView Version */
         for (pt in pts) {
             var labs = new Array<String>();
             var reg = ~/[a-zA-Z]*-(\d*-\d*)/;
@@ -56,7 +56,9 @@ class ListPTsController extends ListController {
                 "colD": pt.officeHours.join("; ")
             });
         }
-    */
+    /*  */
+    
+    /*  TextTable version
         for (pt in pts) {
             var labs = new Array<String>();
             var reg = ~/[a-zA-Z]*-(\d*-\d*)/;
@@ -67,6 +69,7 @@ class ListPTsController extends ListController {
             
             table.addRow([pt.firstname, pt.lastname, labs.join(", "), pt.officeHours.join("; ")]);
         }
+    /*  */
     }
     
 /*  Private Members
@@ -79,14 +82,14 @@ class ListPTsController extends ListController {
  *  @inheritDoc
  */
     override private function buildHeader():Void {
-    /*
+    /*  TableView */
         table.dataSource.add({
             "colA": "Name",
-            "colB": "g",
+            "colB": "",
             "colC": "Labs",
             "colD": "Office Hours"
         });
-    */
+    /*  */
     }
  
 }
