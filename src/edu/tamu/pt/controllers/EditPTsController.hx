@@ -42,7 +42,6 @@ class EditPTsController extends Controller {
          * 
          *  Somewhere in here we need to save, before loading ofc; for now, ignoring
          * */
-        //  db.save();
             loadPT(ptListCache[ptList.selectedIndex]);
         });
         
@@ -95,6 +94,7 @@ class EditPTsController extends Controller {
     }
     
     public function loadPT(pt:PeerTeacher):Void {
+    //  db.save();
         currentPT = pt;
         refreshPT();
     }
