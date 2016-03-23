@@ -40,6 +40,8 @@ class PTDatabaseApp {
         initDatabase();
         started = false;
     
+        setExitHandler();
+        
     /*
         Lib.application.onExit.add(function(code) {
             trace("EXITING");
@@ -59,15 +61,27 @@ class PTDatabaseApp {
         if(!started) {
             started = true;
         
-            ui = new MainController(database);
+            ui = new MainController(this);
             Toolkit.openFullscreen(function(root) {
                 root.addChild(ui.view);
             });
         }
     }
     
+    public function saveConfig():Void {
+        var file = File.write(CONFIG_PATH);
+        file.writeString(config.toString());
+        file.close();
+    }
+    
     public function exit():Void {
-        
+        database.save();
+        saveConfig();
+      #if openfl_legacy
+        Lib.close();
+      #else
+        Sys.exit(0);
+      #end
     }
  
 /*  Private Members
@@ -104,6 +118,16 @@ class PTDatabaseApp {
         database = new DatabaseType();
         if (!database.load(config.get(CONFIG_DBPATH)))
             error(database.error());
+    }
+    
+    private function setExitHandler():Void {
+      #if openfl_legacy
+        Lib.current.stage.onQuit = exit;
+      #else
+        Lib.current.stage.application.onExit.add(function(code) {
+            exit();
+        });
+      #end
     }
 }
 

@@ -22,11 +22,9 @@ class NewPTPopup extends XMLController {
  
 /*  Private Methods
  *  =========================================================================*/
-    private function get_firstname():String {
+    private function get_firstname():String 
         return getComponent(FIRSTNAME).text;
-    }
     
-    private function get_lastname():String {
+    private function get_lastname():String 
         return getComponent(LASTNAME).text;
-    }
 }

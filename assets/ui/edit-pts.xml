@@ -28,14 +28,20 @@
                 </vbox>
                 <vbox text="View Schedule" width="100%" height="100%">
                     <listview id="edit-pts-schedule" width="100%" height="100%" />
-                    <button id="edit-pts-upload-schedule" width="100%" text="Upload New Schedule" />
+                    <hbox width="100%">
+                        <button id="edit-pts-upload-schedule" width="50%" text="Upload New Schedule" />
+                        <button id="edit-pts-clear-schedule" width="50%" text="Clear Schedule" />
+                    </hbox>
                 </vbox>
             </tabview>
         </vbox>
         <vbox width="50%" height="100%">
             <namesortselector id="edit-pts-sortby" width="100%" />
             <listview id="edit-pts-pt-list" width="100%" height="100%" />
-            <button id="edit-pts-add-pt-btn" width="100%" text="Add a Peer Teacher" />
+            <hbox width="100%">
+                <button id="edit-pts-add-pt-btn" width="50%" text="Add a Peer Teacher" />
+                <button id="edit-pts-import-bulk-btn" width="50%" text="Import Bulk PT Schedules" />
+            </hbox>
         </vbox>
     </hbox>
 </vbox>

@@ -34,12 +34,14 @@ class ListLabsController extends ListController {
         
         for (lab in labs) {
             var pts = db.pts(Filters.hasLab.bind(lab), Sorters.alpha);
-            
+            table.addRow([lab.toString(), lab.timesString(), pts.join(", ")]);
+        /*
             table.dataSource.add({
                 "colA": lab.toString(),
                 "colB": lab.timesString(),
                 "colC": pts.join(", ")
             });
+        */
         }
         
     }
@@ -50,11 +52,13 @@ class ListLabsController extends ListController {
  *  @inheritDoc
  */
     override private function buildHeader():Void {
+    /*
         table.dataSource.add({
             "colA": "Lab",
             "colB": "Times",
             "colC": "Peer Teachers",
         });
+    */
     }
 }
 

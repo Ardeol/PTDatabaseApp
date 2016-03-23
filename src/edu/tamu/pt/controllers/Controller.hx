@@ -34,6 +34,11 @@ class Controller extends XMLController {
         db.save();
         db = null;
     }
+    
+/**
+ *  Reloads the entire view, or at least the parts that are relevant
+ */
+    public function refresh():Void {}
 
 /*  Private Members
  *  =========================================================================*/
