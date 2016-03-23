@@ -40,7 +40,7 @@ class ListPTsController extends ListController {
         
         var pts = db.pts(sortby.sorter());
         
-    /*  TableView Version */
+    /*  TableView Version 
         for (pt in pts) {
             var labs = new Array<String>();
             var reg = ~/[a-zA-Z]*-(\d*-\d*)/;
@@ -58,7 +58,7 @@ class ListPTsController extends ListController {
         }
     /*  */
     
-    /*  TextTable version
+    /*  TextTable version */
         for (pt in pts) {
             var labs = new Array<String>();
             var reg = ~/[a-zA-Z]*-(\d*-\d*)/;
@@ -82,7 +82,7 @@ class ListPTsController extends ListController {
  *  @inheritDoc
  */
     override private function buildHeader():Void {
-    /*  TableView */
+    /*  TableView 
         table.dataSource.add({
             "colA": "Name",
             "colB": "",

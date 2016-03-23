@@ -3,6 +3,8 @@ package edu.tamu.pt.ui;
 import haxe.ui.toolkit.core.interfaces.IDisplayObject;
 import haxe.ui.toolkit.core.ClassManager;
 
+import edu.tamu.pt.ui.TextTable.TextTableComponent;
+
 /** CustomUIRegistrar Class
  *  @author  Timothy Foster
  *  @version x.xx.160305
@@ -19,7 +21,8 @@ class CustomUIRegistrar {
     public static function registerAll():Void {
         register(SmartTextInput, "smarttextinput");
         register(NameSortSelector, "namesortselector");
-        register(TextTable, "texttable");
+    //    register(TextTable, "texttable");
+        register(TextTableComponent, "texttable");
     }
     
 /**

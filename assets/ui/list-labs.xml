@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <vbox id="list-labs-container" width="100%" height="100%">
     <text class="title" text="List of Labs" />
-<!---->
+<!--
     <tableview id="list-labs-table" width="100%" height="100%">
         
     </tableview>
 <!---->
     
-<!--
-    <texttable id="list-labs-table" width="100%" height="100%">
-        <hbox width="100%">
-            <text text="Lab" />
-            <text text="Times" />
-            <text text="Peer Teachers" />
-        </hbox>
+<!---->
+    <texttable id="list-labs-table" width="100%" height="100%" columns="3">
+        <text text="Lab" />
+        <text text="Times" />
+        <text text="Peer Teachers" />
     </texttable>
 <!---->
 </vbox>

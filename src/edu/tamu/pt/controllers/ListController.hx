@@ -27,8 +27,8 @@ class ListController extends Controller {
  */
     public function new(xmlpath:String, db:IDatabase, tableID:String) {
         super(xmlpath, db);
-    //  table = getComponentAs(tableID, TextTable);
-        table = getComponentAs(tableID, TableView);
+        table = getComponentAs(tableID, TextTableComponent);
+    //  table = getComponentAs(tableID, TableView);
     }
  
 /*  Public Methods
@@ -37,8 +37,8 @@ class ListController extends Controller {
  *  Builds the table.  Should be overridden.
  */
     public function buildTable():Void {
-    //    clearTable();
-        buildHeader();
+        clearTable();
+    //  buildHeader();
     }
     
 /**
@@ -50,8 +50,8 @@ class ListController extends Controller {
  
 /*  Private Members
  *  =========================================================================*/
-    //private var table:TextTable;
-    private var table:TableView;
+    private var table:TextTable;
+    //private var table:TableView;
  
 /*  Private Methods
  *  =========================================================================*/
@@ -60,9 +60,9 @@ class ListController extends Controller {
  *  Clears all entries in the table, including the header
  */
     private inline function clearTable():Void {
-    //table.dataSource = new ArrayDataSource();
-    //    table.dataSource.removeAll();
-    //    table.clear();
+    //  table.dataSource = new ArrayDataSource();
+    //  table.dataSource.removeAll();
+        table.clear();
     }
         
 /**

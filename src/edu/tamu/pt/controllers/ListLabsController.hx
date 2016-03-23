@@ -34,10 +34,10 @@ class ListLabsController extends ListController {
         
         for (lab in labs) {
             var pts = db.pts(Filters.hasLab.bind(lab), Sorters.alpha);
-        /*  TextTable
+        /*  TextTable */
             table.addRow([lab.toString(), lab.timesString(), pts.join(", ")]);
         /*  */
-        /*  TableView */
+        /*  TableView 
             table.dataSource.add({
                 "colA": lab.toString(),
                 "colB": lab.timesString(),
@@ -54,7 +54,7 @@ class ListLabsController extends ListController {
  *  @inheritDoc
  */
     override private function buildHeader():Void {
-    /*  TableView */
+    /*  TableView 
         table.dataSource.add({
             "colA": "Lab",
             "colB": "Times",
