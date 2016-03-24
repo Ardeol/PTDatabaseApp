@@ -273,23 +273,6 @@ class EditPTsController extends Controller {
             clearPTSchedule();
     }
     
-    private inline function refreshListView(lv:ListView):Void {
-        lv.dataSource = new ArrayDataSource();
-    }
-    
-/**
- *  @private
- *  Initializes a ListView with general shared properties.  This essentially allows the view to render components and be unselectable.
- *  @param id ID of the ListView given in the XML file
- *  @return The ListView object found with id
- */
-    private function initListView(id:String):ListView {
-        var listview = getComponentAs(id, ListView);
-        listview.itemRenderer = IdComponentItemRenderer;
-        listview.allowSelection = false;
-        return listview;
-    }
-    
     private inline function selectPTScheduleFiles(?msg = "Select peer teacher schedule files to import"):Array<String> {
         return Dialogs.openFile("Import Schedules", msg, {
             count: 1,

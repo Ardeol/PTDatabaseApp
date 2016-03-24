@@ -1,8 +1,11 @@
 package edu.tamu.pt.controllers;
 
 import haxe.ui.toolkit.core.XMLController;
+import haxe.ui.toolkit.containers.ListView;
+import haxe.ui.toolkit.data.ArrayDataSource;
 
 import edu.tamu.pt.db.IDatabase;
+import edu.tamu.pt.ui.renderers.IdComponentItemRenderer;
 
 /** Controller Class
  *  @author  Timothy Foster
@@ -44,4 +47,22 @@ class Controller extends XMLController {
  *  =========================================================================*/
     private var db:IDatabase; // for peoples in the future, in Haxe, private is actually protected
     
+/*  Private Methods
+ *  =========================================================================*/
+/**
+ *  @private
+ *  Initializes a ListView with general shared properties.  This essentially allows the view to render components and be unselectable.
+ *  @param id ID of the ListView given in the XML file
+ *  @return The ListView object found with id
+ */
+    private function initListView(id:String):ListView {
+        var listview = getComponentAs(id, ListView);
+        listview.itemRenderer = IdComponentItemRenderer;
+        listview.allowSelection = false;
+        return listview;
+    }
+    
+    private inline function refreshListView(lv:ListView):Void {
+        lv.dataSource = new ArrayDataSource();
+    }
 }

@@ -22,8 +22,7 @@ class MainController extends Controller {
         this.app = app;
         content = getComponent(Id.CONTENT);
         
-    //  Initial Controller Here
-        changeView(new EditPTsController(db));
+        startInitialController();
         
         attachEvent(Id.FILE, MenuEvent.SELECT, function(e:MenuEvent) {
             switch(e.menuItem.id) {
@@ -82,8 +81,8 @@ class MainController extends Controller {
         
         attachEvent(Id.EDIT, MenuEvent.SELECT, function(e:MenuEvent) {
             switch(e.menuItem.id) {
-                case Id.EDIT_PTS: changeView(new EditPTsController(db));
-                case Id.EDIT_LABS: menuItemNotImplemented();
+                case Id.EDIT_PTS:  changeView(new EditPTsController(db));
+                case Id.EDIT_LABS: changeView(new EditLabsController(db));
                 case Id.EDIT_IMPORT_PTS: 
                     var editController = new EditPTsController(db);
                     changeView(editController);
@@ -140,6 +139,10 @@ class MainController extends Controller {
  
 /*  Private Methods
  *  =========================================================================*/
+    private inline function startInitialController():Void {
+        changeView(new EditLabsController(db));
+    }
+ 
     private inline function invalidMenuError():Void {
         PTDatabaseApp.error("Invalid menu option selected.");
     }

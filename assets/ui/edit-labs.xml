@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<vbox id="edit-labs-container" width="100%" height="100%">
+    <hbox width="100%" height="100%">
+        <vbox id="edit-labs-form" width="50%" height="100%">
+            <grid width="100%" columns="2">
+                <text text="Class" />
+                <text id="edit-labs-class" />
+                <text text="Lab Times" />
+                <text id="edit-labs-labs" />
+            </grid>
+            <vbox width="100%" height="100%">
+                <text id="edit-labs-current-pts" />
+                <namesortselector id="edit-labs-sortby" width="100%" />
+                <listview id="edit-labs-pt-list" width="100%" height="100%" />
+            </vbox>
+        </vbox>
+        <vbox width="50%" height="100%">
+            <listview id="edit-labs-lab-list" width="100%" height="100%" />
+            <button id="edit-labs-import-btn" width="100%" text="Import Lab File" />
+        </vbox>
+    </hbox>
+</vbox>
