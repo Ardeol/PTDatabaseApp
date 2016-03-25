@@ -149,6 +149,20 @@ class JsonDatabase implements IDatabase {
 /**
  *  @inheritDoc
  */
+    public function addLab(lab:ClassSchedule):Void {
+        labmap.set(lab.toString(), lab);
+    }
+    
+/**
+ *  @inheritDoc
+ */
+    public function removeLab(lab:ClassSchedule):Void {
+        labmap.remove(lab.toString());
+    }
+    
+/**
+ *  @inheritDoc
+ */
     public function clearPts():Void {
         for (k in ptmap.keys())
             ptmap.remove(k);
@@ -160,6 +174,10 @@ class JsonDatabase implements IDatabase {
     public function clearLabs():Void {
         for (k in labmap.keys())
             labmap.remove(k);
+            
+        for (pt in ptmap)
+            for (l in pt.labs.keys())
+                pt.labs.remove(l);
     }
     
 /**

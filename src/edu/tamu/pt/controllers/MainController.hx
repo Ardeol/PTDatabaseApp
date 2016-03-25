@@ -82,12 +82,15 @@ class MainController extends Controller {
         attachEvent(Id.EDIT, MenuEvent.SELECT, function(e:MenuEvent) {
             switch(e.menuItem.id) {
                 case Id.EDIT_PTS:  changeView(new EditPTsController(db));
-                case Id.EDIT_LABS: changeView(new EditLabsController(db));
+                case Id.EDIT_LABS: changeView(new EditLabsController(db, app.config));
                 case Id.EDIT_IMPORT_PTS: 
                     var editController = new EditPTsController(db);
                     changeView(editController);
                     editController.importPTSchedules();
-                case Id.EDIT_IMPORT_LABS: menuItemNotImplemented();
+                case Id.EDIT_IMPORT_LABS:
+                    var editController = new EditLabsController(db, app.config);
+                    changeView(editController);
+                    editController.importLabs();
                 default:invalidMenuError();
             }
         });
@@ -140,7 +143,7 @@ class MainController extends Controller {
 /*  Private Methods
  *  =========================================================================*/
     private inline function startInitialController():Void {
-        changeView(new EditLabsController(db));
+        changeView(new EditLabsController(db, app.config));
     }
  
     private inline function invalidMenuError():Void {

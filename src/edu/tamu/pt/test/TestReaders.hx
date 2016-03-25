@@ -15,7 +15,7 @@ import edu.tamu.pt.struct.TimeInterval;
 class TestReaders extends AdvTestCase {
 
     public function testLabReader() {
-        var reader = new LabReader("test/Spring2016.txt");
+        var reader = new LabReader("test/Spring2016.txt", ["314", "315"]);
         var m = reader.read();
         assertTrue(m.exists("CSCE-315-501"));
         assertTrue(m.exists("CSCE-313-510"));

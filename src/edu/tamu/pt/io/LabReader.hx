@@ -30,6 +30,18 @@ class LabReader extends FileReader<Map<String, ClassSchedule>> {
     private static var timeFormat:EReg = ~/(\d?\d:\d\d\s*[ap]m\s*-\s*\d?\d:\d\d\s*[ap]m)\s*(M?T?W?R?F?)/;
     private static var labFormat:EReg = ~/^\s*Laboratory/;
     
+    private var relevantLabs:Array<String>;
+    
+/**
+ *  Creates a new LabReader
+ *  @param path Path to the file
+ *  @param relevantLabs A list of class codes which should be included in the output.  This list is of the form ["110", "111", ..., "315"].
+ */
+    public function new(path:String, relevantLabs:Array<String>) {
+        super(path);
+        this.relevantLabs = relevantLabs;
+    }
+    
 /**
  *  @inheritDoc
  */
@@ -55,7 +67,7 @@ class LabReader extends FileReader<Map<String, ClassSchedule>> {
                         a.addDay(new Day(d));
                     a.addInterval(new TimeInterval(timeFormat.matched(1)));
                     curSchedule.addAppointment(a);
-                    if (!courses.exists(curSchedule.toString()))
+                    if (!courses.exists(curSchedule.toString()) && this.relevantLabs.indexOf(curSchedule.code) >= 0)
                         courses.set(curSchedule.toString(), curSchedule);
                 }
             }

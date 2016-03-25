@@ -28,6 +28,7 @@ class PTDatabaseApp {
     public static inline var AUTHOR = "Timothy Foster (@tfAuroratide)";
     
     public static inline var CONFIG_DBPATH = "dbpath";
+    public static inline var CONFIG_RELEVANT_CLASSES = "relevantclasses";
     
     public var config(default, null):Config;
     public var database(default, null):IDatabase;
@@ -107,11 +108,16 @@ class PTDatabaseApp {
         }
         catch (e:Dynamic) {
         //  If config does not exist, create it
-            config.section("").set(CONFIG_DBPATH, "data/db.json");
             var file = File.write(CONFIG_PATH);
             file.writeString(config.toString());
             file.close();
         }
+        
+        if (!config.exists(CONFIG_DBPATH))
+            config.section("").set(CONFIG_DBPATH, "data/db.json");
+        if (!config.exists(CONFIG_RELEVANT_CLASSES))
+            config.section("").set(CONFIG_RELEVANT_CLASSES, "110,111,113,121,206,221,312,313,314,315");
+        saveConfig();
     }
     
     private function initDatabase():Void {

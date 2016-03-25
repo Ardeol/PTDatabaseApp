@@ -1,15 +1,23 @@
 package edu.tamu.pt.controllers;
 
 import haxe.ui.toolkit.containers.ListView;
+import haxe.ui.toolkit.containers.HBox;
 import haxe.ui.toolkit.events.UIEvent;
+import haxe.ui.toolkit.core.PopupManager;
+import haxe.ui.toolkit.controls.Button;
+
+import systools.Dialogs;
 
 import edu.tamu.pt.db.IDatabase;
+import edu.tamu.pt.io.LabReader;
 import edu.tamu.pt.struct.PeerTeacher;
 import edu.tamu.pt.struct.ClassSchedule;
 import edu.tamu.pt.ui.NameSortSelector;
 import edu.tamu.pt.ui.renderers.IdComponentItemRenderer;
 import edu.tamu.pt.util.Sorters;
 import edu.tamu.pt.util.Filters;
+import edu.tamu.pt.util.Config;
+import edu.tamu.pt.error.Error;
 
 /** EditLabsController Class
  *  @author  Timothy Foster
@@ -20,8 +28,9 @@ class EditLabsController extends Controller {
 
 /*  Constructor
  *  =========================================================================*/
-    public function new(db:IDatabase) {
+    public function new(db:IDatabase, config:Config) {
         super("ui/edit-labs.xml", db);
+        this.config = config;
         
         this.labListView = getComponentAs(Id.LAB_LIST, ListView);
         this.labListView.itemRenderer = IdComponentItemRenderer;
@@ -47,6 +56,9 @@ class EditLabsController extends Controller {
             else
                 PTDatabaseApp.error("An invalid pt action was attempted");
         });
+        
+        attachEvent(Id.IMPORT_BTN, UIEvent.MOUSE_UP, importLabsAction);
+        attachEvent(Id.CLEAR_BTN, UIEvent.MOUSE_UP, clearLabsAction);
     }
  
 /*  Public Methods
@@ -66,12 +78,17 @@ class EditLabsController extends Controller {
         currentLab = l;
         refreshLab();
     }
+    
+    public function importLabs():Void {
+        importLabsAction();
+    }
  
 /*  Private Members
  *  =========================================================================*/
     private static inline var PT_REMOVE_PREFIX = "rem-pt-"; // This and the following string should be same length!
     private static inline var PT_ADD_PREFIX    = "add-pt-";
  
+    private var config:Config;
     private var currentLab:ClassSchedule;
     private var labListCache:Array<ClassSchedule>;
     private var labListView:ListView;
@@ -146,6 +163,19 @@ class EditLabsController extends Controller {
             clearLabPTs();
     }
     
+    private function selectLabsFile(?msg = "Select lab file to import"):String {
+        var a = Dialogs.openFile("Import Labs", msg, {
+            count: 1,
+            extensions: ["*.txt"],
+            descriptions: ["*.txt"]
+        });
+        return a.length > 0 ? a[0] : null;
+    }
+    
+    private function readLabs(filename:String):Map<String, ClassSchedule> {
+        return new LabReader(filename, config.get(PTDatabaseApp.CONFIG_RELEVANT_CLASSES).split(",")).read();
+    }
+    
 /*  UI Actions
  *  =========================================================================*/
 /**
@@ -188,6 +218,77 @@ class EditLabsController extends Controller {
             }
         }
     }
+    
+    private function importLabsAction(?e:UIEvent):Void {
+    /*
+     *  This action must reassign all labs to the current peer teachers.  Since we are utterly replacing labs, the
+     *  peer teachers' lab assignments will be messed up.  Therefore, we need to provide the user the option to
+     *  cancel the operation, along with provide a warning.  This function automatically will fix problems that
+     *  arise, theoretically.
+     */
+        PopupManager.instance.showSimple("This will update the current labs.  If you wish to reset the labs entirely, clear the labs first.  Continuing with this action will attempt to keep current peer teacher lab assignments.  If conflicts arise, they will be REMOVED automatically.  Do you wish to continue?", "Warning!", [PopupButton.OK, PopupButton.CANCEL], function(btn) {
+            switch(btn) {
+                case PopupButton.OK:
+                    var filename = selectLabsFile();
+                    if (filename == null || filename.length <= 0)
+                        return;
+                    
+                //  Read in file
+                    var labs:Map<String, ClassSchedule> = null;
+                    try {  labs = readLabs(filename); }
+                    catch (err:Error) {
+                        PTDatabaseApp.error(err.message);
+                        return;
+                    }
+                    catch (err:Dynamic) {  return; }
+                    if (labs == null)
+                        return;
+                    
+                //  Labs read in correctly; now remember lab assignments
+                    var pts = db.pts();
+                    var ptLabs = new Map<PeerTeacher, Array<String>>();
+                    for (pt in pts) {
+                        ptLabs.set(pt, new Array<String>());
+                        for (l in pt.labs.keys())
+                            ptLabs.get(pt).push(l);
+                    }
+                    
+                    db.clearLabs();
+                    for (lab in labs)
+                        db.addLab(lab);
+                    
+                //  Reassigns the labs the PT had previously
+                    for (pt in ptLabs.keys()) {
+                        for (labStr in ptLabs.get(pt)) {
+                            var lab = db.lab(labStr);
+                            if (lab != null && !pt.intersects(lab))
+                                pt.labs.set(labStr, lab);
+                        }
+                    }
+                    
+                    buildLabList();
+                    currentLab = null;
+                    refreshLab();
+                        
+                case PopupButton.CANCEL:
+                default:
+            }
+        });
+    }
+    
+    private function clearLabsAction(?e:UIEvent):Void {
+        PopupManager.instance.showSimple("Are you sure you want to clear all labs?", "Clear Labs", [PopupButton.OK, PopupButton.CANCEL], function(btn) {
+            switch(btn) {
+                case PopupButton.OK:
+                    db.clearLabs();
+                    buildLabList();
+                    currentLab = null;
+                    refreshLab();
+                case PopupButton.CANCEL:
+                default:
+            }
+        });
+    }
 }
 
 @:enum private abstract Id(String) from String to String {
@@ -200,4 +301,5 @@ class EditLabsController extends Controller {
     var PTS = "edit-labs-pt-list";
     var LAB_LIST = "edit-labs-lab-list";
     var IMPORT_BTN = "edit-labs-import-btn";
+    var CLEAR_BTN = "edit-labs-clear-btn";
 }

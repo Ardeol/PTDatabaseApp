@@ -60,6 +60,19 @@ class Config {
         return sections.get(name);
     
 /**
+ *  Determines in the given parameter exists or not.
+ *  @param param The parameter, in the form SECTION.NAME
+ *  @return True if the parameter exists, false otherwise
+ */
+    public function exists(param:String):Bool {
+        var i = param.indexOf(".");
+        if (i < 0)
+            return section("").exists(param);
+        else 
+            return section(param.substr(0, i)).exists(param.substr(i + 1));
+    }
+        
+/**
  *  Retrieves a particular parameter.
  *  @param param The parameter, in the form SECTION.NAME
  *  @return The value of the parameter

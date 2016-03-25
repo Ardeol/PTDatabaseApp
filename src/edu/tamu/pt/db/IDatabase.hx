@@ -72,12 +72,27 @@ interface IDatabase  {
     public function removePT(pt:PeerTeacher):Void;
     
 /**
+ *  Adds a lab to the database.
+ *  @param lab A ClassSchedule object describing a lab
+ */
+    public function addLab(lab:ClassSchedule):Void;
+    
+/**
+ *  Removes the Lab from the database.  If you need to remove by name, call remove(lab(name)).
+ *  @param lab A ClassSchedule object describing a lab
+ */
+    public function removeLab(lab:ClassSchedule):Void;
+    
+/**
  *  Wipes the database of peer teachers.  They don't die in real life, just digitally.
  */
     public function clearPts():Void;
     
 /**
  *  Wipes the database of labs.  Every student's dream.
+ *  
+ *  This must ALSO wipe all lab assignments for PTs in the database.  Otherwise, students can be
+ *  assigned to nonexistent labs, almost certainly a recipe for bugs.
  */
     public function clearLabs():Void;
     
