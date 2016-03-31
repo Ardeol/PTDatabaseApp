@@ -169,6 +169,8 @@ class EditLabsController extends Controller {
             extensions: ["*.txt"],
             descriptions: ["*.txt"]
         });
+        if (a == null)
+            return null;
         return a.length > 0 ? a[0] : null;
     }
     
