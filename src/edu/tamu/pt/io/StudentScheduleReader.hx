@@ -51,7 +51,14 @@ class StudentScheduleReader extends FileReader<PeerTeacher> {
                     var days = daysFormat.matched(1).split(",");
                     for (day in days)
                         appt.addDay(day);
-                    curSchedule.addAppointment(appt);
+                        
+                //  The try block catches errors thrown by self-conflicting schedules
+                //  Schedules really shouldn't self-conflict, but they seem to if the class
+                //  has external exams.  We'll assume we know what the schedule is talking about.
+                    try {
+                        curSchedule.addAppointment(appt);
+                    }
+                    catch(err:Dynamic) {}
                 }
             }
         }
