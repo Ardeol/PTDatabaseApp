@@ -19,7 +19,7 @@ class StudentScheduleReader extends FileReader<PeerTeacher> {
     private static var nameFormat:EReg = ~/^\s*Schedule\s+for\s+([^\s]+)\s+(.*)\s*-/;
     private static var classFormat:EReg = ~/([A-Z]{4})-(\d\d\d)-(\d\d\d)/;
     private static var timeFormat:EReg = ~/\d?\d:\d\d\s*[aApP][mM]\s*-\s*\d?\d:\d\d\s*[aApP][mM]/;
-    private static var daysFormat:EReg = ~/^\s*([MOTUWEHFR,]+)\s/;
+    private static var daysFormat:EReg = ~/^\s*([MOTUWEHFR,]+)\s*$/;
     
 /**
  *  @inheritDoc
@@ -47,7 +47,7 @@ class StudentScheduleReader extends FileReader<PeerTeacher> {
                     appt = new Appointment();
                     appt.addInterval(new TimeInterval(timeFormat.matched(0)));
                 }
-                else if (daysFormat.match(line)) {
+                else if (daysFormat.match(line.split("\t")[0])) { // This line bothers me; if a bug arises, it might be here
                     var days = daysFormat.matched(1).split(",");
                     for (day in days)
                         appt.addDay(day);
