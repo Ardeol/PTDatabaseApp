@@ -1,6 +1,5 @@
 package edu.tamu.pt.controllers;
 
-import haxe.ui.toolkit.containers.TableView;
 import haxe.ui.toolkit.data.ArrayDataSource;
 
 import edu.tamu.pt.db.IDatabase;
@@ -27,8 +26,7 @@ class ListController extends Controller {
  */
     public function new(xmlpath:String, db:IDatabase, tableID:String) {
         super(xmlpath, db);
-    //  table = getComponentAs(tableID, TextTable);
-        table = getComponentAs(tableID, TableView);
+        table = getComponentAs(tableID, TextTableComponent);
     }
  
 /*  Public Methods
@@ -37,8 +35,7 @@ class ListController extends Controller {
  *  Builds the table.  Should be overridden.
  */
     public function buildTable():Void {
-    //    clearTable();
-        buildHeader();
+        clearTable();
     }
     
 /**
@@ -50,8 +47,7 @@ class ListController extends Controller {
  
 /*  Private Members
  *  =========================================================================*/
-    //private var table:TextTable;
-    private var table:TableView;
+    private var table:TextTable;
  
 /*  Private Methods
  *  =========================================================================*/
@@ -60,15 +56,7 @@ class ListController extends Controller {
  *  Clears all entries in the table, including the header
  */
     private inline function clearTable():Void {
-    //table.dataSource = new ArrayDataSource();
-    //    table.dataSource.removeAll();
-    //    table.clear();
+        table.clear();
     }
-        
-/**
- *  @private
- *  Builds the header.  Should be overridden.
- */
-    private function buildHeader():Void {}
  
 }

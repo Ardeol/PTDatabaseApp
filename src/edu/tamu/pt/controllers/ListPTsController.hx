@@ -39,26 +39,7 @@ class ListPTsController extends ListController {
         super.buildTable();
         
         var pts = db.pts(sortby.sorter());
-        
-    /*  TableView Version */
-        for (pt in pts) {
-            var labs = new Array<String>();
-            var reg = ~/[a-zA-Z]*-(\d*-\d*)/;
-            for (lab in pt.labs) {
-                if (reg.match(lab.toString()))
-                    labs.push(reg.matched(1));
-            }
-            
-            table.dataSource.add({
-                "colA": pt.firstname,
-                "colB": pt.lastname,
-                "colC": labs.join(", "),
-                "colD": pt.officeHours.join("; ")
-            });
-        }
-    /*  */
-    
-    /*  TextTable version
+
         for (pt in pts) {
             var labs = new Array<String>();
             var reg = ~/[a-zA-Z]*-(\d*-\d*)/;
@@ -69,7 +50,6 @@ class ListPTsController extends ListController {
             
             table.addRow([pt.firstname, pt.lastname, labs.join(", "), pt.officeHours.join("; ")]);
         }
-    /*  */
     }
     
 /*  Private Members
@@ -78,19 +58,6 @@ class ListPTsController extends ListController {
  
 /*  Private Methods
  *  =========================================================================*/
-/**
- *  @inheritDoc
- */
-    override private function buildHeader():Void {
-    /*  TableView */
-        table.dataSource.add({
-            "colA": "Name",
-            "colB": "",
-            "colC": "Labs",
-            "colD": "Office Hours"
-        });
-    /*  */
-    }
  
 }
 

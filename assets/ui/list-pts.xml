@@ -2,19 +2,14 @@
 <vbox id="list-pts-container" width="100%" height="100%">
     <text class="title" text="List of Peer Teachers" />
     <namesortselector id="list-pts-sortby" width="100%" />
-<!---->
-    <tableview id="list-pts-table" width="100%" height="100%">
-        
-    </tableview>
-<!---->
-<!--
-    <texttable id="list-pts-table" width="100%" height="100%">
-        <hbox width="100%">
-            <text text="Name" />
-            <text text="" />
-            <text text="Labs" />
-            <text text="Office Hours" />
-        </hbox>
-    </texttable>
-<!---->
+
+    <scrollview width="100%" height="100%" style="backgroundColor: #FFFFFF;">
+        <texttable id="list-pts-table" width="100%" columns="4">
+            <text text="Name" width="10%" />
+            <text text="" width="10%" />
+            <text text="Labs" width="30%" />
+            <text text="Office Hours" width="50%" />
+        </texttable>
+    </scrollview>
+
 </vbox>
