@@ -26,6 +26,10 @@ abstract TextTable(TextTableComponent) from TextTableComponent {
     
 /*  Public Methods
  *  =========================================================================*/
+/**
+ *  Adds a row to the table given an array of strings.  Each string will go into one column.
+ *  @param contents One string per column.  The length must match the number of columns in the table.
+ */
     public inline function addRow(contents:Array<String>):Void {
         if (contents.length != columns)
             throw 'TextTable addRow given contents with incorrect number of columns (was ${contents.length} but should be $columns)';
@@ -40,6 +44,10 @@ abstract TextTable(TextTableComponent) from TextTableComponent {
         
     //}
     
+/**
+ *  Removes the ith row
+ *  @param i
+ */
     public inline function removeRow(i:Int):Void {
         if (i < 0 || i >= rows)
             throw 'Row $i does not exist and cannot be removed.';
@@ -47,6 +55,9 @@ abstract TextTable(TextTableComponent) from TextTableComponent {
             this.removeChildAt((i + 1) * columns);
     }
     
+/**
+ *  Removes all rows in the table except the header.
+ */
     public inline function clear():Void {
         while (rows > 0)
             removeRow(rows - 1);
@@ -58,7 +69,7 @@ abstract TextTable(TextTableComponent) from TextTableComponent {
         return this.columns;
         
     private inline function get_rows():Int
-    return Math.floor(this.numChildren / columns) - 1;
+        return Math.floor(this.numChildren / columns) - 1;
 }
 
 class TextTableComponent extends Grid {}

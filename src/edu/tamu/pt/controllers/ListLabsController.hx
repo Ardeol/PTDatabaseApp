@@ -34,34 +34,14 @@ class ListLabsController extends ListController {
         
         for (lab in labs) {
             var pts = db.pts(Filters.hasLab.bind(lab), Sorters.alpha);
-        /*  TextTable */
             table.addRow([lab.toString(), lab.timesString(), pts.join(", ")]);
-        /*  */
-        /*  TableView 
-            table.dataSource.add({
-                "colA": lab.toString(),
-                "colB": lab.timesString(),
-                "colC": pts.join(", ")
-            });
-        /*  */
         }
         
     }
  
 /*  Private Methods
  *  =========================================================================*/
-/**
- *  @inheritDoc
- */
-    override private function buildHeader():Void {
-    /*  TableView 
-        table.dataSource.add({
-            "colA": "Lab",
-            "colB": "Times",
-            "colC": "Peer Teachers",
-        });
-    /*  */
-    }
+
 }
 
 @:enum private abstract Id(String) from String to String {
