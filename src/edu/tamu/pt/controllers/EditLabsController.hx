@@ -13,6 +13,7 @@ import edu.tamu.pt.io.LabReader;
 import edu.tamu.pt.struct.PeerTeacher;
 import edu.tamu.pt.struct.ClassSchedule;
 import edu.tamu.pt.ui.NameSortSelector;
+import edu.tamu.pt.ui.SmartListView;
 import edu.tamu.pt.ui.renderers.IdComponentItemRenderer;
 import edu.tamu.pt.util.Sorters;
 import edu.tamu.pt.util.Filters;
@@ -32,7 +33,7 @@ class EditLabsController extends Controller {
         super("ui/edit-labs.xml", db);
         this.config = config;
         
-        this.labListView = getComponentAs(Id.LAB_LIST, ListView);
+        this.labListView = getComponentAs(Id.LAB_LIST, SmartListView);
         this.labListView.itemRenderer = IdComponentItemRenderer;
         
         this.labListCache = new Array<ClassSchedule>();
@@ -64,13 +65,15 @@ class EditLabsController extends Controller {
 /*  Public Methods
  *  =========================================================================*/
     public function buildLabList():Void {
-        refreshListView(labListView);
+        labListView.rememberVPos();
+        labListView.clear();
         var labs = db.labs(Sorters.labOrder);
         
         for (lab in labs)
             labListView.dataSource.add({ text: lab.toString() });
             
         labListCache = labs;
+        labListView.restoreVPos();
     }
     
     public function loadLab(l:ClassSchedule):Void {
@@ -91,7 +94,7 @@ class EditLabsController extends Controller {
     private var config:Config;
     private var currentLab:ClassSchedule;
     private var labListCache:Array<ClassSchedule>;
-    private var labListView:ListView;
+    private var labListView:SmartListView;
  
 /*  Private Methods
  *  =========================================================================*/
@@ -121,7 +124,7 @@ class EditLabsController extends Controller {
     
     private function clearLabPTs():Void {
         getComponent(Id.CUR_PTS).text = "";
-        refreshListView(getComponentAs(Id.PTS, ListView));
+        getComponentAs(Id.PTS, SmartListView).clear();
     }
     
     private function refreshLabPTs():Void {
@@ -130,8 +133,9 @@ class EditLabsController extends Controller {
             getComponent(Id.CUR_PTS).text = "Current: " + currentPTs.join(", ");
             
             var allPTs = db.pts(getComponentAs(Id.SORTBY, NameSortSelector).sorter());
-            var listview = getComponentAs(Id.PTS, ListView);
-            refreshListView(listview);
+            var listview = getComponentAs(Id.PTS, SmartListView);
+            listview.rememberVPos();
+            listview.clear();
             
             for (pt in allPTs) {
                 var ptLabs = new Array<String>();
@@ -158,6 +162,7 @@ class EditLabsController extends Controller {
                 
                 listview.dataSource.add(ptInfo);
             }
+            listview.restoreVPos();
         }
         else
             clearLabPTs();

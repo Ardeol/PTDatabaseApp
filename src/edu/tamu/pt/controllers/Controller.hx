@@ -61,8 +61,4 @@ class Controller extends XMLController {
         listview.allowSelection = false;
         return listview;
     }
-    
-    private inline function refreshListView(lv:ListView):Void {
-        lv.dataSource = new ArrayDataSource();
-    }
 }

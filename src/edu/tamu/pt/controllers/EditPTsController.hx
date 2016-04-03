@@ -17,6 +17,7 @@ import edu.tamu.pt.struct.PeerTeacher;
 import edu.tamu.pt.struct.ClassSchedule;
 import edu.tamu.pt.ui.NameSortSelector;
 import edu.tamu.pt.ui.NewPTPopup;
+import edu.tamu.pt.ui.SmartListView;
 import edu.tamu.pt.ui.renderers.IdComponentItemRenderer;
 import edu.tamu.pt.util.Filters;
 import edu.tamu.pt.util.Sorters;
@@ -33,7 +34,7 @@ class EditPTsController extends Controller {
     public function new(db:IDatabase) {
         super("ui/edit-pts.xml", db);
         
-        this.ptList = getComponentAs(Id.PT_LIST, ListView);
+        this.ptList = getComponentAs(Id.PT_LIST, SmartListView);
         ptList.itemRenderer = IdComponentItemRenderer;
         
         initListView(Id.LABS);
@@ -85,7 +86,8 @@ class EditPTsController extends Controller {
  *  Refreshes the list of peer teachers.
  */
     public function buildPTList():Void {
-        refreshListView(ptList);
+        ptList.rememberVPos();
+        ptList.clear();
         var pts = db.pts(getComponentAs(Id.SORTBY, NameSortSelector).sorter());
         
         for (pt in pts) {
@@ -98,6 +100,7 @@ class EditPTsController extends Controller {
         }
         
         this.ptListCache = pts;
+        ptList.restoreVPos();
     }
     
 /**
@@ -150,7 +153,7 @@ class EditPTsController extends Controller {
  *  @private
  *  The actual ListView of the list of PTs; sorry for the terrible variable name...
  */
-    private var ptList:ListView;
+    private var ptList:SmartListView;
  
 /*  Private Methods
  *  =========================================================================*/
@@ -190,7 +193,7 @@ class EditPTsController extends Controller {
     
     private function clearPTLabs():Void {
         getComponent(Id.CUR_LABS).text = "";
-        refreshListView(getComponentAs(Id.LABS, ListView));
+        getComponentAs(Id.LABS, SmartListView).clear();
     }
     
     private function refreshPTLabs():Void {
@@ -201,8 +204,9 @@ class EditPTsController extends Controller {
                 curLabs.text += '${lab.code}-${lab.section}, '; // @TODO make prettier (ie. no trailing ,)
             
             var allLabs = db.labs(Sorters.labOrder);
-            var listview = getComponentAs(Id.LABS, ListView);
-            refreshListView(listview);
+            var listview = getComponentAs(Id.LABS, SmartListView);
+            listview.rememberVPos();
+            listview.clear();
             
             for (lab in allLabs) {
                 var labinfo:Dynamic = {
@@ -224,6 +228,7 @@ class EditPTsController extends Controller {
                 }
                 
                 listview.dataSource.add(labinfo);
+                listview.restoreVPos();
             }
         }
         else
@@ -231,14 +236,14 @@ class EditPTsController extends Controller {
     }
     
     private function clearPTOfficeHours():Void {
-        refreshListView(getComponentAs(Id.OFFICE_HOURS, ListView));
+        getComponentAs(Id.OFFICE_HOURS, SmartListView).clear();
     }
     
     private function refreshPTOfficeHours():Void {
         if (currentPT != null) {
             getComponent(Id.OFFICE_HOUR_ADD).text = "";
-            var listview = getComponentAs(Id.OFFICE_HOURS, ListView);
-            refreshListView(listview);
+            var listview = getComponentAs(Id.OFFICE_HOURS, SmartListView);
+            listview.clear();
             var i = 0;
             for (oh in currentPT.officeHours) {
                 listview.dataSource.add({
@@ -255,13 +260,13 @@ class EditPTsController extends Controller {
     }
     
     private function clearPTSchedule():Void {
-        refreshListView(getComponentAs(Id.SCHEDULE, ListView));
+        getComponentAs(Id.SCHEDULE, SmartListView).clear();
     }
     
     private function refreshPTSchedule():Void {
         if (currentPT != null) {
-            var listview = getComponentAs(Id.SCHEDULE, ListView);
-            refreshListView(listview);
+            var listview = getComponentAs(Id.SCHEDULE, SmartListView);
+            listview.clear();
             for (cls in currentPT.schedule) {
                 listview.dataSource.add({
                     text: cls.toString(),

@@ -20,6 +20,7 @@ class CustomUIRegistrar {
         register(SmartTextInput, "smarttextinput");
         register(NameSortSelector, "namesortselector");
         register(TextTable, "texttable");
+        register(SmartListView, "smartlistview");
     }
     
 /**
