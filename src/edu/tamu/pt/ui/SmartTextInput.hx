@@ -4,11 +4,14 @@ import haxe.Timer;
 
 import openfl.Lib;
 import openfl.ui.Keyboard;
+import openfl.events.Event;
 import openfl.events.KeyboardEvent;
 
 import haxe.ui.toolkit.controls.TextInput;
 
 import systools.Clipboard;
+
+import edu.tamu.pt.util.Key;
 
 /** SmartTextInput Class
  *  @author  Timothy Foster
@@ -20,33 +23,14 @@ import systools.Clipboard;
  *  nothing since OpenFL does not support it easily.
  *  **************************************************************************/
 class SmartTextInput extends TextInput {
-    private static var initialized:Bool = false;
-    private static var ctrlDown:Bool = false;
 
 /**
  *  Create a new instance
  */
     public function new() {
         super();
-        initClass();
-        this.addEventListener(KeyboardEvent.KEY_DOWN, performPress);
-    }
-    
-/**
- *  Initialize the class.  This will be called each time a SmartTextInput is created.
- */
-    public static function initClass():Void {
-        if (!initialized) {
-            initialized = true;
-            Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, function(e:KeyboardEvent):Void {
-                if (isCtrl(e.keyCode))
-                    ctrlDown = true;
-            });
-            Lib.current.stage.addEventListener(KeyboardEvent.KEY_UP, function(e:KeyboardEvent):Void {
-                if (isCtrl(e.keyCode))
-                    ctrlDown = false;
-            });
-        }
+        //this.addEventListener(KeyboardEvent.KEY_DOWN, performPress);
+        //this.addEventListener(Event.ENTER_FRAME, performPress);
     }
     
 /**
@@ -54,14 +38,22 @@ class SmartTextInput extends TextInput {
  *  The press action, depending on the key.
  *  @param  e
  */
+    private function performPress(e:Event):Void {
+        if (Key.isDown(Keyboard.CONTROL))
+            trace("Control is down");
+        trace(Key.keysDown());
+    }
+/*
     private function performPress(e:KeyboardEvent):Void {
-        if (ctrlDown) {
+        trace(e.keyCode);
+        if (e.ctrlKey) {
             switch(e.keyCode) {
                 case Keyboard.C: copy();
                 case Keyboard.V: paste();
             }
         }
     }
+*/
     
 /**
  *  @private
@@ -96,15 +88,5 @@ class SmartTextInput extends TextInput {
     private function preventStrayCharacter():Void {
         var txt = this.text;
         Timer.delay(function() { this.text = txt; }, 1);
-    }
-    
-/**
- *  @private
- *  Determines whether or not the key is a Ctrl key.  Note it is COMMAND on Macs.
- *  @param  code
- *  @return
- */
-    private static inline function isCtrl(code:Int):Bool {
-        return code == Keyboard.CONTROL || code == Keyboard.COMMAND;
     }
 }

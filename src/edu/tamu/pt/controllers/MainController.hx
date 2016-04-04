@@ -143,7 +143,7 @@ class MainController extends Controller {
 /*  Private Methods
  *  =========================================================================*/
     private inline function startInitialController():Void {
-        changeView(new EditLabsController(db, app.config));
+        changeView(new EditPTsController(db));
     }
  
     private inline function invalidMenuError():Void {

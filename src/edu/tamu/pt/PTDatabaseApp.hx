@@ -17,6 +17,8 @@ import edu.tamu.pt.db.IDatabase;
 import edu.tamu.pt.ui.CustomUIRegistrar;
 import edu.tamu.pt.util.Config;
 
+import edu.tamu.pt.util.Key;
+
 /** PTDatabaseApp Class
  *  @author  Timothy Foster
  *  @version A.00
@@ -36,6 +38,7 @@ class PTDatabaseApp {
 /*  Constructor
  *  =========================================================================*/
     public function new() {
+        Key.initialize();
         initHaxeUI();
         initConfig();
         initDatabase();

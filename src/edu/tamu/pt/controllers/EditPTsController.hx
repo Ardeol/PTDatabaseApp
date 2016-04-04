@@ -362,9 +362,11 @@ class EditPTsController extends Controller {
  *  Updates the current PT's basic info (preferred name, email, and image).
  */
     private function updatePTBasicInfo(?e:UIEvent):Void {
-        currentPT.preferredname = getComponent(Id.PREFERREDNAME).text;
-        currentPT.email = getComponent(Id.EMAIL).text;
-        currentPT.image = getComponent(Id.IMAGE).text;
+        if(currentPT != null) {
+            currentPT.preferredname = getComponent(Id.PREFERREDNAME).text;
+            currentPT.email = getComponent(Id.EMAIL).text;
+            currentPT.image = getComponent(Id.IMAGE).text;
+        }
     }
     
 /**
