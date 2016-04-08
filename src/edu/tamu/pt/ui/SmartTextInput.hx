@@ -29,7 +29,7 @@ class SmartTextInput extends TextInput {
  */
     public function new() {
         super();
-        //this.addEventListener(KeyboardEvent.KEY_DOWN, performPress);
+        this.addEventListener(KeyboardEvent.KEY_DOWN, performPress);
         //this.addEventListener(Event.ENTER_FRAME, performPress);
     }
     
@@ -38,22 +38,32 @@ class SmartTextInput extends TextInput {
  *  The press action, depending on the key.
  *  @param  e
  */
+/*  
     private function performPress(e:Event):Void {
         if (Key.isDown(Keyboard.CONTROL))
             trace("Control is down");
         trace(Key.keysDown());
     }
-/*
+/*  */
+/*  */
     private function performPress(e:KeyboardEvent):Void {
-        trace(e.keyCode);
+        if (e.ctrlKey) {
+            trace("CTRL PRESSED");
+            switch(e.keyCode) {
+                case Keyboard.V: trace("PASTE");
+                case Keyboard.C: trace("COPY");
+            }
+        }
+    /*  
         if (e.ctrlKey) {
             switch(e.keyCode) {
                 case Keyboard.C: copy();
                 case Keyboard.V: paste();
             }
         }
+    /*  */
     }
-*/
+/*  */
     
 /**
  *  @private
