@@ -38,7 +38,7 @@ class PTDatabaseApp {
 /*  Constructor
  *  =========================================================================*/
     public function new() {
-        Key.initialize();
+    //    Key.initialize();
         initHaxeUI();
         initConfig();
         initDatabase();
