@@ -8,6 +8,7 @@ import haxe.ui.toolkit.controls.Button;
 
 import systools.Dialogs;
 
+import edu.tamu.pt.PTDatabaseConfig;
 import edu.tamu.pt.db.IDatabase;
 import edu.tamu.pt.io.LabReader;
 import edu.tamu.pt.struct.PeerTeacher;
@@ -29,7 +30,7 @@ class EditLabsController extends Controller {
 
 /*  Constructor
  *  =========================================================================*/
-    public function new(db:IDatabase, config:Config) {
+    public function new(db:IDatabase, config:PTDatabaseConfig) {
         super("ui/edit-labs.xml", db);
         this.config = config;
         
@@ -91,7 +92,7 @@ class EditLabsController extends Controller {
     private static inline var PT_REMOVE_PREFIX = "rem-pt-"; // This and the following string should be same length!
     private static inline var PT_ADD_PREFIX    = "add-pt-";
  
-    private var config:Config;
+    private var config:PTDatabaseConfig;
     private var currentLab:ClassSchedule;
     private var labListCache:Array<ClassSchedule>;
     private var labListView:SmartListView;
@@ -180,7 +181,7 @@ class EditLabsController extends Controller {
     }
     
     private function readLabs(filename:String):Map<String, ClassSchedule> {
-        return new LabReader(filename, config.get(PTDatabaseApp.CONFIG_RELEVANT_CLASSES).split(",")).read();
+        return new LabReader(filename, config.relevantClasses.split(",")).read();
     }
     
 /*  UI Actions

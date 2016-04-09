@@ -32,7 +32,7 @@ class PTDatabaseApp {
     public static inline var CONFIG_DBPATH = "dbpath";
     public static inline var CONFIG_RELEVANT_CLASSES = "relevantclasses";
     
-    public var config(default, null):Config;
+    public var config(default, null):PTDatabaseConfig;
     public var database(default, null):IDatabase;
 
 /*  Constructor
@@ -105,27 +105,17 @@ class PTDatabaseApp {
     }
     
     private function initConfig():Void {
-        config = new Config();
+        config = new PTDatabaseConfig();
         try {
             config.parse(Assets.getText(CONFIG_PATH));
         }
-        catch (e:Dynamic) {
-        //  If config does not exist, create it
-            var file = File.write(CONFIG_PATH);
-            file.writeString(config.toString());
-            file.close();
-        }
-        
-        if (!config.exists(CONFIG_DBPATH))
-            config.section("").set(CONFIG_DBPATH, "data/db.json");
-        if (!config.exists(CONFIG_RELEVANT_CLASSES))
-            config.section("").set(CONFIG_RELEVANT_CLASSES, "110,111,113,121,206,221,312,313,314,315");
+        catch (e:Dynamic) {}
         saveConfig();
     }
     
     private function initDatabase():Void {
         database = new DatabaseType();
-        if (!database.load(config.get(CONFIG_DBPATH)))
+        if(!database.load(config.dbpath))
             error(database.error());
     }
     

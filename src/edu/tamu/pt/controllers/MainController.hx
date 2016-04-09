@@ -40,20 +40,19 @@ class MainController extends Controller {
                     if (!db.load(location))
                         PTDatabaseApp.error("Database could not be loaded.  " + db.error());
                     else {
-                        app.config.section("").set(PTDatabaseApp.CONFIG_DBPATH, location);
+                        app.config.dbpath = location;
                         app.saveConfig();
                         current.refresh();
                     }
                 case Id.FILE_SAVE:
                     db.save();
                 case Id.FILE_EXPORT:
-                //  @TODO The initialDirectory code doesn't work
-                    var finalSlashIndex = app.config.get(PTDatabaseApp.CONFIG_DBPATH).lastIndexOf("/");
+                    var finalSlashIndex = app.config.dbpath.lastIndexOf("/");
                     if (finalSlashIndex < 0)
-                        app.config.get(PTDatabaseApp.CONFIG_DBPATH).lastIndexOf("\\");
+                        finalSlashIndex = app.config.dbpath.lastIndexOf("\\");
                     var initialDirectory = "";
                     if (finalSlashIndex >= 0)
-                        initialDirectory = app.config.get(PTDatabaseApp.CONFIG_DBPATH).substring(0, finalSlashIndex);
+                        initialDirectory = app.config.dbpath.substring(0, finalSlashIndex);
                     
                     var location = Dialogs.saveFile("Save Database As", "Save the Database as a JSON file", initialDirectory, {
                         count: 1,
@@ -70,7 +69,7 @@ class MainController extends Controller {
                     if (!db.save(location))
                         PTDatabaseApp.error("Could not save database to location.  " + db.error());
                     else {
-                        app.config.section("").set(PTDatabaseApp.CONFIG_DBPATH, location);
+                        app.config.dbpath = location;
                         app.saveConfig();
                     }
                 case Id.FILE_EXIT:
