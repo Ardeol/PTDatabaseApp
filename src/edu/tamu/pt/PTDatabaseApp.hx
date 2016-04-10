@@ -39,6 +39,8 @@ class PTDatabaseApp {
  *  =========================================================================*/
     public function new() {
     //    Key.initialize();
+        databaseLoadErrorFlag = false;
+    
         initHaxeUI();
         initConfig();
         initDatabase();
@@ -69,6 +71,9 @@ class PTDatabaseApp {
             Toolkit.openFullscreen(function(root) {
                 root.addChild(ui.view);
             });
+            
+            if (databaseLoadErrorFlag)
+                error(database.error());
         }
     }
     
@@ -94,6 +99,12 @@ class PTDatabaseApp {
  
     private var started:Bool;
     private var ui:MainController;
+    
+/**
+ *  This flag is used to indicate whether the database load failed.
+ *  If it did, we need to display an error upon start.
+ */
+    private var databaseLoadErrorFlag:Bool;
  
 /*  Private Methods
  *  =========================================================================*/
@@ -115,8 +126,14 @@ class PTDatabaseApp {
     
     private function initDatabase():Void {
         database = new DatabaseType();
-        if(!database.load(config.dbpath))
-            error(database.error());
+        if (!database.load(config.dbpath)) {
+        //  This means there was no file in the file given by the config
+        //  Our strategy is to test the default path, and if that fails, create an empty database
+        //  If that fails, well, it ain't pretty.
+            config.dbpath = PTDatabaseConfig.DBPATH_DEFAULT;
+            if (!database.load(config.dbpath))
+                databaseLoadErrorFlag = !database.save(config.dbpath);
+        }
     }
     
     private function setExitHandler():Void {

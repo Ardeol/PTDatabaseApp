@@ -13,6 +13,10 @@ abstract PTDatabaseConfig(Config) from Config {
     public static inline var RELEVANT_CLASSES = "relevantclasses";
     public static inline var NONLAB_CLASSES = "nonlabclasses";
     
+    public static inline var DBPATH_DEFAULT = "data/db.json";
+    public static inline var RELEVANT_CLASSES_DEFAULT = "110,111,113,121,206,221,222,312,313,314,315";
+    public static inline var NONLAB_CLASSES_DEFAULT = "222,314";
+    
 /**
  *  The path to the database file.
  */
@@ -44,9 +48,9 @@ abstract PTDatabaseConfig(Config) from Config {
  *  Resets the parameters to their default values.
  */
     public inline function setDefaults():Void {
-        dbpath = "data/db.json";
-        relevantClasses = "110,111,113,121,206,221,222,312,313,314,315";
-        nonlabClasses = "222,314";
+        dbpath = DBPATH_DEFAULT;
+        relevantClasses = RELEVANT_CLASSES_DEFAULT;
+        nonlabClasses = NONLAB_CLASSES_DEFAULT;
     }
     
 /**

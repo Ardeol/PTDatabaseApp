@@ -26,6 +26,8 @@ class JsonDatabase implements IDatabase {
     public function new() {
         err = new Error("");
         path = "";
+        ptmap = new Map<String, PeerTeacher>();
+        labmap = new Map<String, ClassSchedule>();
     }
  
 /*  Public Methods
@@ -195,9 +197,6 @@ class JsonDatabase implements IDatabase {
     private var ptmap:Map<String, PeerTeacher>;
     private var labmap:Map<String, ClassSchedule>;
  
-/*  Private Methods
- *  =========================================================================*/
-    
 }
 /*  ***********************************************************************  *
                                                                   End Class  */
