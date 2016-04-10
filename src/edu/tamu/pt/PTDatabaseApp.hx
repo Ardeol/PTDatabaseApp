@@ -6,6 +6,7 @@ import sys.FileSystem;
 import openfl.Lib;
 import openfl.Assets;
 
+import haxe.ui.toolkit.core.Macros;
 import haxe.ui.toolkit.core.ClassManager;
 import haxe.ui.toolkit.core.PopupManager;
 import haxe.ui.toolkit.core.Toolkit;
@@ -15,9 +16,9 @@ import haxe.ui.toolkit.themes.GradientTheme;
 import edu.tamu.pt.controllers.MainController;
 import edu.tamu.pt.db.IDatabase;
 import edu.tamu.pt.ui.CustomUIRegistrar;
+import edu.tamu.pt.ui.themes.CustomThemesRegistrar;
+import edu.tamu.pt.ui.themes.SimplySimpleSimplicityTheme;
 import edu.tamu.pt.util.Config;
-
-import edu.tamu.pt.util.Key;
 
 /** PTDatabaseApp Class
  *  @author  Timothy Foster
@@ -35,7 +36,6 @@ class PTDatabaseApp {
 /*  Constructor
  *  =========================================================================*/
     public function new() {
-    //    Key.initialize();
         databaseLoadErrorFlag = false;
     
         initHaxeUI();
@@ -100,6 +100,8 @@ class PTDatabaseApp {
 /*  Private Methods
  *  =========================================================================*/
     private function initHaxeUI():Void {
+        CustomThemesRegistrar.registerAll();
+    //  Toolkit.theme = new SimplySimpleSimplicityTheme();
         Toolkit.theme = new GradientTheme();
         CustomUIRegistrar.registerAll();
         Toolkit.init();
