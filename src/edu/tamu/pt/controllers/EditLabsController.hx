@@ -184,6 +184,15 @@ class EditLabsController extends Controller {
         return new LabReader(filename, config.relevantClasses.split(",")).read();
     }
     
+    private function includeNonLabClasses(labs:Map<String, ClassSchedule>):Map<String, ClassSchedule> {
+        var nonlabs = config.nonlabClasses.split(",");
+        for (nonlab in nonlabs) {
+            var c = new ClassSchedule("CSCE", nonlab, "");
+            labs.set(c.toString(), c);
+        }
+        return labs;
+    }
+    
 /*  UI Actions
  *  =========================================================================*/
 /**
@@ -251,6 +260,8 @@ class EditLabsController extends Controller {
                     catch (err:Dynamic) {  return; }
                     if (labs == null)
                         return;
+                        
+                    labs = includeNonLabClasses(labs);
                     
                 //  Labs read in correctly; now remember lab assignments
                     var pts = db.pts();

@@ -45,7 +45,7 @@ class ClassSchedule {
     }
     
     public function toString():String {
-        return '$dept-$code-$section';
+        return section.length > 0 ? '$dept-$code-$section' : '$dept-$code';
     }
     
     public function timesString():String {

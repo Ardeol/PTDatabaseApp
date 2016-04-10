@@ -29,9 +29,6 @@ class PTDatabaseApp {
     public static inline var VERSION = "A.00";
     public static inline var AUTHOR = "Timothy Foster (@tfAuroratide)";
     
-    public static inline var CONFIG_DBPATH = "dbpath";
-    public static inline var CONFIG_RELEVANT_CLASSES = "relevantclasses";
-    
     public var config(default, null):PTDatabaseConfig;
     public var database(default, null):IDatabase;
 
@@ -47,12 +44,6 @@ class PTDatabaseApp {
         started = false;
     
         setExitHandler();
-        
-    /*
-        Lib.application.onExit.add(function(code) {
-            trace("EXITING");
-        });
-    */
     }
     
 /*  Class Methods

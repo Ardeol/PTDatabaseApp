@@ -42,7 +42,7 @@ class ListPTsController extends ListController {
 
         for (pt in pts) {
             var labs = new Array<String>();
-            var reg = ~/[a-zA-Z]*-(\d*-\d*)/;
+            var reg = ~/[a-zA-Z]*-(\d*-?\d*)/;
             for (lab in pt.labs) {
                 if (reg.match(lab.toString()))
                     labs.push(reg.matched(1));
