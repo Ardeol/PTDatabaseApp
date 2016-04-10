@@ -23,6 +23,7 @@ class CustomUIRegistrar {
         register(NameSortSelector, "namesortselector");
         register(SmartListView, "smartlistview");
         register(TextTableComponent, "texttable");
+        register(AmPmSelector, "ampmselector");
     }
     
 /**

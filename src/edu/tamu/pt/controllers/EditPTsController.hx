@@ -16,6 +16,7 @@ import edu.tamu.pt.struct.Appointment;
 import edu.tamu.pt.struct.PeerTeacher;
 import edu.tamu.pt.struct.ClassSchedule;
 import edu.tamu.pt.ui.NameSortSelector;
+import edu.tamu.pt.ui.AmPmSelector;
 import edu.tamu.pt.ui.NewPTPopup;
 import edu.tamu.pt.ui.SmartListView;
 import edu.tamu.pt.ui.renderers.IdComponentItemRenderer;
@@ -241,7 +242,12 @@ class EditPTsController extends Controller {
     
     private function refreshPTOfficeHours():Void {
         if (currentPT != null) {
-            getComponent(Id.OFFICE_HOUR_ADD).text = "";
+            getComponent(Id.OFFICE_HOURS_ADD_DAYS).text = "";
+            getComponent(Id.OFFICE_HOURS_ADD_START).text = "";
+            getComponentAs(Id.OFFICE_HOURS_ADD_START_AMPM, AmPmSelector).ampm = "pm";
+            getComponent(Id.OFFICE_HOURS_ADD_END).text = "";
+            getComponentAs(Id.OFFICE_HOURS_ADD_END_AMPM, AmPmSelector).ampm = "pm";
+            
             var listview = getComponentAs(Id.OFFICE_HOURS, SmartListView);
             listview.clear();
             var i = 0;
@@ -378,7 +384,13 @@ class EditPTsController extends Controller {
         if (currentPT == null)
             PTDatabaseApp.error("Office hours cannot be added.  No PT is selected yet.");
         else {
-            var raw = getComponent(Id.OFFICE_HOUR_ADD).text;
+            var days = getComponent(Id.OFFICE_HOURS_ADD_DAYS).text;
+            var start = getComponent(Id.OFFICE_HOURS_ADD_START).text;
+            var startm = getComponentAs(Id.OFFICE_HOURS_ADD_START_AMPM, AmPmSelector).ampm;
+            var end = getComponent(Id.OFFICE_HOURS_ADD_END).text;
+            var endm = getComponentAs(Id.OFFICE_HOURS_ADD_END_AMPM, AmPmSelector).ampm;
+            var raw = '$days $start $startm - $end $endm';
+            
             try {
                 var appt = new Appointment(raw);
                 if (!currentPT.intersects(appt)) {
@@ -413,7 +425,14 @@ class EditPTsController extends Controller {
             currentPT.officeHours.remove(appt);
             refreshPTOfficeHours();
             refreshPTLabs();
-            getComponent(Id.OFFICE_HOUR_ADD).text = appt.toString(); // in case we need to undo the removal
+            getComponent(Id.OFFICE_HOURS_ADD_DAYS).text = appt.daysString();
+            var r = ~/(\d?\d:\d\d)\s*([ap]m)?\s*-\s*(\d?\d:\d\d)\s*([ap]m)/;
+            if (r.match(appt.timesString())) {
+                getComponent(Id.OFFICE_HOURS_ADD_START).text = r.matched(1);
+                getComponentAs(Id.OFFICE_HOURS_ADD_START_AMPM, AmPmSelector).ampm = r.matched(2) == null ? r.matched(4) : r.matched(2);
+                getComponent(Id.OFFICE_HOURS_ADD_END).text = r.matched(3);
+                getComponentAs(Id.OFFICE_HOURS_ADD_END_AMPM, AmPmSelector).ampm = r.matched(4);
+            }
         }
     }
     
@@ -658,7 +677,11 @@ class EditPTsController extends Controller {
     var CUR_LABS = "edit-pts-current-labs";
     var LABS = "edit-pts-lab-list";
     var OFFICE_HOURS = "edit-pts-office-hour-list";
-    var OFFICE_HOUR_ADD = "edit-pts-add-office-hours";
+    var OFFICE_HOURS_ADD_DAYS = "edit-pts-add-office-hours-days";
+    var OFFICE_HOURS_ADD_START = "edit-pts-add-office-hours-start";
+    var OFFICE_HOURS_ADD_START_AMPM = "edit-pts-add-office-hours-start-ampm";
+    var OFFICE_HOURS_ADD_END = "edit-pts-add-office-hours-end";
+    var OFFICE_HOURS_ADD_END_AMPM = "edit-pts-add-office-hours-end-ampm";
     var OFFICE_HOUR_BTN = "edit-pts-add-office-hours-btn";
     var SCHEDULE = "edit-pts-schedule";
     var SCHEDULE_BTN = "edit-pts-upload-schedule";
