@@ -7,6 +7,8 @@ import systools.Dialogs;
 
 import edu.tamu.pt.PTDatabaseApp;
 import edu.tamu.pt.db.IDatabase;
+import edu.tamu.pt.io.generators.Generator;
+import edu.tamu.pt.io.generators.WebPageGenerator;
 
 /** MainController Class
  *  @author  Timothy Foster
@@ -47,14 +49,7 @@ class MainController extends Controller {
                 case Id.FILE_SAVE:
                     db.save();
                 case Id.FILE_EXPORT:
-                    var finalSlashIndex = app.config.dbpath.lastIndexOf("/");
-                    if (finalSlashIndex < 0)
-                        finalSlashIndex = app.config.dbpath.lastIndexOf("\\");
-                    var initialDirectory = "";
-                    if (finalSlashIndex >= 0)
-                        initialDirectory = app.config.dbpath.substring(0, finalSlashIndex);
-                    
-                    var location = Dialogs.saveFile("Save Database As", "Save the Database as a JSON file", initialDirectory, {
+                    var location = Dialogs.saveFile("Save Database As", "Save the Database as a JSON file", app.directory, {
                         count: 1,
                         extensions: ["*.json"],
                         descriptions: ["*.json"]
@@ -105,12 +100,32 @@ class MainController extends Controller {
         });
         
         attachEvent(Id.GENERATE, MenuEvent.SELECT, function(e:MenuEvent) {
+            var generator:Generator = null;
+            
             switch(e.menuItem.id) {
-                case Id.GENERATE_WEBSITE: menuItemNotImplemented();
+                case Id.GENERATE_WEBSITE: //menuItemNotImplemented();
+                    generator = new WebPageGenerator();
                 case Id.GENERATE_POSTER: menuItemNotImplemented();
                 case Id.GENERATE_BLOCK: menuItemNotImplemented();
                 default: invalidMenuError();
             }
+            
+            if (generator == null)
+                return;
+            var location = Dialogs.saveFile("Generate To", "Generate file to", app.directory, {
+                count: 1,
+                extensions: ['*.${generator.extension}'],
+                descriptions: ['*.${generator.extension}']
+            });
+            if (location == null || location.length <= 0)
+                return;
+                
+            var patt = new EReg('\\.${generator.extension}$$', "");
+            if (!patt.match(location))
+                location += '.${generator.extension}';
+                
+            generator.path = location;
+            generator.write(db);
         });
     }
     

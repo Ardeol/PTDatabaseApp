@@ -32,6 +32,7 @@ class PTDatabaseApp {
     
     public var config(default, null):PTDatabaseConfig;
     public var database(default, null):IDatabase;
+    public var directory(get, never):String;
 
 /*  Constructor
  *  =========================================================================*/
@@ -99,6 +100,16 @@ class PTDatabaseApp {
  
 /*  Private Methods
  *  =========================================================================*/
+    private function get_directory():String {
+        var finalSlashIndex = config.dbpath.lastIndexOf("/");
+        if (finalSlashIndex < 0)
+            finalSlashIndex = config.dbpath.lastIndexOf("\\");
+        var initialDirectory = "";
+        if (finalSlashIndex >= 0)
+            initialDirectory = config.dbpath.substring(0, finalSlashIndex);
+        return initialDirectory;
+    }
+ 
     private function initHaxeUI():Void {
         CustomThemesRegistrar.registerAll();
     //  Toolkit.theme = new SimplySimpleSimplicityTheme();
