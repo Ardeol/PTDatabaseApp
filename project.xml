@@ -23,6 +23,7 @@
 	<!-- assets -->
 	<icon path="assets/icon.svg" />
     <assets path="assets/data" rename="data" />
+    <assets path="assets/generators" rename="generators" />
     <assets path="assets/styles" rename="styles" />
     <assets path="assets/ui" rename="ui" />
     <assets path="assets/test" rename="test" />
