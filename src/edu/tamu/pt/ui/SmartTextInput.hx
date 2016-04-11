@@ -2,12 +2,8 @@ package edu.tamu.pt.ui;
 
 import haxe.Timer;
 
-import lime.ui.KeyCode;
-import lime.ui.KeyModifier;
-
 import openfl.Lib;
 import openfl.ui.Keyboard;
-import openfl.events.Event;
 import openfl.events.KeyboardEvent;
 
 import haxe.ui.toolkit.controls.TextInput;
@@ -26,23 +22,51 @@ import edu.tamu.pt.util.Key;
  *  nothing since OpenFL does not support it easily.
  *  **************************************************************************/
 class SmartTextInput extends TextInput {
-
+    
+    public var nextTextInput:TextInput;
+    
+/*  Constructor
+ *  =========================================================================*/
 /**
  *  Create a new instance
  */
     public function new() {
         super();
-        //this.addEventListener(KeyboardEvent.KEY_DOWN, performPress);
-        //this.addEventListener(Event.ENTER_FRAME, performPress);
+        ctrlDown = false;
+        this.addEventListener(KeyboardEvent.KEY_DOWN, keyDown);
+        this.addEventListener(KeyboardEvent.KEY_UP, keyUp);
+        this.nextTextInput = null;
+    }
+    
+/*  Private Members
+ *  =========================================================================*/
+    private static inline var CTRL_SENSITIVITY = 100; // lower = more rigid
+
+    private var ctrlDown:Bool;
+ 
+/*  Private Methods
+ *  =========================================================================*/
+/**
+ *  @private
+ *  Sets whether the control is down upon a keypress
+ *  @param e
+ */
+    private function keyDown(e:KeyboardEvent):Void {
+        if (e.keyCode == Keyboard.CONTROL || e.keyCode == Keyboard.COMMAND)
+            ctrlDown = true;
+        else if (e.keyCode == Keyboard.TAB && nextTextInput != null)
+            nextTextInput.focus();
     }
     
 /**
- *  @private
- *  The press action, depending on the key.
- *  @param  e
+ *  Performs an action if the ctrl is down
+ *  @param e
  */
-    private function performPress(e:KeyboardEvent):Void {
-        if (e.ctrlKey) {
+    private function keyUp(e:KeyboardEvent):Void {
+        if (e.keyCode == Keyboard.CONTROL || e.keyCode == Keyboard.COMMAND)
+        //  The delay here is for people who release control before releasing the letter key
+            Timer.delay(function() {  ctrlDown = false; }, CTRL_SENSITIVITY);
+        if (ctrlDown) {
             switch(e.keyCode) {
                 case Keyboard.C: copy();
                 case Keyboard.V: paste();

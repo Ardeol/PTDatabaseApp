@@ -2,6 +2,8 @@ package edu.tamu.pt.ui;
 
 import haxe.ui.toolkit.core.XMLController;
 
+import edu.tamu.pt.ui.SmartTextInput;
+
 /** NewPTPopup Class
  *  @author  Timothy Foster
  *  @version A.00
@@ -18,6 +20,8 @@ class NewPTPopup extends XMLController {
  *  =========================================================================*/
     public function new() {
         super("ui/popups/new-pt.xml");
+        
+        getComponentAs(FIRSTNAME, SmartTextInput).nextTextInput = getComponentAs(LASTNAME, SmartTextInput);
     }
  
 /*  Private Methods
