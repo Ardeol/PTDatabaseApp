@@ -4,9 +4,11 @@ import haxe.Timer;
 
 import openfl.Lib;
 import openfl.ui.Keyboard;
+import openfl.events.Event;
 import openfl.events.KeyboardEvent;
 
 import haxe.ui.toolkit.controls.TextInput;
+import haxe.ui.toolkit.events.UIEvent;
 
 import systools.Clipboard;
 
@@ -96,6 +98,7 @@ class SmartTextInput extends TextInput {
             txt = ~/[\r\n]/g.replace(txt, "");
         this.text = txt;
         preventStrayCharacter();
+        dispatchEvent(new Event(UIEvent.CHANGE));
     }
     
 /**
@@ -106,6 +109,6 @@ class SmartTextInput extends TextInput {
  */
     private function preventStrayCharacter():Void {
         var txt = this.text;
-        Timer.delay(function() { this.text = txt; }, 1);
+        Timer.delay(function() {  this.text = txt; }, 1);
     }
 }
