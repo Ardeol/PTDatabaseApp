@@ -19,6 +19,7 @@ import edu.tamu.pt.ui.NameSortSelector;
 import edu.tamu.pt.ui.AmPmSelector;
 import edu.tamu.pt.ui.NewPTPopup;
 import edu.tamu.pt.ui.SmartListView;
+import edu.tamu.pt.ui.SmartTextInput;
 import edu.tamu.pt.ui.renderers.IdComponentItemRenderer;
 import edu.tamu.pt.util.Filters;
 import edu.tamu.pt.util.Sorters;
@@ -44,6 +45,18 @@ class EditPTsController extends Controller {
         
         this.ptListCache = new Array<PeerTeacher>();
         buildPTList();
+        
+        var pn = getComponentAs(Id.PREFERREDNAME, SmartTextInput);
+        var em = getComponentAs(Id.EMAIL, SmartTextInput);
+        var im = getComponentAs(Id.IMAGE, SmartTextInput);
+        pn.nextTextInput = em;
+        em.nextTextInput = im;
+        
+        var ohd = getComponentAs(Id.OFFICE_HOURS_ADD_DAYS, SmartTextInput);
+        var ohs = getComponentAs(Id.OFFICE_HOURS_ADD_START, SmartTextInput);
+        var ohe = getComponentAs(Id.OFFICE_HOURS_ADD_END, SmartTextInput);
+        ohd.nextTextInput = ohs;
+        ohs.nextTextInput = ohe;
         
         attachEvent(Id.SORTBY, UIEvent.CHANGE, function(e) {
             buildPTList();
@@ -405,7 +418,7 @@ class EditPTsController extends Controller {
             }
             catch (err:Dynamic) {
             //  Format is bad
-                PTDatabaseApp.error("Cannot add office hours due to improper formatting.  Proper formatting is: DAYS TIME_START - TIME_END, eg. MW 10:00 - 11:00 am");
+                PTDatabaseApp.error("Cannot add office hours due to improper formatting.  The first field represents the days, formatted as, for instance, \"MWF\", \"TR\", \"Su\", and so on.  The other two fields are times, and they must include both hours and minutes (eg. \"10:00\", not \"10\").");
             }
         }
     }
