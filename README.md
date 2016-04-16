@@ -36,6 +36,7 @@ Modifying the Program
 To compile this program, you must install Haxe and all of the above libraries.  The below steps show how to do this.
 
 1) Download and install Haxe
+
 2) Open up a terminal and run the following command:
 ```
 haxelib setup
