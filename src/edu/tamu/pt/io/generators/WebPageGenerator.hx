@@ -63,7 +63,8 @@ class WebPageGenerator extends Generator {
             var cStr = '${c.dept} ${c.code}';
             if (!courseMap.exists(cStr))
                 courseMap.set(cStr, new Array<ClassSchedule>());
-            courseMap.get(cStr).push(c);
+            if(c.section.length > 0)
+                courseMap.get(cStr).push(c);
         });
         Lambda.iter(labArray, function(c) {
             var cStr = '${c.dept} ${c.code}';
@@ -86,7 +87,9 @@ class WebPageGenerator extends Generator {
     }
     
     private function parseCourse(courseKey:String, sections:Array<ClassSchedule>):String {
-        var course = courseKey + " - " + Lambda.map(sections, function(c) {  return c.section; }).join(", ");
+        var course = courseKey;
+        if(sections.length > 0)
+            course += " - " + Lambda.map(sections, function(c) {  return c.section; }).join(", ");
         return Macros.getGeneratorHtml("webpage", "course"); // requires course
     }
     

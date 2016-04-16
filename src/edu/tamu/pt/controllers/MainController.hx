@@ -9,6 +9,7 @@ import edu.tamu.pt.PTDatabaseApp;
 import edu.tamu.pt.db.IDatabase;
 import edu.tamu.pt.io.generators.Generator;
 import edu.tamu.pt.io.generators.WebPageGenerator;
+import edu.tamu.pt.io.generators.PosterGenerator;
 
 /** MainController Class
  *  @author  Timothy Foster
@@ -104,7 +105,7 @@ class MainController extends Controller {
             
             switch(e.menuItem.id) {
                 case Id.GENERATE_WEBSITE: generator = new WebPageGenerator();
-                case Id.GENERATE_POSTER:  menuItemNotImplemented();
+                case Id.GENERATE_POSTER:  generator = new PosterGenerator();
                 case Id.GENERATE_BLOCK:   menuItemNotImplemented();
                 default: invalidMenuError();
             }
@@ -124,7 +125,12 @@ class MainController extends Controller {
                 location += '.${generator.extension}';
                 
             generator.path = location;
-            generator.write(db);
+            try {
+                generator.write(db);
+            }
+            catch (err:Dynamic) {
+                PTDatabaseApp.error("Generation failed for an unknown reason.");
+            }
         });
     }
     
