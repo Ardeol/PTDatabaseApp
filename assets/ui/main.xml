@@ -2,6 +2,17 @@
 <vbox id="master-container" width="100%" height="100%">
     <style>
         #content-container {  padding: 6px; }
+        TextTableComponent TextTableHeadComponent {
+            backgroundColor: 0x606C88;
+            padding: 2px;
+        }
+        TextTableComponent TextTableHeadComponent Text {  color: 0xFFFFFF; }
+        TextTableComponent TextTableCellComponent {
+            backgroundColor: 0xFFFFFF;
+        }
+        TextTableComponent TextTableCellComponent.alternate {
+            backgroundColor: 0xE9EDF5;
+        }
     </style>
     
     <menubar id="top-bar">

@@ -4,6 +4,8 @@ import haxe.ui.toolkit.core.interfaces.IDisplayObject;
 import haxe.ui.toolkit.core.ClassManager;
 
 import edu.tamu.pt.ui.TextTable.TextTableComponent;
+import edu.tamu.pt.ui.TextTable.TextTableCellComponent;
+import edu.tamu.pt.ui.TextTable.TextTableHeadComponent;
 
 /** CustomUIRegistrar Class
  *  @author  Timothy Foster
@@ -23,6 +25,8 @@ class CustomUIRegistrar {
         register(NameSortSelector, "namesortselector");
         register(SmartListView, "smartlistview");
         register(TextTableComponent, "texttable");
+        register(TextTableCellComponent, "texttablecell");
+        register(TextTableHeadComponent, "texttablehead");
         register(AmPmSelector, "ampmselector");
     }
     
