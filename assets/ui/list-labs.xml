@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <vbox id="list-labs-container" width="100%" height="100%">
-    <text class="title" text="List of Labs" />
-
     <scrollview width="100%" height="100%" style="backgroundColor: #FFFFFF;">
         <texttable id="list-labs-table" width="100%" columns="3">
-            <text text="Lab" />
-            <text text="Times" />
-            <text text="Peer Teachers" />
+            <text styleName="heading" text="Lab" />
+            <text styleName="heading" text="Times" />
+            <text styleName="heading" text="Peer Teachers" />
         </texttable>
     </scrollview>
     

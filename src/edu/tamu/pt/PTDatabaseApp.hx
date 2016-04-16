@@ -28,7 +28,7 @@ import edu.tamu.pt.util.Config;
  *  The app.
  *  **************************************************************************/
 class PTDatabaseApp {
-    public static inline var VERSION = "A.00";
+    public static inline var VERSION = "0.00.160416";
     public static inline var AUTHOR = "Timothy Foster (@tfAuroratide)";
     
     public var config(default, null):PTDatabaseConfig;

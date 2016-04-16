@@ -1,11 +1,12 @@
 package;
 
-import haxe.unit.TestRunner;
-
 import openfl.display.Sprite;
 import openfl.Lib;
 
 import edu.tamu.pt.PTDatabaseApp;
+
+/*  DEBUG */
+import haxe.unit.TestRunner;
 import edu.tamu.pt.test.*;
 
 class Main extends Sprite {
@@ -36,3 +37,18 @@ class Main extends Sprite {
     }
 
 }
+/*  */
+
+/* RELEASE
+class Main extends Sprite {
+    
+    private var app:PTDatabaseApp;
+
+    public function new() {
+        super();
+        app = new PTDatabaseApp();
+        app.start();
+    }
+
+}
+/*  */

@@ -1,6 +1,7 @@
 package edu.tamu.pt.controllers;
 
 import haxe.ui.toolkit.core.Component;
+import haxe.ui.toolkit.core.PopupManager;
 import haxe.ui.toolkit.events.MenuEvent;
 
 import systools.Dialogs;
@@ -132,6 +133,14 @@ class MainController extends Controller {
                 PTDatabaseApp.error("Generation failed for an unknown reason.");
             }
         });
+        
+        attachEvent(Id.HELP, MenuEvent.SELECT, function(e:MenuEvent) {
+            switch(e.menuItem.id) {
+                case Id.HELP_ABOUT:
+                    PopupManager.instance.showSimple("This application was created by " + PTDatabaseApp.AUTHOR + " in 2016 to help make peer teacher management simpler.  Source code is available and may be extended freely at github.com/Ardeol/PTDatabaseApp.\n\nVersion: " + PTDatabaseApp.VERSION, "About", PopupButton.CLOSE);
+                default: invalidMenuError();
+            }
+        });
     }
     
 /*  Class Methods
@@ -185,6 +194,7 @@ class MainController extends Controller {
     var EDIT = "edit-menubutton";
     var LIST = "list-menubutton";
     var GENERATE = "generate-menubutton";
+    var HELP = "help-menubutton";
     
     var FILE_LOAD = "file-menu-load";
     var FILE_SAVE = "file-menu-save";
@@ -204,4 +214,6 @@ class MainController extends Controller {
     var GENERATE_WEBSITE = "generate-menu-website";
     var GENERATE_POSTER = "generate-menu-poster";
     var GENERATE_BLOCK = "generate-menu-block";
+    
+    var HELP_ABOUT = "help-menu-about";
 }
