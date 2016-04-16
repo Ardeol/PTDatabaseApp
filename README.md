@@ -37,14 +37,15 @@ To compile this program, you must install Haxe and all of the above libraries.  
 
 1. Download and install Haxe
 2. Open up a terminal and run the following command:
-
-    haxelib setup
-    
+```
+haxelib setup
+``` 
 3. Now install the libraries with the below three commands:
-
-    haxelib install openfl
-    haxelib install haxeui
-    haxelib install systools
+```
+haxelib install openfl
+haxelib install haxeui
+haxelib install systools
+```
     
 4. Clone this project to a folder of your choice.  You do this with the following, assuming you have Git on your computer:
 
@@ -52,9 +53,11 @@ To compile this program, you must install Haxe and all of the above libraries.  
     
 5. Go to where you just cloned this project.  Now you can build the project with OpenFL, depending on your platform:
 
-    openfl build windows
-    openfl build mac
-    openfl build linux
+```
+openfl build windows
+openfl build mac
+openfl build linux
+```
     
 The output is located in the newly created `bin` folder.  From here, you can edit source code and make changes as needed.
 
