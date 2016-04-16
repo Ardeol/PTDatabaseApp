@@ -117,8 +117,8 @@ class PTDatabaseApp {
  
     private function initHaxeUI():Void {
         CustomThemesRegistrar.registerAll();
-    //  Toolkit.theme = new SimplySimpleSimplicityTheme();
-        Toolkit.theme = new GradientTheme();
+      Toolkit.theme = new SimplySimpleSimplicityTheme();
+    //    Toolkit.theme = new GradientTheme();
         CustomUIRegistrar.registerAll();
         Toolkit.init();
         Toolkit.setTransitionForClass(Popup, "none");
