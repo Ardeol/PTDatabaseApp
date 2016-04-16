@@ -35,23 +35,24 @@ Modifying the Program
 
 To compile this program, you must install Haxe and all of the above libraries.  The below steps show how to do this.
 
-1. Download and install Haxe
-2. Open up a terminal and run the following command:
+1) Download and install Haxe
+2) Open up a terminal and run the following command:
 ```
 haxelib setup
 ``` 
-3. Now install the libraries with the below three commands:
+3) Now install the libraries with the below three commands:
 ```
 haxelib install openfl
 haxelib install haxeui
 haxelib install systools
 ```
     
-4. Clone this project to a folder of your choice.  You do this with the following, assuming you have Git on your computer:
-
-    git clone https://github.com/Ardeol/PTDatabaseApp.git
+4) Clone this project to a folder of your choice.  You do this with the following, assuming you have Git on your computer:
+```
+git clone https://github.com/Ardeol/PTDatabaseApp.git
+```
     
-5. Go to where you just cloned this project.  Now you can build the project with OpenFL, depending on your platform:
+5) Go to where you just cloned this project.  Now you can build the project with OpenFL, depending on your platform:
 
 ```
 openfl build windows
