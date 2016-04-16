@@ -18,7 +18,7 @@ class ListLabsController extends ListController {
  *  @inheritDoc
  */
     public function new(db:IDatabase) {
-        super("ui/list-labs.xml", db, Id.TABLE);
+        super("ui/list-labs.xml", db, Id.TABLE, Id.EXPORT_BTN);
         buildTable();
     }
  
@@ -47,4 +47,5 @@ class ListLabsController extends ListController {
 @:enum private abstract Id(String) from String to String {
     var CONTAINER = "list-labs-container";
     var TABLE = "list-labs-table";
+    var EXPORT_BTN = "list-labs-export-btn";
 }

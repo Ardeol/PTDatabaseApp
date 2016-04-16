@@ -92,6 +92,7 @@ class EditPTsController extends Controller {
         attachEvent(Id.SCHEDULE_CLEAR, UIEvent.MOUSE_UP, clearScheduleAction);
         
         attachEvent(Id.IMPORT_BULK_BTN, UIEvent.MOUSE_UP, importBulkSchedulesAction);
+        attachEvent(Id.CLEAR_ALL_BTN, UIEvent.MOUSE_UP, clearAllPTsAction);
     }
     
 /*  Public Methods
@@ -677,6 +678,20 @@ class EditPTsController extends Controller {
             });
         }
     }
+    
+    private function clearAllPTsAction(?e:UIEvent):Void {
+        PopupManager.instance.showSimple("Are you sure?  This action is irreversible.", "Clear Peer Teachers", [PopupButton.OK, PopupButton.CANCEL], function(btn) {
+            switch(btn) {
+                case PopupButton.OK:
+                    currentPT = null;
+                    db.clearPts();
+                    buildPTList();
+                    refreshPT();
+                case PopupButton.CANCEL:
+                default:
+            }
+        });
+    }
 }
 
 @:enum private abstract Id(String) from String to String {
@@ -703,4 +718,5 @@ class EditPTsController extends Controller {
     var PT_LIST = "edit-pts-pt-list";
     var ADD_PT_BTN = "edit-pts-add-pt-btn";
     var IMPORT_BULK_BTN = "edit-pts-import-bulk-btn";
+    var CLEAR_ALL_BTN = "edit-pts-clear-btn";
 }

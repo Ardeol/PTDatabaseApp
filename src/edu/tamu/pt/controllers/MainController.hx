@@ -94,8 +94,8 @@ class MainController extends Controller {
             switch(e.menuItem.id) {
                 case Id.LIST_PTS: changeView(new ListPTsController(db));
                 case Id.LIST_LABS: changeView(new ListLabsController(db));
-                case Id.LIST_EXPORT_PTS: menuItemNotImplemented();
-                case Id.LIST_EXPORT_LABS: menuItemNotImplemented();
+                case Id.LIST_EXPORT_PTS: new ListPTsController(db).export();
+                case Id.LIST_EXPORT_LABS: new ListLabsController(db).export();
                 default: invalidMenuError();
             }
         });

@@ -40,9 +40,17 @@ abstract TextTable(TextTableComponent) from TextTableComponent {
         }
     }
     
-    //public inline function row(i:Int):Array<String> {
-        
-    //}
+/**
+ *  Returns the text at the given cell
+ *  @param r row
+ *  @param c column
+ *  @return
+ */
+    public inline function cell(r:Int, c:Int):String {
+        if (r < 0 || r >= rows || c < 0 || c >= columns)
+            throw '($r, $c) is an invalid location in table of size ($rows, $columns)';
+        return cast(this.getChildAt((r + 1) * columns + c), Text).text;
+    }
     
 /**
  *  Removes the ith row

@@ -2,5 +2,5 @@
 <menu>
     <menuitem id="generate-menu-website" text="Website" />
     <menuitem id="generate-menu-poster" text="Poster" />
-    <menuitem id="generate-menu-block" text="Block Office Hours" />
+<!--<menuitem id="generate-menu-block" text="Block Office Hours" />-->
 </menu>

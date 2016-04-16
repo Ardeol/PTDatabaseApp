@@ -9,4 +9,9 @@
             <text text="Peer Teachers" />
         </texttable>
     </scrollview>
+    
+    <hbox width="100%">
+        <button id="list-labs-export-btn" width="100%" text="Export to CSV" />
+    </hbox>
+    
 </vbox>

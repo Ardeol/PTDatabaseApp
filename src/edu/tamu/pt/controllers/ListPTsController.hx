@@ -22,7 +22,7 @@ class ListPTsController extends ListController {
  *  @inheritDoc
  */
     public function new(db:IDatabase) {
-        super("ui/list-pts.xml", db, Id.TABLE);
+        super("ui/list-pts.xml", db, Id.TABLE, Id.EXPORT_BTN);
         this.sortby = getComponentAs(Id.SORTBY, NameSortSelector);
         
         attachEvent(Id.SORTBY, UIEvent.CHANGE, function(e) {  buildTable(); });
@@ -65,4 +65,5 @@ class ListPTsController extends ListController {
     var CONTAINER = "list-pts-container";
     var TABLE = "list-pts-table";
     var SORTBY = "list-pts-sortby";
+    var EXPORT_BTN = "list-pts-export-btn";
 }
