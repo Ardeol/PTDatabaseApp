@@ -4,7 +4,6 @@ import edu.tamu.pt.error.Error;
 
 /** TimeInterval Class
  *  @author  Timothy Foster
- *  @version x.xx.160224
  *  
  *  Represents a time interval in a schedule.  For instance, a Time object can
  *  represent 10:00 am - 12:00 pm.

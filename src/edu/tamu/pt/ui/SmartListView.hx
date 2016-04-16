@@ -5,7 +5,6 @@ import haxe.ui.toolkit.data.ArrayDataSource;
 
 /** SmartListView Class
  *  @author  Timothy Foster
- *  @version A.00
  *
  *  This class has some extra functionality which will help the listview 
  *  remember location and such.

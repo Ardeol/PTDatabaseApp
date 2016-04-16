@@ -56,9 +56,6 @@ class ListPTsController extends ListController {
  *  =========================================================================*/
     private var sortby:NameSortSelector;
  
-/*  Private Methods
- *  =========================================================================*/
- 
 }
 
 @:enum private abstract Id(String) from String to String {

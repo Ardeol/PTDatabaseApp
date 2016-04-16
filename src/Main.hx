@@ -5,41 +5,6 @@ import openfl.Lib;
 
 import edu.tamu.pt.PTDatabaseApp;
 
-/*  DEBUG */
-import haxe.unit.TestRunner;
-import edu.tamu.pt.test.*;
-
-class Main extends Sprite {
-    private static inline var RUN_TESTS = false;
-    
-    private var app:PTDatabaseApp;
-
-    public function new() {
-        super();
-        
-        if (RUN_TESTS)
-            runTests();
-        else {
-            app = new PTDatabaseApp();
-            app.start();
-        }
-    }
-    
-    public static function runTests():Bool {
-        var runner = new TestRunner();
-        runner.add(new TestTimeInterval());
-        runner.add(new TestAppointment());
-        runner.add(new TestReaders());
-        runner.add(new TestDatabase<edu.tamu.pt.db.JsonDatabase>());
-        runner.add(new TestPeerTeacher());
-        
-        return runner.run();
-    }
-
-}
-/*  */
-
-/* RELEASE
 class Main extends Sprite {
     
     private var app:PTDatabaseApp;
@@ -51,4 +16,3 @@ class Main extends Sprite {
     }
 
 }
-/*  */

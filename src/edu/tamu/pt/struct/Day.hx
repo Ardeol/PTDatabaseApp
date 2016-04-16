@@ -4,7 +4,6 @@ import edu.tamu.pt.error.Error;
 
 /** Day Class
  *  @author  Timothy Foster
- *  @version x.xx.160224
  *
  *  Represents a day (M, T, W, R, or F), but also supports Saturday and
  *  Sunday.

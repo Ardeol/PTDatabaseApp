@@ -13,6 +13,21 @@
         TextTableComponent TextTableCellComponent.alternate {
             backgroundColor: 0xE9EDF5;
         }
+        .rem-pt-btn, .rem-lab-btn, .rem-btn {
+            backgroundColor: 0x845E5E;
+            backgroundColorGradientEnd: 0x683D3D;
+            borderColor: 0x664949;
+        }
+        .rem-pt-btn:over, .rem-lab-btn:over, .rem-btn:over {
+            backgroundColor: 0x684A4A;
+            backgroundColorGradientEnd: 0x492B2B;
+            borderColor: 0x4C3737;
+        }
+        .rem-pt-btn:down, .rem-lab-btn:down, .rem-btn:down {
+            backgroundColor: 0xA58989;
+            backgroundColorGradientEnd: 0x937676;
+            borderColor: 0x4C3737;
+        }
     </style>
     
     <menubar id="top-bar">

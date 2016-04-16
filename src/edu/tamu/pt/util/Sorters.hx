@@ -6,8 +6,9 @@ import edu.tamu.pt.struct.ClassSchedule;
 
 /** Sorters Class
  *  @author  Timothy Foster
- *  @version A.00
  *
+ *  These sorters are passed into either the database or an Array.sort method.
+ *  They are pretty self-explanatory.
  *  **************************************************************************/
 class Sorters {
 

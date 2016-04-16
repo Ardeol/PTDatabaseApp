@@ -4,8 +4,13 @@ import edu.tamu.pt.error.Error;
 
 /** PeerTeacher Class
  *  @author  Timothy Foster
- *  @version A.00
  *
+ *  Contains all the information prevelant for a Peer Teacher.  This includes
+ *  name, email, current actual schedule, all assigned labs, and office
+ *  hours.
+ * 
+ *  I had made a mistake exposing all of the internal structures with this
+ *  class.  It can be refactored, but it would take some significant effort.
  *  **************************************************************************/
 class PeerTeacher {
     public var firstname(default, default):String;
@@ -34,10 +39,6 @@ class PeerTeacher {
         this.labs = new Map<String, ClassSchedule>();
         this.officeHours = new Array<Appointment>();
     }
-    
-/*  Class Methods
- *  =========================================================================*/
-    
  
 /*  Public Methods
  *  =========================================================================*/
@@ -156,26 +157,7 @@ class PeerTeacher {
     public function toString():String {
         return '$firstname $lastname';
     }
- 
-/*  Private Members
- *  =========================================================================*/
-    
- 
-/*  Private Methods
- *  =========================================================================*/
-/*  @deprecated
-    private function set_email(value:String):String {
-        if (value.indexOf("@") < 0)
-            throw new Error('Not a valid email address: $value', "PeerTeacher", "set_email");
-        return email = value;
-    }
-    
-    private function set_image(value:String):String {
-        if (!~/\.(png|jpe?g)$/.match(value))
-            throw new Error('Not a recognized image format.  Only jpg and png recognized, but image was $value', "PeerTeacher", "set_image");
-        return image = value;
-    }
-*/
+
 }
 
 private typedef Intersectable = {

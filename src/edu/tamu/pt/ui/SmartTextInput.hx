@@ -12,16 +12,15 @@ import haxe.ui.toolkit.events.UIEvent;
 
 import systools.Clipboard;
 
-import edu.tamu.pt.util.Key;
-
 /** SmartTextInput Class
  *  @author  Timothy Foster
- *  @version x.xx.150823
  *
  *  The TextInput class with some minor support for Ctrl commands.
  * 
  *  Currently, copying and pasting replaces entire text.  Text selection does
  *  nothing since OpenFL does not support it easily.
+ * 
+ *  By the way, this class of all things gave me the most headaches.
  *  **************************************************************************/
 class SmartTextInput extends TextInput {
     

@@ -10,10 +10,8 @@ import edu.tamu.pt.struct.TimeInterval;
 
 /** StudentScheduleReader Class
  *  @author  Timothy Foster
- *  @version x.xx.160316
  *
  *  Reads in a student's schedule file, if formatted correctly.
- *  @TODO error handling
  *  **************************************************************************/
 class StudentScheduleReader extends FileReader<PeerTeacher> {
     private static var nameFormat:EReg = ~/^\s*Schedule\s+for\s+([^\s]+)\s+(.*)\s*-/;

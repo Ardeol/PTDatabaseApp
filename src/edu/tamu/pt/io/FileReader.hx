@@ -5,7 +5,6 @@ import sys.io.FileInput;
 
 /** FileReader Class
  *  @author  Timothy Foster
- *  @version x.xx.160225
  * 
  *  Reads data from a file and outputs the corresponding object.  This class
  *  is meant to be extended, and parse() should be overridden.

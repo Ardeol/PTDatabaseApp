@@ -5,9 +5,11 @@ import edu.tamu.pt.struct.PeerTeacher;
 
 /** IDatabase Interface
  *  @author  Timothy Foster
- *  @version x.xx.160225
  *
- * ***************************************************************************/
+ *  Interface for all implementations of a database.  This allows for quick
+ *  and easy access to the important information a database holds, but it
+ *  does not allow for generic queries.
+ *  **************************************************************************/
 interface IDatabase  {
 /**
  *  Loads a database given the specs.  Returns true if the load succeeds.

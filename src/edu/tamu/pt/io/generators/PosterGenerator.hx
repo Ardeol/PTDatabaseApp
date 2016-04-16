@@ -9,8 +9,8 @@ import edu.tamu.pt.util.Sorters;
 
 /** PosterGenerator Class
  *  @author  Timothy Foster
- *  @version A.00
  *
+ *  Constructs a table of peer teachers meant to be printed on a large poster.
  *  **************************************************************************/
 class PosterGenerator extends Generator {
     public static inline var NAME = "poster";

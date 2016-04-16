@@ -10,8 +10,23 @@ import edu.tamu.pt.util.Sorters;
 
 /** WebPageGenerator Class
  *  @author  Timothy Foster
- *  @version A.00
  *
+ *  Creates the HTML for the peer teacher web page.  If the powers that be
+ *  update the layout of the website and you find this obsolete, you can edit
+ *  the files located in macro/generators/webpage to make this class generate
+ *  a different HTML style.  You don't even have to edit this class, unless
+ *  the style drastically changes.
+ * 
+ *  In case you need to know how this works, we use HTML partials.  The HTML
+ *  files in the macro folder have variables denoted with a $.  All you have
+ *  to do is create a variable of the same name as the one in the partial, and
+ *  my Macros class automatically performs the substitution.  It's rather
+ *  beautiful, really.
+ * 
+ *  You can see this in the parseMain function.  The main.html partial has a
+ *  $body variable in it.  All the parseMain function needs to do, therefore,
+ *  is define var body, and the macro will substitute the value of the body
+ *  variable into the partial everywhere where $body appears.
  *  **************************************************************************/
 class WebPageGenerator extends Generator {
     public static inline var NAME = "webpage";

@@ -2,7 +2,6 @@ package edu.tamu.pt.util;
 
 /** Config Class
  *  @author  Timothy Foster
- *  @version x.xx.160302
  *
  *  Reads custom data in from an ini file.  Meant to model preferences.
  *  **************************************************************************/

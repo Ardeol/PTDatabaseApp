@@ -5,7 +5,6 @@ import sys.io.FileOutput;
 
 /** FileWriter Class
  *  @author  Timothy Foster
- *  @version x.xx.160302
  *  
  *  Writes a given object to a file.  This class is meant to be extended, and
  *  parse() should be overridden.

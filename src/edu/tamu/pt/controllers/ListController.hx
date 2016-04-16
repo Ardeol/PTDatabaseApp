@@ -13,12 +13,8 @@ import edu.tamu.pt.util.Sorters;
 
 /** ListController Class
  *  @author  Timothy Foster
- *  @version x.xx.160303
  *  
- *  Shows a list in the form of a table.
- * 
- *  This class is meant to be extended.  When you extend, you must provide a
- *  FileWriter<TextTable> object as the exporter!
+ *  Shows a list in the form of a table.  This class is meant to be extended.
  *  **************************************************************************/
 class ListController extends Controller {
     
@@ -54,6 +50,13 @@ class ListController extends Controller {
  */
     public function export():Void {
         exportAction();
+    }
+
+/**
+ *  @inheritDoc
+ */
+    override public function refresh():Void {
+        buildTable();
     }
     
 /**

@@ -14,13 +14,28 @@ import edu.tamu.pt.io.generators.PosterGenerator;
 
 /** MainController Class
  *  @author  Timothy Foster
- *  @version A.00
  *
+ *  This is the all-encompassing screen.  This controller is mainly 
+ *  responsible for the menu actions, though.  The other controllers are
+ *  added to this one and handle their own logic.  They never need to talk
+ *  to each other.
+ * 
+ *  This works by only ever having one view up at a time.  Each of the other
+ *  controllers has an associated view.  When we want to see one view, we
+ *  completely destroy the current one first.  This way, two views never need
+ *  to talk to each other since two are never active at once.
+ * 
+ *  Use the changeView() method in order to change to another controller's
+ *  view.
  *  **************************************************************************/
 class MainController extends Controller {
 
 /*  Constructor
  *  =========================================================================*/
+/**
+ *  Creates the main controller
+ *  @param app The entire application
+ */
     public function new(app:PTDatabaseApp) {
         super("ui/main.xml", app.database);
         this.app = app;
@@ -28,6 +43,7 @@ class MainController extends Controller {
         
         startInitialController();
         
+    //  We need to attach the events to each of the menues in the top bar
         attachEvent(Id.FILE, MenuEvent.SELECT, function(e:MenuEvent) {
             switch(e.menuItem.id) {
                 case Id.FILE_LOAD: 
@@ -142,16 +158,14 @@ class MainController extends Controller {
             }
         });
     }
-    
-/*  Class Methods
- *  =========================================================================*/
-    
- 
+
 /*  Public Methods
  *  =========================================================================*/
 /**
  *  Changes the current view to the view of a new controller
  *  @param controller The new controller to use
+ * 
+ *  @usage changeView(new EditPTsController(db));
  */
     public function changeView(controller:Controller):Void {
         if(current != null) {

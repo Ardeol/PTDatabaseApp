@@ -6,8 +6,9 @@ import edu.tamu.pt.ui.SmartTextInput;
 
 /** NewPTPopup Class
  *  @author  Timothy Foster
- *  @version A.00
  *
+ *  Formats the popup that appears when creating a new peer teacher from
+ *  scratch.
  *  **************************************************************************/
 class NewPTPopup extends XMLController {
     public static inline var FIRSTNAME = "new-pt-firstname";
@@ -18,6 +19,9 @@ class NewPTPopup extends XMLController {
 
 /*  Constructor
  *  =========================================================================*/
+/**
+ *  Creates a new popup
+ */
     public function new() {
         super("ui/popups/new-pt.xml");
         

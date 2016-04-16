@@ -23,13 +23,21 @@ import edu.tamu.pt.error.Error;
 
 /** EditLabsController Class
  *  @author  Timothy Foster
- *  @version A.00
  *
+ *  Allows the user to edit labs.  From this controller, the user may add
+ *  peer teachers to labs or import a lab file.  It is much less complicated
+ *  than the peer teacher controller since we restrict certain actions like
+ *  adding arbitrary classes.  All classes MUST come from the lab file.
  *  **************************************************************************/
 class EditLabsController extends Controller {
 
 /*  Constructor
  *  =========================================================================*/
+/**
+ *  Creates a new controller instance
+ *  @param db The database
+ *  @param config The current config file from the application; needed for reading in lab files
+ */
     public function new(db:IDatabase, config:PTDatabaseConfig) {
         super("ui/edit-labs.xml", db);
         this.config = config;
@@ -65,6 +73,9 @@ class EditLabsController extends Controller {
  
 /*  Public Methods
  *  =========================================================================*/
+/**
+ *  Constructs the list of labs in the list view
+ */
     public function buildLabList():Void {
         labListView.rememberVPos();
         labListView.clear();
@@ -77,14 +88,31 @@ class EditLabsController extends Controller {
         labListView.restoreVPos();
     }
     
+/**
+ *  Mounts a single lab to be manipulated.  All actions will occur on this lab.
+ *  @param l
+ */
     public function loadLab(l:ClassSchedule):Void {
         db.save();
         currentLab = l;
         refreshLab();
     }
     
+/**
+ *  Opens up the file dialog for importing a lab file.
+ */
     public function importLabs():Void {
         importLabsAction();
+    }
+    
+/**
+ *  @inheritDoc
+ */
+    override public function refresh():Void {
+        buildLabList();
+        if (currentLab != null)
+            currentLab = db.lab(currentLab.toString());
+        refreshLab();
     }
  
 /*  Private Members
@@ -138,6 +166,8 @@ class EditLabsController extends Controller {
             listview.rememberVPos();
             listview.clear();
             
+        //  Depending on whether the PT already belongs to the lab, we must display either
+        //  an X or +.  If there is an intersection, we do not display the +.
             for (pt in allPTs) {
                 var ptLabs = new Array<String>();
                 for (lab in pt.labs)
@@ -185,6 +215,9 @@ class EditLabsController extends Controller {
     }
     
     private function includeNonLabClasses(labs:Map<String, ClassSchedule>):Map<String, ClassSchedule> {
+    /*
+     *  For classes with no labs, we add sectionless labs.
+     */
         var nonlabs = config.nonlabClasses.split(",");
         for (nonlab in nonlabs) {
             var c = new ClassSchedule("CSCE", nonlab, "");

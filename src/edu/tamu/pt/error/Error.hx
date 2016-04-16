@@ -2,7 +2,6 @@ package edu.tamu.pt.error;
 
 /** Error Class
  *  @author  Timothy Foster
- *  @version x.xx.160221
  *  
  *  General error class which supports class and method reporting.
  *  **************************************************************************/

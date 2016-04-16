@@ -9,7 +9,6 @@ import edu.tamu.pt.ui.TextTable.TextTableHeadComponent;
 
 /** CustomUIRegistrar Class
  *  @author  Timothy Foster
- *  @version x.xx.160305
  * 
  *  Static class responsible for registering custom UI components.  Simply
  *  call registerAll().  Registering components allows them to be used in

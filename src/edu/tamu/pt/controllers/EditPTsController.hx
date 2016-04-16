@@ -26,13 +26,20 @@ import edu.tamu.pt.util.Sorters;
 
 /** EditPTsController Class
  *  @author  Timothy Foster
- *  @version A.00
  *
+ *  Defines the actions which allow a user to modify peer teachers.  The user
+ *  can perform a multitude of tasks here, including the individual removal
+ *  of peer teachers, adding labs to peer teachers, assigning office hours,
+ *  uploading schedules, and so on.
  *  **************************************************************************/
 class EditPTsController extends Controller {
 
 /*  Constructor
  *  =========================================================================*/
+/**
+ *  Creates a controller instance
+ *  @param db The database
+ */
     public function new(db:IDatabase) {
         super("ui/edit-pts.xml", db);
         
@@ -110,6 +117,7 @@ class EditPTsController extends Controller {
                 text: pt.toString(),
                 componentType: "button",
                 componentValue: "X",
+                componentStyleName: "rem-btn",
                 componentId: '$PT_REMOVE_PREFIX${pt.firstname} ${pt.lastname}'
             });
         }
@@ -550,6 +558,7 @@ class EditPTsController extends Controller {
     }
     
 /**
+ *  @private
  *  Simply replaces the peer teacher's schedule in a safe manner.  Conflicts are resolved simultaneously.
  *  Does not refresh the screen.
  *  @param pt
@@ -562,6 +571,7 @@ class EditPTsController extends Controller {
     }
     
 /**
+ *  @private
  *  Also safely replaces the peer teacher's schedule, but will include a warning if conflicts exist.
  *  The warning details exactly what the conflicts are.  Refreshes the screen.
  *  @param pt
@@ -658,6 +668,7 @@ class EditPTsController extends Controller {
     }
     
 /**
+ *  @private
  *  Event for clearing the schedule of the current peer teacher
  *  @param e
  */
@@ -679,6 +690,11 @@ class EditPTsController extends Controller {
         }
     }
     
+/**
+ *  @private
+ *  Clears all the pts from the database
+ *  @param e
+ */
     private function clearAllPTsAction(?e:UIEvent):Void {
         PopupManager.instance.showSimple("Are you sure?  This action is irreversible.", "Clear Peer Teachers", [PopupButton.OK, PopupButton.CANCEL], function(btn) {
             switch(btn) {

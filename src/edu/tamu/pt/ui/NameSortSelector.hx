@@ -7,7 +7,6 @@ import edu.tamu.pt.util.Sorters;
 
 /** NameSortSelector Class
  *  @author  Timothy Foster
- *  @version x.xx.160305
  *
  *  Pre-built Sort by name selector.  This element generates a simple
  *  list view which allows the user to sort a list of names by either first

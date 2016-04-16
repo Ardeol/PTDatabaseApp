@@ -23,9 +23,9 @@
 	<!-- assets -->
 	<icon path="assets/icon.svg" />
     <assets path="assets/data" rename="data" />
-    <assets path="assets/styles" rename="styles" />
+<!--<assets path="assets/styles" rename="styles" />-->
     <assets path="assets/ui" rename="ui" />
-    <assets path="assets/test" rename="test" />
+<!--<assets path="assets/test" rename="test" />-->
 	
 	<!-- optimize output
 	<haxeflag name="-dce full" /> -->

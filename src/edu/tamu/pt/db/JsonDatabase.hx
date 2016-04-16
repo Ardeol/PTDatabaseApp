@@ -16,16 +16,23 @@ import edu.tamu.pt.struct.Appointment;
 
 /** JsonDatabase Class
  *  @author  Timothy Foster
- *  @version A.00
  *
+ *  An implementation of the database as a JSON file.  The format is
+ *  described at the bottom of the page.
  *  **************************************************************************/
 class JsonDatabase implements IDatabase {
 
 /*  Constructor
  *  =========================================================================*/
+/**
+ *  Creates a new JsonDatabase object.  You should only ever have one of these
+ *  at a time.
+ */
     public function new() {
         err = new Error("");
         path = "";
+        
+    //  If things fall apart, at least we will have an empty database and not a null one
         ptmap = new Map<String, PeerTeacher>();
         labmap = new Map<String, ClassSchedule>();
     }
@@ -246,6 +253,27 @@ private class JsonWriter extends FileWriter<Dynamic> {
 
 /*  Json Read/Write conversion
  *  =========================================================================*/
+/*
+ *  The below abstracts encode and decode the JSON file.  By abusing Haxe's
+ *  type conversion mechanics, we can do some interesting tricks to convert
+ *  a raw object into the data types we need, and vice versa.
+ * 
+ *  The S objects represent the raw Object format each piece of data is
+ *  represented with.  For example, consider STimeInterval.  In the JSON
+ *  file, a time interval is simply something like: 
+ *  {
+ *      "start": 0,
+ *      "end": 200
+ *  }
+ * 
+ *  The J abstracts are then used to convert between the raw object and the
+ *  actual type the database uses.  For example, JTimeInterval converts a
+ *  STimeInterval to a TimeInterval, effectively taking it from the JSON
+ *  and into the real world.
+ * 
+ *  You can see the rest of the JSON format by looking at the S objects.
+ */
+ 
 private typedef STimeInterval = {
     var start:Int;
     var end:Int;
@@ -259,7 +287,7 @@ private abstract JTimeInterval(STimeInterval) from STimeInterval to STimeInterva
     }
     
     @:from public static function fromTimeInterval(value:TimeInterval):JTimeInterval {
-        return Json.parse(Json.stringify(value));
+        return Json.parse(Json.stringify(value)); // It looks bad, but it works well; used to eliminate typeness
     }
 }
 

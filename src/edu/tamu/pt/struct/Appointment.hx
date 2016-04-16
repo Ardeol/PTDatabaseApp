@@ -4,7 +4,6 @@ import edu.tamu.pt.error.Error;
 
 /** Appointment Class
  *  @author  Timothy Foster
- *  @version x.xx.160224
  *
  *  Represents a scheduled time.  This includes days of the week and the
  *  occupied times during those days.  This structure is used to detect
@@ -82,6 +81,11 @@ class Appointment {
         return times.join(", ");
     }
     
+/**
+ *  Changes this Appointment based on the value of the string.  This string must be formatted
+ *  as DAYS TIME_START - TIME_END.
+ *  @param value Format: DAYS TIME_START - TIME_END
+ */
     public function fromString(value:String):Void {
         var regex = ~/^([MTWRFSau]+)\s(.*)$/;
         if (regex.match(value)) {

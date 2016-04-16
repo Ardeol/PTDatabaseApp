@@ -6,8 +6,8 @@ import edu.tamu.pt.ui.TextTable;
 
 /** CsvWriter Class
  *  @author  Timothy Foster
- *  @version A.00
- *
+ * 
+ *  Writes a TextTable to a CSV file.
  *  **************************************************************************/
 class CsvWriter extends FileWriter<TextTable> {
     

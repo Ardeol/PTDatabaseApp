@@ -10,7 +10,6 @@ import edu.tamu.pt.struct.TimeInterval;
 
 /** LabReader Class
  *  @author  Timothy Foster
- *  @version x.xx.160302
  *
  *  Reads in a Lab data file.
  *  

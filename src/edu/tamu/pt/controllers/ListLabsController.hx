@@ -38,9 +38,6 @@ class ListLabsController extends ListController {
         }
         
     }
- 
-/*  Private Methods
- *  =========================================================================*/
 
 }
 

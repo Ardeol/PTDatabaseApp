@@ -9,7 +9,6 @@ import edu.tamu.pt.ui.renderers.IdComponentItemRenderer;
 
 /** Controller Class
  *  @author  Timothy Foster
- *  @version x.xx.160305
  * 
  *  General Controller that all other controllers should extend.  It includes
  *  a consistent reference to the database.

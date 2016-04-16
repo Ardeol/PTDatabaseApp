@@ -17,18 +17,16 @@ import haxe.ui.toolkit.themes.GradientTheme;
 import edu.tamu.pt.controllers.MainController;
 import edu.tamu.pt.db.IDatabase;
 import edu.tamu.pt.ui.CustomUIRegistrar;
-import edu.tamu.pt.ui.themes.CustomThemesRegistrar;
-import edu.tamu.pt.ui.themes.SimplySimpleSimplicityTheme;
 import edu.tamu.pt.util.Config;
 
 /** PTDatabaseApp Class
  *  @author  Timothy Foster
- *  @version A.00
  * 
- *  The app.
+ *  The app.  This class operates the master logic, including what happens
+ *  upon startup, initialization of files, and exit logic.
  *  **************************************************************************/
 class PTDatabaseApp {
-    public static inline var VERSION = "0.00.160416";
+    public static inline var VERSION = "1.00.160416";
     public static inline var AUTHOR = "Timothy Foster (@tfAuroratide)";
     
     public var config(default, null):PTDatabaseConfig;
@@ -37,6 +35,10 @@ class PTDatabaseApp {
 
 /*  Constructor
  *  =========================================================================*/
+/**
+ *  Creates the application, but does not start it.  The constructor will
+ *  initialize key structures, like the database and the config file.
+ */
     public function new() {
         databaseLoadErrorFlag = false;
     
@@ -50,12 +52,19 @@ class PTDatabaseApp {
     
 /*  Class Methods
  *  =========================================================================*/
+/**
+ *  Generic method for making an error appear.
+ *  @param msg
+ */
     public static function error(msg:String):Void {
         PopupManager.instance.showSimple(msg, "Error");
     }
  
 /*  Public Methods
  *  =========================================================================*/
+/**
+ *  Actually starts the application.
+ */
     public function start():Void {
         if(!started) {
             started = true;
@@ -74,12 +83,18 @@ class PTDatabaseApp {
         }
     }
     
+/**
+ *  Saves the configuration file as is.  Should be called anytime `config` changes.
+ */
     public function saveConfig():Void {
         var file = File.write(CONFIG_PATH);
         file.writeString(config.toString());
         file.close();
     }
     
+/**
+ *  Closes the application and exits the program.
+ */
     public function exit():Void {
         database.save();
         saveConfig();
@@ -115,9 +130,11 @@ class PTDatabaseApp {
         return initialDirectory;
     }
  
+/**
+ *  @private
+ *  HaxeUI requires initialization to work.
+ */
     private function initHaxeUI():Void {
-        CustomThemesRegistrar.registerAll();
-    //  Toolkit.theme = new SimplySimpleSimplicityTheme();
         Toolkit.theme = new GradientTheme();
         CustomUIRegistrar.registerAll();
         Toolkit.init();
