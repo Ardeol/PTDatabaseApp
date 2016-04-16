@@ -103,10 +103,9 @@ class MainController extends Controller {
             var generator:Generator = null;
             
             switch(e.menuItem.id) {
-                case Id.GENERATE_WEBSITE: //menuItemNotImplemented();
-                    generator = new WebPageGenerator();
-                case Id.GENERATE_POSTER: menuItemNotImplemented();
-                case Id.GENERATE_BLOCK: menuItemNotImplemented();
+                case Id.GENERATE_WEBSITE: generator = new WebPageGenerator();
+                case Id.GENERATE_POSTER:  menuItemNotImplemented();
+                case Id.GENERATE_BLOCK:   menuItemNotImplemented();
                 default: invalidMenuError();
             }
             

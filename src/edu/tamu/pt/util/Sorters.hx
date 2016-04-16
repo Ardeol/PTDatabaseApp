@@ -1,6 +1,7 @@
 package edu.tamu.pt.util;
 
 import edu.tamu.pt.struct.PeerTeacher;
+import edu.tamu.pt.struct.Appointment;
 import edu.tamu.pt.struct.ClassSchedule;
 
 /** Sorters Class
@@ -39,6 +40,13 @@ class Sorters {
             return 0;
         else
             return lhs.toString() < rhs.toString() ? -1 : 1;
+    };
+    
+    public static var appointments(default, null):Appointment->Appointment->Int = function(lhs, rhs) {
+        if (lhs.toString() == rhs.toString())
+            return 0;
+        else
+            return lhs.compareTo(rhs) ? -1 : 1;
     };
     
 }

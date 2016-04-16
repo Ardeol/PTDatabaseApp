@@ -109,6 +109,22 @@ class Appointment {
     public function toString():String {
         return '${daysString()} ${timesString()}';
     }
+    
+/**
+ *  Is this < other?  Determined using Days
+ *  @param other
+ *  @return true if this < other, false otherwise
+ */
+    public function compareTo(other:Appointment):Bool {
+        var i = 0;
+    //  days is assumed to be sorted already
+        while (i < this.days.length && i < other.days.length) {
+            if (this.days[i] != other.days[i])
+                return this.days[i] < other.days[i];
+            ++i;
+        }
+        return this.days.length < other.days.length;
+    }
  
 /*  Private Members
  *  =========================================================================*/
