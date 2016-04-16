@@ -5,6 +5,7 @@ import sys.FileSystem;
 
 import openfl.Lib;
 import openfl.Assets;
+import openfl.events.MouseEvent;
 
 import haxe.ui.toolkit.core.Macros;
 import haxe.ui.toolkit.core.ClassManager;
@@ -66,6 +67,10 @@ class PTDatabaseApp {
             
             if (databaseLoadErrorFlag)
                 error(database.error());
+                
+            Lib.current.stage.addEventListener(MouseEvent.RIGHT_CLICK, function(e) {
+                error("Right Click does not work in this application. Use Ctrl+C for copy or Ctrl+V for paste (use Command instead of Ctrl for Mac).");
+            });
         }
     }
     

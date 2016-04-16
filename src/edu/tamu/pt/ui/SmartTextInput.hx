@@ -94,6 +94,8 @@ class SmartTextInput extends TextInput {
     private function paste():Void {
         //this.replaceSelectedText(Clipboard.getText());
         var txt = Clipboard.getText();
+        if (txt == null)
+            return;
         if (!this.multiline)
             txt = ~/[\r\n]/g.replace(txt, "");
         this.text = txt;
