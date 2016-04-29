@@ -46,6 +46,8 @@ class MainController extends Controller {
     //  We need to attach the events to each of the menues in the top bar
         attachEvent(Id.FILE, MenuEvent.SELECT, function(e:MenuEvent) {
             switch(e.menuItem.id) {
+                case Id.FILE_NEW:
+                    menuItemNotImplemented();
                 case Id.FILE_LOAD: 
                     var locations = Dialogs.openFile("Load Database", "Load a database file", {
                         count: 1,
@@ -210,6 +212,7 @@ class MainController extends Controller {
     var GENERATE = "generate-menubutton";
     var HELP = "help-menubutton";
     
+    var FILE_NEW  = "file-menu-new";
     var FILE_LOAD = "file-menu-load";
     var FILE_SAVE = "file-menu-save";
     var FILE_EXPORT = "file-menu-export";
