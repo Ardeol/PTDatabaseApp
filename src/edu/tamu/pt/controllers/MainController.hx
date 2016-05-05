@@ -1,5 +1,7 @@
 package edu.tamu.pt.controllers;
 
+import haxe.io.Path;
+
 import haxe.ui.toolkit.core.Component;
 import haxe.ui.toolkit.core.PopupManager;
 import haxe.ui.toolkit.events.MenuEvent;
@@ -11,6 +13,7 @@ import edu.tamu.pt.db.IDatabase;
 import edu.tamu.pt.io.generators.Generator;
 import edu.tamu.pt.io.generators.WebPageGenerator;
 import edu.tamu.pt.io.generators.PosterGenerator;
+import edu.tamu.pt.util.Util;
 
 /** MainController Class
  *  @author  Timothy Foster
@@ -42,23 +45,29 @@ class MainController extends Controller {
         content = getComponent(Id.CONTENT);
         
         startInitialController();
+        updateDatabaseTitle();
         
     //  We need to attach the events to each of the menues in the top bar
         attachEvent(Id.FILE, MenuEvent.SELECT, function(e:MenuEvent) {
             switch(e.menuItem.id) {
                 case Id.FILE_NEW:
-                    menuItemNotImplemented();
-                case Id.FILE_LOAD: 
-                    var locations = Dialogs.openFile("Load Database", "Load a database file", {
-                        count: 1,
-                        extensions: ["*.json"],
-                        descriptions: ["*.json"]
-                    });
-                    if (locations == null || locations.length <= 0)
+                    var location = Util.saveFile("New Database", "Make a new database", app.directory, ["json"]);
+                    if (location == null)
                         return;
-                    
-                    var location = locations[0];
-                    
+                    db.clearAll();
+                    if (!db.save(location)) {
+                        PTDatabaseApp.error("Could not create new database at location.  " + db.error());
+                        db.load(app.config.dbpath);
+                    }
+                    else {
+                        app.config.dbpath = location;
+                        app.saveConfig();
+                        current.refresh();
+                    }
+                case Id.FILE_LOAD: 
+                    var location = Util.openFile("Load Database", "Load a database file", ["json"]);
+                    if (location == null)
+                        return;
                     if (!db.load(location))
                         PTDatabaseApp.error("Database could not be loaded.  " + db.error());
                     else {
@@ -69,18 +78,9 @@ class MainController extends Controller {
                 case Id.FILE_SAVE:
                     db.save();
                 case Id.FILE_EXPORT:
-                    var location = Dialogs.saveFile("Save Database As", "Save the Database as a JSON file", app.directory, {
-                        count: 1,
-                        extensions: ["*.json"],
-                        descriptions: ["*.json"]
-                    });
-                    
-                    if (location == null || location.length <= 0)
+                    var location = Util.saveFile("Save Database As", "Save the Database as a JSON file", app.directory, ["json"]);
+                    if (location == null)
                         return;
-                        
-                    if (!~/\.json$/.match(location))
-                        location += ".json";
-
                     if (!db.save(location))
                         PTDatabaseApp.error("Could not save database to location.  " + db.error());
                     else {
@@ -91,6 +91,8 @@ class MainController extends Controller {
                     app.exit();
                 default: invalidMenuError();
             }
+            
+            updateDatabaseTitle();
         });
         
         attachEvent(Id.EDIT, MenuEvent.SELECT, function(e:MenuEvent) {
@@ -131,18 +133,9 @@ class MainController extends Controller {
             
             if (generator == null)
                 return;
-            var location = Dialogs.saveFile("Generate To", "Generate file to", app.directory, {
-                count: 1,
-                extensions: ['*.${generator.extension}'],
-                descriptions: ['*.${generator.extension}']
-            });
-            if (location == null || location.length <= 0)
+            var location = Util.saveFile("Generate To", "Generate file to", app.directory, [generator.extension]);
+            if (location == null)
                 return;
-                
-            var patt = new EReg('\\.${generator.extension}$$', "");
-            if (!patt.match(location))
-                location += '.${generator.extension}';
-                
             generator.path = location;
             try {
                 generator.write(db);
@@ -176,6 +169,10 @@ class MainController extends Controller {
         }
         current = controller;
         content.addChild(current.view);
+    }
+    
+    public function updateDatabaseTitle():Void {
+        getComponent(Id.DB_TITLE).text = Path.withoutDirectory(app.config.dbpath);
     }
  
 /*  Private Members
@@ -233,4 +230,5 @@ class MainController extends Controller {
     var GENERATE_BLOCK = "generate-menu-block";
     
     var HELP_ABOUT = "help-menu-about";
+    var DB_TITLE = "database-title";
 }

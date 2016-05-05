@@ -23,6 +23,7 @@ import edu.tamu.pt.ui.SmartTextInput;
 import edu.tamu.pt.ui.renderers.IdComponentItemRenderer;
 import edu.tamu.pt.util.Filters;
 import edu.tamu.pt.util.Sorters;
+import edu.tamu.pt.util.Util;
 
 /** EditPTsController Class
  *  @author  Timothy Foster
@@ -307,11 +308,7 @@ class EditPTsController extends Controller {
     }
     
     private inline function selectPTScheduleFiles(?msg = "Select peer teacher schedule files to import"):Array<String> {
-        return Dialogs.openFile("Import Schedules", msg, {
-            count: 1,
-            extensions: ["*.txt"],
-            descriptions: ["*.txt"]
-        });
+        return Util.openFiles("Import Schedules", msg, ["txt"]);
     }
     
 /*  UI Actions
