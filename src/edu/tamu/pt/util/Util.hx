@@ -79,6 +79,11 @@ class Util {
         return location;
     }
     
+/**
+ *  Finds a relative path of path relative to relativeTo.  Both arguments must be absolute paths.
+ *  @param path Absolute path of the file to find a relative path for
+ *  @param relativeTo Absolute path of a directory
+ */
     public static function relativePath(path:String, relativeTo:String):String {
         if (!Path.isAbsolute(path) || !Path.isAbsolute(relativeTo))
             return path;
