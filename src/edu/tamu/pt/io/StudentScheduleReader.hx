@@ -8,6 +8,8 @@ import edu.tamu.pt.struct.ClassSchedule;
 import edu.tamu.pt.struct.Appointment;
 import edu.tamu.pt.struct.TimeInterval;
 
+using StringTools;
+
 /** StudentScheduleReader Class
  *  @author  Timothy Foster
  *
@@ -45,7 +47,14 @@ class StudentScheduleReader extends FileReader<PeerTeacher> {
                     appt = new Appointment();
                     appt.addInterval(new TimeInterval(timeFormat.matched(0)));
                 }
-                else if (daysFormat.match(line.split("\t")[0])) { // This line bothers me; if a bug arises, it might be here
+            /*  
+             *  Funny story
+             *  The line under this comment use to read:
+             *  else if (daysFormat.match(line.split("\t")[0])) { // This line bothers me; if a bug arises, it might be here
+             *  Notice the comment there.  Turns out there really was a bug related to this line.
+             *  Moral of the story: fix your bugs before they surface in production.  Don't ship it and cross your fingers!
+             */
+                else if(daysFormat.match(~/\s/.split(line.trim())[0])) {
                     var days = daysFormat.matched(1).split(",");
                     for (day in days)
                         appt.addDay(day);
