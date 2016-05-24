@@ -13,6 +13,7 @@ import edu.tamu.pt.db.IDatabase;
 import edu.tamu.pt.io.generators.Generator;
 import edu.tamu.pt.io.generators.WebPageGenerator;
 import edu.tamu.pt.io.generators.PosterGenerator;
+import edu.tamu.pt.ui.AboutPopup;
 import edu.tamu.pt.util.Util;
 
 /** MainController Class
@@ -148,7 +149,8 @@ class MainController extends Controller {
         attachEvent(Id.HELP, MenuEvent.SELECT, function(e:MenuEvent) {
             switch(e.menuItem.id) {
                 case Id.HELP_ABOUT:
-                    PopupManager.instance.showSimple("This application was created by " + PTDatabaseApp.AUTHOR + " in 2016 to help make peer teacher management simpler.  Source code is available and may be extended freely at github.com/Ardeol/PTDatabaseApp.\n\nVersion: " + PTDatabaseApp.VERSION, "About", PopupButton.CLOSE);
+                    var p = new AboutPopup();
+                    PopupManager.instance.showCustom(p.view, "About", PopupButton.CLOSE);
                 default: invalidMenuError();
             }
         });
