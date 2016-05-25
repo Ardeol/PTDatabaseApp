@@ -1,6 +1,7 @@
 package edu.tamu.pt;
 
 import edu.tamu.pt.util.Config;
+import edu.tamu.pt.util.Util;
 
 /** ConfigContract Class
  *  @author  Timothy Foster
@@ -12,10 +13,12 @@ abstract PTDatabaseConfig(Config) from Config {
     public static inline var DBPATH = "dbpath";
     public static inline var RELEVANT_CLASSES = "relevantclasses";
     public static inline var NONLAB_CLASSES = "nonlabclasses";
+    public static inline var USE_ABSOLUTE = "useabsolute";
     
     public static inline var DBPATH_DEFAULT = "data/db.json";
     public static inline var RELEVANT_CLASSES_DEFAULT = "110,111,113,121,206,221,222,312,313,314,315";
     public static inline var NONLAB_CLASSES_DEFAULT = "222,314";
+    public static inline var USE_ABSOLUTE_DEFAULT = true;
     
 /**
  *  The path to the database file.
@@ -31,6 +34,13 @@ abstract PTDatabaseConfig(Config) from Config {
  *  Comma-separated list of classes which do not have labs but should be included.  Format is 222,314,etc.
  */
     public var nonlabClasses(get, set):String;
+    
+/**
+ *  A setting determining whether the app uses absolute or relative paths.  By default, absolute
+ *  paths are used since they are more accurate.  Relative paths should be used if the app is
+ *  used on shared devices.
+ */
+    public var useAbsolute(get, set):Bool;
     
 /*  Constructor
  *  =========================================================================*/
@@ -51,6 +61,7 @@ abstract PTDatabaseConfig(Config) from Config {
         dbpath = DBPATH_DEFAULT;
         relevantClasses = RELEVANT_CLASSES_DEFAULT;
         nonlabClasses = NONLAB_CLASSES_DEFAULT;
+        useAbsolute = USE_ABSOLUTE_DEFAULT;
     }
     
 /**
@@ -60,12 +71,14 @@ abstract PTDatabaseConfig(Config) from Config {
     public function parse(txt:String):Void {
         var c = new Config();
         c.parse(txt);
-        if (c.exists(DBPATH))
-            dbpath = c.get(DBPATH);
         if (c.exists(RELEVANT_CLASSES))
             relevantClasses = c.get(RELEVANT_CLASSES);
         if (c.exists(NONLAB_CLASSES))
             nonlabClasses = c.get(NONLAB_CLASSES);
+        if (c.exists(USE_ABSOLUTE))
+            useAbsolute = c.get(USE_ABSOLUTE) == "true";
+        if (c.exists(DBPATH))
+            dbpath = c.get(DBPATH);
     }
  
 /**
@@ -80,7 +93,10 @@ abstract PTDatabaseConfig(Config) from Config {
     private inline function get_dbpath():String 
         return this.get(DBPATH);
     private inline function set_dbpath(value:String):String {
-        this.section("").set(DBPATH, value);
+        if(useAbsolute)
+            this.section("").set(DBPATH, value);
+        else 
+            this.section("").set(DBPATH, Util.relativePath(value, Sys.getCwd()));
         return value;
     }
     
@@ -95,6 +111,13 @@ abstract PTDatabaseConfig(Config) from Config {
         return this.get(NONLAB_CLASSES);
     private inline function set_nonlabClasses(value:String):String {
         this.section("").set(NONLAB_CLASSES, value);
+        return value;
+    }
+    
+    private inline function get_useAbsolute():Bool
+        return this.get(USE_ABSOLUTE) == "true";
+    private inline function set_useAbsolute(value:Bool):Bool {
+        this.section("").set(USE_ABSOLUTE, value ? "true" : "false");
         return value;
     }
     

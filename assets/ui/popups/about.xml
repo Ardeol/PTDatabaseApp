@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<vbox width="100%">
+    <text id="about-text-1" text="" wrapLines="true" width="100%" />
+    <smarttextinput id="about-github" text="" width="100%" />
+    <text id="about-text-2" text="" wrapLines="true" width="100%" />
+    <smarttextinput id="about-email" text="" width="100%" />
+    <text id="about-text-3" text="" wrapLines="true" width="100%" />
+</vbox>

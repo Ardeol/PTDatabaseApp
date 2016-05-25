@@ -26,8 +26,8 @@ import edu.tamu.pt.util.Config;
  *  upon startup, initialization of files, and exit logic.
  *  **************************************************************************/
 class PTDatabaseApp {
-    public static inline var VERSION = "1.00.160514";
-    public static inline var AUTHOR = "Timothy Foster (@tfAuroratide)";
+    public static inline var VERSION = "1.01.160525";
+    public static inline var AUTHOR = "Timothy Foster";
     
     public var config(default, null):PTDatabaseConfig;
     public var database(default, null):IDatabase;

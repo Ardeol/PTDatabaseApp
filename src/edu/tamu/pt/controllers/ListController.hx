@@ -3,13 +3,12 @@ package edu.tamu.pt.controllers;
 import haxe.ui.toolkit.data.ArrayDataSource;
 import haxe.ui.toolkit.events.UIEvent;
 
-import systools.Dialogs;
-
 import edu.tamu.pt.db.IDatabase;
 import edu.tamu.pt.io.FileWriter;
 import edu.tamu.pt.io.CsvWriter;
 import edu.tamu.pt.ui.TextTable;
 import edu.tamu.pt.util.Sorters;
+import edu.tamu.pt.util.Util;
 
 /** ListController Class
  *  @author  Timothy Foster
@@ -87,18 +86,9 @@ class ListController extends Controller {
  *  @param e
  */
     private function exportAction(?e:UIEvent):Void {
-        var location = Dialogs.saveFile("Save Database As", "Save the Database as a JSON file", "", {
-            count: 1,
-            extensions: ['*.$EXPORT_EXTENSION'],
-            descriptions: ['*.$EXPORT_EXTENSION']
-        });
-        if (location == null || location.length <= 0)
+        var location = Util.saveFile("Export CSV", "Save list as an excel file", "", [EXPORT_EXTENSION]);
+        if (location == null)
             return;
-        
-        var patt = new EReg('\\.$EXPORT_EXTENSION$$', "");
-        if (!patt.match(location))
-            location += '.$EXPORT_EXTENSION';
-            
         if (exporter == null) {
             PTDatabaseApp.error("The programmer failed to set the exporter, so a file couldn't be generated.  We're sorry.");
             return;

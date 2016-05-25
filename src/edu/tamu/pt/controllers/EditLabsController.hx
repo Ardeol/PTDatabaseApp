@@ -6,8 +6,6 @@ import haxe.ui.toolkit.events.UIEvent;
 import haxe.ui.toolkit.core.PopupManager;
 import haxe.ui.toolkit.controls.Button;
 
-import systools.Dialogs;
-
 import edu.tamu.pt.PTDatabaseConfig;
 import edu.tamu.pt.db.IDatabase;
 import edu.tamu.pt.io.LabReader;
@@ -19,6 +17,7 @@ import edu.tamu.pt.ui.renderers.IdComponentItemRenderer;
 import edu.tamu.pt.util.Sorters;
 import edu.tamu.pt.util.Filters;
 import edu.tamu.pt.util.Config;
+import edu.tamu.pt.util.Util;
 import edu.tamu.pt.error.Error;
 
 /** EditLabsController Class
@@ -200,14 +199,7 @@ class EditLabsController extends Controller {
     }
     
     private function selectLabsFile(?msg = "Select lab file to import"):String {
-        var a = Dialogs.openFile("Import Labs", msg, {
-            count: 1,
-            extensions: ["*.txt"],
-            descriptions: ["*.txt"]
-        });
-        if (a == null)
-            return null;
-        return a.length > 0 ? a[0] : null;
+        return Util.openFile("Import Labs", msg, ["txt"]);
     }
     
     private function readLabs(filename:String):Map<String, ClassSchedule> {

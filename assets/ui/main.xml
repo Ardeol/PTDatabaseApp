@@ -46,6 +46,8 @@
         <menubutton text="Help" id="help-menubutton">
             <import resource="ui/menues/help.xml" />
         </menubutton>
+        <spacer width="100%" />
+        <text id="database-title" text="" />
     </menubar>
     
     <vbox id="content-container" width="100%" height="100%">
